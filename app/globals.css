@@ -142,6 +142,12 @@
   cursor: crosshair;
 }
 
+/* Sustituye al listener de click sobre las anclas que había en page.tsx:
+   el navegador ya hace el scroll suave de forma nativa. */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--bg);
   color: var(--fg);

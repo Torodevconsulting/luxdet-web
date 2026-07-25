@@ -51,47 +51,9 @@ export default function Home() {
     }
     window.addEventListener("scroll", handleScroll)
 
-    // Simple reveal on enter (Intersection Observer)
-    const observerOptions = {
-      threshold: 0.1,
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active")
-        }
-      })
-    }, observerOptions)
-
-    document.querySelectorAll(".reveal-text").forEach((text) => {
-      observer.observe(text)
-    })
-
-    // Add smooth scrolling for anchor links
-    const handleAnchorClick = (e: Event) => {
-      const anchor = e.currentTarget as HTMLAnchorElement
-      const href = anchor.getAttribute("href")
-      if (href && href.length > 1) {
-        e.preventDefault()
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
-      }
-    }
-
-    const anchors = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
-    )
-    anchors.forEach((anchor) => {
-      anchor.addEventListener("click", handleAnchorClick)
-    })
-
     return () => {
       document.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("scroll", handleScroll)
-      anchors.forEach((anchor) => {
-        anchor.removeEventListener("click", handleAnchorClick)
-      })
-      observer.disconnect()
     }
   }, [])
 
