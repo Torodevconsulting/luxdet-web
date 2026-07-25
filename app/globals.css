@@ -1,0 +1,746 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Adding custom design variables from HTML */
+  --bg: #0e0e0e;
+  --fg: #ffffff;
+  --accent: #ff3e00;
+  --gray: #222222;
+  /* next/font genera nombres de familia propios y los expone en --font-*.
+     Referenciar "Syne"/"Inter" a pelo caía al fallback sans-serif. */
+  --syne: var(--font-syne), sans-serif;
+  --inter: var(--font-inter), sans-serif;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Adding all custom styles from the original HTML */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  cursor: crosshair;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--inter);
+  overflow-x: hidden;
+  line-height: 1.4;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+.huge-type {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: clamp(8rem, 20vw, 24rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.outline-text {
+  -webkit-text-stroke: 1px var(--fg);
+  color: transparent;
+  opacity: 0.15;
+}
+
+.container {
+  width: 1200px;
+  margin: 0px auto;
+  position: relative;
+}
+
+section {
+  padding: 100px 0px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  padding: 30px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  mix-blend-mode: difference;
+}
+
+.logo {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+#hero {
+  height: 140vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Ancho completo alineado al padding del nav, no el .container de 1200px:
+   el título es tipografía de borde a borde, no un bloque centrado. */
+.hero-title-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 0 60px;
+}
+
+/* Tamaño propio del hero, sin tocar el .huge-type base (lo comparte el marquee).
+   En Syne ExtraBold cada mayúscula avanza ~0.99em, así que "LUXDET" mide ~5.9em:
+   a 14vw ocupa ~83vw y entra completo con el padding lateral. Al cambiar el
+   número de letras del título hay que recalcular este valor. */
+.hero-title-container .huge-type {
+  font-size: 14vw;
+  white-space: nowrap;
+}
+
+/* Contorno en blanco puro: sobre la foto el 0.15 de .outline-text
+   dejaba "EVENTS" prácticamente invisible.
+   El trazo va a 2px y con sombra propia porque a 1px se confundía con el
+   detalle de la multitud: el problema es de contraste local, no de opacidad. */
+.hero-title-container .hero-tagline {
+  padding-left: 5vw;
+  opacity: 1;
+  -webkit-text-stroke: 2px var(--fg);
+  filter: drop-shadow(0 0 20px rgba(14, 14, 14, 0.95));
+}
+
+.parallax-text {
+  display: block;
+  will-change: transform;
+}
+
+/* Imagen de fondo a sangre: next/image con `fill` ya aporta el
+   position/inset/width/height en línea, aquí solo el encuadre.
+   `cover` recorta el excedente en lugar de deformar la foto. */
+.hero-img {
+  object-fit: cover;
+  object-position: center;
+  z-index: 5;
+}
+
+/* Velo entre foto y título: la imagen tiene zonas muy claras (las lámparas)
+   y el título blanco perdería legibilidad encima. */
+#hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(14, 14, 14, 0.75) 0%,
+    rgba(14, 14, 14, 0.5) 45%,
+    rgba(14, 14, 14, 0.9) 100%
+  );
+}
+
+.project-row {
+  display: flex;
+  gap: 60px;
+  margin-bottom: 200px;
+  position: relative;
+}
+
+.project-info {
+  flex: 1 1 0%;
+  padding-top: 100px;
+}
+
+.project-media {
+  flex: 1.5 1 0%;
+  position: relative;
+  z-index: 10;
+}
+
+.project-image {
+  width: 100%;
+  height: 800px;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 0.5s;
+}
+
+.project-row:hover .project-image {
+  filter: grayscale(0);
+}
+
+.floating-label {
+  position: absolute;
+  bottom: -50px;
+  right: -100px;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.08;
+  transform-origin: center;
+}
+
+.scrolling-marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 100px 0px;
+  border-top: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+}
+
+/* Contorno en blanco puro solo aquí: el resto de .outline-text (EVENTS del
+   hero, floating labels) sigue atenuado a propósito. */
+.scrolling-marquee .outline-text {
+  opacity: 1;
+}
+
+.marquee-inner {
+  display: inline-block;
+  animation: 20s linear 0s infinite normal none running marquee;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.composition {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  position: relative;
+  height: 1200px;
+}
+
+.comp-item-1 {
+  grid-area: 1 / 1 / auto / 7;
+  z-index: 2;
+  margin-top: 100px;
+}
+
+.comp-item-2 {
+  grid-area: 1 / 5 / auto / 13;
+  z-index: 1;
+}
+
+.comp-item-3 {
+  grid-area: 1 / 2 / auto / 6;
+  z-index: 3;
+  margin-top: 400px;
+}
+
+.comp-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sticky-type {
+  position: sticky;
+  top: 10%;
+  font-size: 15rem;
+  line-height: 0.7;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+footer {
+  padding: 100px 0px;
+  background: rgb(0, 0, 0);
+}
+
+.footer-cta {
+  font-size: 12rem;
+  line-height: 0.8;
+  font-family: var(--syne);
+  text-align: center;
+  padding: 100px 0px;
+}
+
+.footer-cta a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-cta a:hover {
+  color: var(--accent);
+}
+
+.blob {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 62, 0, 0.15) 0%, rgba(14, 14, 14, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  transition: transform 0.1s ease-out;
+}
+
+.reveal-text {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.reveal-text span {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.reveal-text.active span {
+  transform: translateY(0px);
+}
+
+.divider {
+  height: 1px;
+  background: var(--gray);
+  width: 100%;
+  margin: 40px 0px;
+}
+
+/* Adding comprehensive responsive styles for all screen sizes */
+/* Responsive Design - Mobile First Approach */
+
+/* Mobile devices (320px - 767px) */
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  nav {
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(14, 14, 14, 0.95);
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+
+  .huge-type {
+    font-size: clamp(3rem, 15vw, 6rem);
+  }
+
+  .hero-title-container {
+    padding: 0 20px;
+  }
+
+  /* Apilamos el título en dos tramos de 3 letras (~2.97em cada uno), lo que
+     permite 29vw en lugar de los 14vw que exigen las 6 letras en una línea.
+     "EVENTS" no se parte, así que mantiene el tamaño de una sola línea. */
+  .hero-title-part {
+    display: block;
+  }
+
+  .hero-title-container .hero-title {
+    font-size: 29vw;
+  }
+
+  .parallax-text[data-speed="2"] {
+    padding-left: 40px !important;
+  }
+
+  section {
+    padding: 60px 0;
+    min-height: auto;
+  }
+
+  #hero {
+    height: 100vh;
+  }
+
+  .project-row {
+    flex-direction: column !important;
+    gap: 30px;
+    margin-bottom: 100px;
+  }
+
+  .project-info h3 {
+    font-size: 3rem !important;
+  }
+
+  .project-image {
+    height: 400px;
+  }
+
+  .floating-label {
+    font-size: 4rem !important;
+    opacity: 0.05;
+    bottom: -20px;
+    right: -30px;
+  }
+
+  .sticky-type {
+    font-size: 5rem;
+  }
+
+  .scrolling-marquee {
+    padding: 50px 0;
+  }
+
+  /* Composition section responsive */
+  .composition {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 20px;
+  }
+
+  .comp-item-1,
+  .comp-item-2,
+  .comp-item-3 {
+    width: 100%;
+    margin-top: 0 !important;
+    position: relative;
+  }
+
+  .composition > div[style*="position: absolute"] {
+    position: relative !important;
+    width: 100% !important;
+    margin-top: 20px;
+  }
+
+  .comp-item-3 > div {
+    padding: 30px;
+  }
+
+  .comp-item-3 h4 {
+    font-size: 1.5rem !important;
+  }
+
+  .footer-cta {
+    font-size: 4rem;
+    padding: 50px 0;
+  }
+
+  footer > div > div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+  }
+
+  footer > div > div[style*="display: flex"] > div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .blob {
+    display: none;
+  }
+}
+
+/* Tablet devices (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: 90%;
+    padding: 0 30px;
+  }
+
+  nav {
+    padding: 25px 40px;
+  }
+
+  .huge-type {
+    font-size: clamp(6rem, 15vw, 12rem);
+  }
+
+  .hero-title-container {
+    padding: 0 40px;
+  }
+
+  .parallax-text[data-speed="2"] {
+    padding-left: 100px !important;
+  }
+
+  .project-row {
+    gap: 40px;
+    margin-bottom: 150px;
+  }
+
+  .project-info h3 {
+    font-size: 4rem !important;
+  }
+
+  .project-image {
+    height: 600px;
+  }
+
+  .floating-label {
+    font-size: 6rem !important;
+    opacity: 0.08;
+  }
+
+  .sticky-type {
+    font-size: 10rem;
+  }
+
+  /* Composition section for tablets */
+  .composition {
+    height: 900px;
+  }
+
+  .comp-item-1 {
+    margin-top: 50px !important;
+  }
+
+  .comp-item-3 {
+    margin-top: 300px !important;
+  }
+
+  .composition > div[style*="position: absolute"] {
+    width: 300px !important;
+  }
+
+  .footer-cta {
+    font-size: 8rem;
+  }
+}
+
+/* Desktop devices (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .container {
+    width: 95%;
+    max-width: 1200px;
+  }
+
+  .composition {
+    height: 1000px;
+  }
+}
+
+/* Large desktop devices (1441px+) */
+@media (min-width: 1441px) {
+  .container {
+    width: 1400px;
+  }
+
+  .huge-type {
+    font-size: clamp(10rem, 18vw, 28rem);
+  }
+
+  .composition {
+    height: 1400px;
+  }
+
+  .footer-cta {
+    font-size: 14rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  nav {
+    background: rgba(14, 14, 14, 0.95);
+  }
+
+  .blob {
+    display: none;
+  }
+
+  .project-image {
+    filter: grayscale(0);
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 767px) and (orientation: landscape) {
+  #hero {
+    height: 140vh;
+  }
+
+  /* En horizontal sobra ancho y falta alto: el título vuelve a una línea,
+     apilado a 29vw no cabría verticalmente. */
+  .hero-title-part {
+    display: inline;
+  }
+
+  .hero-title-container .hero-title {
+    font-size: 14vw;
+  }
+}
+
+/* Print styles */
+@media print {
+  nav,
+  .blob,
+  .scrolling-marquee {
+    display: none;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
