@@ -25,3 +25,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# snapshots de HTML para verificar refactors (scripts/snapshot.mjs)
+before.txt
+after.txt
