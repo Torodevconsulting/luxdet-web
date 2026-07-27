@@ -146,13 +146,18 @@
    el navegador ya hace el scroll suave de forma nativa. */
 html {
   scroll-behavior: smooth;
+  /* `clip` y no `hidden`: hidden en html/body crea un contenedor de scroll que
+     rompe el position:sticky de .sticky-type. Hace falta también aquí porque en
+     iOS el overflow del body no siempre contiene a un descendiente que desborda,
+     y eso es lo que dejaba la página desplazada de lado en móvil. */
+  overflow-x: clip;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: var(--inter);
-  overflow-x: hidden;
+  overflow-x: clip;
   line-height: 1.4;
 }
 
@@ -886,10 +891,6 @@ footer {
     font-size: clamp(3rem, 15vw, 6rem);
   }
 
-  .hero-title-container {
-    padding: 0 20px;
-  }
-
   /* La tipografía es mucho menor aquí, así que la copia mide bastante menos y
      necesita menos tiempo para mantener una velocidad parecida. */
   .scrolling-marquee {
@@ -917,19 +918,31 @@ footer {
     font-size: 0.9rem;
   }
 
-  /* Apilamos el título en dos tramos de 3 letras (~2.97em cada uno), lo que
-     permite 29vw en lugar de los 14vw que exigen las 6 letras en una línea.
-     "EVENTS" no se parte, así que mantiene el tamaño de una sola línea. */
+  /* Título apilado y centrado. Los tamaños se eligen para que los tres
+     renglones midan lo mismo: "LUX"/"DET" son 3 letras y "CULTURE" son 7, y en
+     Syne ExtraBold cada mayúscula avanza ~0.99em, así que 7 × 9vw ≈ 3 × 21vw.
+     Con eso CULTURE queda alineado justo debajo de LUX DET.
+     Además dejan ~50px libres a cada lado, que es el margen que necesita el
+     parallax lateral de ±40px para no cortar nada. */
+  .hero-title-container {
+    padding: 0 20px;
+    text-align: center;
+  }
+
   .hero-title-part {
     display: block;
   }
 
   .hero-title-container .hero-title {
-    font-size: 29vw;
+    font-size: 21vw;
   }
 
-  .parallax-text[data-speed="2"] {
-    padding-left: 40px !important;
+  .hero-title-container .hero-tagline {
+    font-size: 9vw;
+    /* Sin sangría: la que traía lo desplazaba fuera del viewport */
+    padding-left: 0;
+    /* A 35px de cuerpo, un trazo de 2px casi rellena la letra hueca */
+    -webkit-text-stroke: 1px var(--fg);
   }
 
   section {
@@ -947,23 +960,34 @@ footer {
     margin-bottom: 100px;
   }
 
-  .project-info h3 {
-    font-size: 3rem !important;
+  /* "SUBSTRATA" es una sola palabra de 9 letras: a 6rem mide ~855px y no cabe
+     en un móvil, así que desbordaba y provocaba scroll horizontal. */
+  .archive-title {
+    font-size: 2.2rem;
+  }
+
+  .next-title {
+    font-size: 1.9rem;
+  }
+
+  .intro-title {
+    font-size: 1.9rem;
   }
 
   .project-image {
     height: 400px;
   }
 
+  /* Decorativas y en posición absoluta, pero su ancho también desbordaba */
   .floating-label {
-    font-size: 4rem !important;
+    font-size: 2.5rem !important;
     opacity: 0.05;
     bottom: -20px;
-    right: -30px;
+    right: -10px;
   }
 
   .sticky-type {
-    font-size: 5rem;
+    font-size: 3rem;
   }
 
   .scrolling-marquee {
