@@ -1,7 +1,7 @@
 export function SiteNav() {
   return (
     <nav>
-      <div className="logo">LUXDET CULTURE ©26</div>
+      <div className="logo">LUXDET CULTURE</div>
       <ul className="nav-links">
         {/* "Tickets" apuntaba a #about, que es la sección de texto: ahora va a
             la próxima fiesta. Y #work pasó a llamarse #archive. */}
