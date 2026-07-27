@@ -219,6 +219,18 @@ nav {
   font-weight: 800;
   font-size: 1.5rem;
   letter-spacing: -1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+/* Altura en em, no en px: queda ligada al cuerpo del texto y escala sola en
+   cada breakpoint sin tener que repetir el tamaño. 0.85em es aproximadamente la
+   altura de las mayúsculas de Syne, de modo que la marca "pesa" lo mismo que
+   las letras que tiene al lado. */
+.logo-mark {
+  height: 0.85em;
+  width: auto;
 }
 
 .nav-links {
