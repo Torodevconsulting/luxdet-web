@@ -23,7 +23,7 @@ export function Hero() {
           <span className="hero-title-part">DET</span>
         </span>
         <span className="huge-type hero-tagline outline-text parallax-text" data-speed="2">
-          EVENTS
+          CULTURE
         </span>
       </div>
     </section>

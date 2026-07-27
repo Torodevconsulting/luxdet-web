@@ -21,7 +21,7 @@ export function SiteFooter() {
             color: "#555",
           }}
         >
-          <div>© 2026 LUXDET EVENTS All Rights Reserved</div>
+          <div>© 2026 LUXDET CULTURE All Rights Reserved</div>
           <div style={{ display: "flex", gap: "30px" }}>
             <span>INSTAGRAM</span>
             <span>POSH</span>

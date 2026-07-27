@@ -20,15 +20,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "LUXDET",
-    title: "LUXDET — Electronic Music Events",
+    siteName: "LUXDET CULTURE",
+    title: "LUXDET CULTURE— Electronic Music Events",
     description:
       "Electronic music event production in Ohio. Lineups, venues and tickets.",
     images: ["/opengraph-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "LUXDET — Electronic Music Events",
+    title: "LUXDET CULTURE— Electronic Music Events",
     description:
       "Electronic music event production in Ohio. Lineups, venues and tickets.",
     images: ["/opengraph-image.png"],

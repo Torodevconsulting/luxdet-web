@@ -252,7 +252,7 @@ nav {
    a 14vw ocupa ~83vw y entra completo con el padding lateral. Al cambiar el
    número de letras del título hay que recalcular este valor. */
 .hero-title-container .huge-type {
-  font-size: 14vw;
+  font-size: 11vw;
   white-space: nowrap;
 }
 
