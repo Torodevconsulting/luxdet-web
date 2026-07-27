@@ -45,8 +45,8 @@ export const residents: Resident[] = [
     imageAlt: "DJ mixing behind laptops under green light",
   },
   {
-    slug: "sub-urban",
-    name: "Sub/Urban",
+    slug: "Toro",
+    name: "Toro",
     role: "Resident",
     image: djBlueImage,
     imageAlt: "Club crowd in blue and pink light with the DJ booth behind",

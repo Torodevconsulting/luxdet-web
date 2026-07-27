@@ -602,6 +602,7 @@ nav {
   object-fit: cover;
   filter: grayscale(1);
   transition: filter 0.5s;
+  aspect-ratio: 3 / 4;
 }
 
 /* :focus-within además de :hover — si no, el color solo se revela con ratón y
