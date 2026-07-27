@@ -3,11 +3,13 @@ export function SiteNav() {
     <nav>
       <div className="logo">LUXDET ©26</div>
       <ul className="nav-links">
+        {/* "Tickets" apuntaba a #about, que es la sección de texto: ahora va a
+            la próxima fiesta. Y #work pasó a llamarse #archive. */}
         <li>
-          <a href="#work">Events</a>
+          <a href="#next">Tickets</a>
         </li>
         <li>
-          <a href="#about">Tickets</a>
+          <a href="#archive">Archive</a>
         </li>
         <li>
           <a href="#contact">Contact</a>

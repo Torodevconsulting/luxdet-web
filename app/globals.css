@@ -297,11 +297,256 @@ nav {
   );
 }
 
+/* ---------------------------------------------------------------------------
+   Etiqueta de sección. Reutilizable por las secciones nuevas.
+   var(--accent) sobre var(--bg) da 5.5:1, así que vale para texto.
+   --------------------------------------------------------------------------- */
+.section-kicker {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 30px;
+}
+
+/* ---------------------------------------------------------------------------
+   NEXT — la próxima fiesta
+   --------------------------------------------------------------------------- */
+.next-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.next-title {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.next-when {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: baseline;
+  margin-top: 30px;
+  font-family: var(--syne);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.next-hours {
+  color: #8a8a8a;
+  font-size: 1.1rem;
+}
+
+.next-meta {
+  margin-top: 50px;
+  display: grid;
+  gap: 25px;
+}
+
+.next-meta-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  border-top: 1px solid var(--gray);
+  padding-top: 20px;
+}
+
+.next-meta dt {
+  font-family: var(--syne);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  /* #8a8a8a = 5.6:1. Nunca #555 (2.6:1), el fallo pendiente del footer. */
+  color: #8a8a8a;
+}
+
+.next-meta dd {
+  display: grid;
+  gap: 6px;
+}
+
+.next-venue {
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.next-detail {
+  font-size: 0.95rem;
+  color: #8a8a8a;
+}
+
+/* Venue por confirmar: se muestra como estado, no como dato ausente. */
+.location-tba {
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.next-lineup {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.next-lineup li + li::before {
+  content: "·";
+  color: #8a8a8a;
+  margin-right: 18px;
+}
+
+.next-lineup a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.next-actions {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+
+/* CTA brutalista: caja de trazo grueso que se invierte al pasar por encima.
+   Texto oscuro sobre naranja (5.5:1), no blanco sobre naranja (3.5:1). */
+.cta-button {
+  display: inline-block;
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  padding: 20px 40px;
+  border: 2px solid var(--fg);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.cta-button:focus-visible,
+.next-lineup a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.next-price {
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.next-note,
+.next-empty-copy {
+  color: #8a8a8a;
+}
+
+.next-empty-copy {
+  max-width: 620px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin: 30px 0 50px;
+}
+
+/* A color y sin filtro, al contrario que .project-image: el grayscale es el
+   lenguaje del archivo, y esta foto es la que tiene que vender la fiesta. */
+.next-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ---------------------------------------------------------------------------
+   INTRO — quiénes somos. Sustituye a los style={{}} que traía de v0.
+   --------------------------------------------------------------------------- */
+.intro-body {
+  max-width: 800px;
+}
+
+.intro-title {
+  font-family: var(--syne);
+  font-size: 3rem;
+  line-height: 1.1;
+  margin-bottom: 40px;
+}
+
+.intro-paragraph {
+  font-size: 1.5rem;
+  font-weight: 300;
+  /* 5.6:1 sobre var(--bg) */
+  color: #8a8a8a;
+}
+
+.intro-paragraph + .intro-paragraph {
+  margin-top: 25px;
+}
+
+/* ---------------------------------------------------------------------------
+   ARCHIVE — fiestas pasadas. Reutiliza la maquetación de .project-row.
+   --------------------------------------------------------------------------- */
+.archive-kicker {
+  font-family: var(--syne);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* No usa .huge-type: su tamaño lo redefinen tres media queries y el título de
+   una fila de archivo tiene que quedarse en 6rem en escritorio. */
+.archive-title {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 6rem;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+
+.archive-meta {
+  font-family: var(--syne);
+  text-transform: uppercase;
+}
+
+.archive-lineup,
+.archive-empty {
+  color: #8a8a8a;
+}
+
+.archive-lineup {
+  margin-top: 6px;
+}
+
 .project-row {
   display: flex;
   gap: 60px;
   margin-bottom: 200px;
   position: relative;
+}
+
+/* Sustituye al style={{ flexDirection: "row-reverse" }} en línea */
+.project-row--reversed {
+  flex-direction: row-reverse;
 }
 
 .project-info {
@@ -335,6 +580,15 @@ nav {
   pointer-events: none;
   opacity: 0.08;
   transform-origin: center;
+  /* Antes iba como style={{ fontSize: "8rem" }} en cada uso. Las media queries
+     de más abajo lo sobreescriben con !important en móvil y tablet. */
+  font-size: 8rem;
+}
+
+/* Variante del lado izquierdo, para las filas invertidas */
+.floating-label--left {
+  right: auto;
+  left: -100px;
 }
 
 .scrolling-marquee {
@@ -343,17 +597,44 @@ nav {
   padding: 100px 0px;
   border-top: 1px solid var(--gray);
   border-bottom: 1px solid var(--gray);
+  /* Ritmo del ticker. Es la distancia de una copia completa, así que a mayor
+     número de fechas hay que subirlo para conservar la misma velocidad. */
+  --marquee-duration: 120s;
 }
 
-/* Contorno en blanco puro solo aquí: el resto de .outline-text (EVENTS del
-   hero, floating labels) sigue atenuado a propósito. */
+/* Contorno en blanco puro y de trazo grueso solo aquí: el resto de
+   .outline-text (EVENTS del hero, floating labels) sigue atenuado a propósito.
+   A 1px el trazo era capilar sobre una tipografía de cientos de píxeles. */
 .scrolling-marquee .outline-text {
   opacity: 1;
+  -webkit-text-stroke: 3px var(--fg);
 }
 
 .marquee-inner {
   display: inline-block;
-  animation: 20s linear 0s infinite normal none running marquee;
+  animation: var(--marquee-duration) linear 0s infinite normal none running marquee;
+}
+
+/* Contenido solo para lectores de pantalla: el ticker de fechas es visual y
+   está en movimiento, así que la misma información va en una lista estática. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* WCAG 2.2.2: el movimiento automático perpetuo se detiene si el sistema pide
+   menos animación. La lista .sr-only sigue dando acceso a las fechas. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-inner {
+    animation: none;
+  }
 }
 
 @keyframes marquee {
@@ -499,6 +780,28 @@ footer {
     padding: 0 20px;
   }
 
+  /* La tipografía es mucho menor aquí, así que la copia mide bastante menos y
+     necesita menos tiempo para mantener una velocidad parecida. */
+  .scrolling-marquee {
+    --marquee-duration: 45s;
+  }
+
+  /* NEXT: una columna y etiquetas encima del valor, no al lado */
+  .next-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .next-meta-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .cta-button {
+    padding: 18px 30px;
+    font-size: 0.9rem;
+  }
+
   /* Apilamos el título en dos tramos de 3 letras (~2.97em cada uno), lo que
      permite 29vw en lugar de los 14vw que exigen las 6 letras en una línea.
      "EVENTS" no se parte, así que mantiene el tamaño de una sola línea. */
@@ -616,6 +919,10 @@ footer {
 
   .huge-type {
     font-size: clamp(6rem, 15vw, 12rem);
+  }
+
+  .scrolling-marquee {
+    --marquee-duration: 70s;
   }
 
   .hero-title-container {

@@ -1,10 +1,14 @@
+import { contactEmail } from "@/content/site"
+
 // Va dentro de <main> porque es donde está hoy: sacarlo cambiaría el HTML.
 export function SiteFooter() {
   return (
     <footer id="contact">
       <div className="container">
         <div className="footer-cta">
-          <a href="mailto:hello@viscera.studio">LET&apos;S — DANCE</a>
+          {/* El email vive en content/site.ts: es el mismo que usa el CTA de
+              captación de NEXT y sigue siendo un placeholder de la plantilla. */}
+          <a href={`mailto:${contactEmail}`}>LET&apos;S — DANCE</a>
         </div>
         <div className="divider"></div>
         <div
