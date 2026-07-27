@@ -7,7 +7,8 @@ import { NextEvent } from "@/components/sections/next-event"
 import { Intro } from "@/components/sections/intro"
 import { Marquee } from "@/components/sections/marquee"
 import { Archive } from "@/components/sections/archive"
-import { Composition } from "@/components/sections/composition"
+import { Residents } from "@/components/sections/residents"
+import { Document } from "@/components/sections/document"
 
 // Componente de servidor: las únicas islas de cliente son CursorBlob y
 // ParallaxProvider. Marcar esta página como componente de cliente enviaría al
@@ -34,7 +35,8 @@ export default function Home() {
         <Marquee />
         <Intro />
         <Archive />
-        <Composition />
+        <Residents />
+        <Document />
         <SiteFooter />
       </main>
     </>
