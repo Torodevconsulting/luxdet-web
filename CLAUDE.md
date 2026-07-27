@@ -65,14 +65,19 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
 ## Pendientes (orden sugerido)
 
 1. **Reducir el peso de las fotos de `public/`.** Ya no hay imágenes remotas: las
-   7 fotos propias están integradas con `next/image` (todos los `<img>` migrados,
+   fotos propias están integradas con `next/image` (todos los `<img>` migrados,
    ESLint limpio). Pero los originales son de 4000 px y pesan 9-14 MB cada uno,
    ~78 MB en total en el repo. Redimensionar a ~2560 px de ancho con `sharp`
    (está instalado por el override de `package.json`).
-2. Refactorizar `app/page.tsx`: hoy es un único componente `"use client"` con
-   manipulación imperativa del DOM (`document.querySelectorAll`, listeners de
-   scroll sin throttling). Separar en componentes de servidor + islas de cliente
-   y pasar el scroll a `requestAnimationFrame`.
+   Nota: el hero ya no lleva foto (es rejilla + tipografía), así que **ninguna
+   imagen usa `priority` y el LCP de la home es ahora el `<h1>`**. Cualquier
+   medición de rendimiento debe partir de eso: no hay imagen en la primera
+   pantalla que optimizar. `public/dj_pink1.jpg` se conserva porque la usa
+   `content/residents.ts`.
+2. ~~Refactorizar `app/page.tsx`.~~ **Hecho:** troceado en Server Components
+   (`components/sections/`) con dos islas de cliente, `CursorBlob` y
+   `ParallaxProvider`. Este último ya usa `requestAnimationFrame` y se
+   desactiva entero bajo `prefers-reduced-motion`.
 3. Accesibilidad: el footer usa `#555` sobre `#0e0e0e` → contraste 2.6:1, falla
    WCAG AA. Subir a `#8a8a8a` o más. Relevante por ADA en EE.UU.
 4. JSON-LD `schema.org/Event` por evento (rich results de Google). Es la mayor
