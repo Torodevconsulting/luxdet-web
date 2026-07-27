@@ -683,7 +683,7 @@ nav {
    A 1px el trazo era capilar sobre una tipografía de cientos de píxeles. */
 .scrolling-marquee .outline-text {
   opacity: 1;
-  -webkit-text-stroke: 3px var(--fg);
+  -webkit-text-stroke: 2px var(--fg);
 }
 
 .marquee-inner {
@@ -895,6 +895,12 @@ footer {
      necesita menos tiempo para mantener una velocidad parecida. */
   .scrolling-marquee {
     --marquee-duration: 45s;
+  }
+
+  /* El trazo es absoluto y el cuerpo no: 3px sobre los ~58px de aquí pesan un
+     5% de la letra, mientras que en escritorio, sobre ~380px, son un 0.8%. */
+  .scrolling-marquee .outline-text {
+    -webkit-text-stroke: 1.5px var(--fg);
   }
 
   .residents-grid {
