@@ -5,9 +5,10 @@ const config = [
   ...coreWebVitals,
   ...typescript,
   {
-    // Componentes generados por shadcn/ui: se excluyen del lint porque
-    // se regeneran con el CLI y no se mantienen a mano.
-    ignores: ['.next/**', 'node_modules/**', 'components/ui/**', 'hooks/**'],
+    // Ya no se excluye components/ui/** ni hooks/**: se podaron por completo
+    // al no usarse. Si se vuelve a añadir un componente con el CLI de shadcn,
+    // hay que reponer esos ignores.
+    ignores: ['.next/**', 'node_modules/**'],
   },
 ]
 

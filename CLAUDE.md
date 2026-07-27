@@ -6,8 +6,14 @@ Cliente de Toro Development Agency.
 ## Stack
 
 Next.js 16.2.11 (App Router) · React 19.2.8 · TypeScript 5 (strict) ·
-Tailwind CSS v4 (CSS-first, **no hay `tailwind.config`**) · shadcn/ui + Radix ·
-lucide-react · Vercel Analytics. Gestor: pnpm. Deploy: Vercel.
+Tailwind CSS v4 (CSS-first, **no hay `tailwind.config`**) · Vercel Analytics.
+Gestor: pnpm. Deploy: Vercel.
+
+Quedan 7 dependencias de producción. El scaffold de shadcn/ui se podó entero
+(ver pendiente 7): no hay `components/ui/`, ni `hooks/`, ni Radix, ni
+lucide-react. Se conservan `components.json` y `lib/utils.ts` (`cn`) para poder
+regenerar componentes con `npx shadcn@latest add <componente>`, que reinstala
+sus dependencias. También se conserva `sonner`, elegido como sistema de toast.
 
 ## Origen y estado
 
@@ -28,9 +34,10 @@ empezar. Contexto importante para no reintroducir problemas ya resueltos:
 - Sin punto y coma, comillas dobles en `app/`, comillas simples en `components/ui/`
   (así lo generó shadcn; respetar el estilo de cada archivo).
 - Alias de imports: `@/*` → raíz del proyecto.
-- `components/ui/**` y `hooks/**` son scaffold de shadcn: **no editar a mano**,
-  se regeneran con el CLI. Están excluidos de ESLint a propósito.
-- Componentes nuevos propios van en `components/` (no en `components/ui/`).
+- Componentes nuevos propios van en `components/`; los de secciones de la home,
+  en `components/sections/`. Si se regenera algo con el CLI de shadcn aparecerá
+  en `components/ui/`: eso es scaffold, **no se edita a mano** y hay que volver
+  a excluirlo en `eslint.config.mjs`.
 - Idioma del sitio: **inglés** (`lang="en"`, público de Ohio). Los comentarios de
   código y la comunicación conmigo, en español.
 
@@ -72,6 +79,11 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
    palanca de SEO para una productora de eventos.
 5. `app/robots.ts`, `app/sitemap.ts`, `app/opengraph-image.png`.
 6. Formulario de booking/newsletter: route handler + Resend + Cloudflare Turnstile.
-7. Podar los componentes de `components/ui/` que no se usen al cerrar el diseño.
+7. ~~Podar los componentes de `components/ui/` que no se usen.~~ **Hecho:**
+   borrados los 55 componentes, `components/theme-provider.tsx` y `hooks/`
+   (ninguno se usaba), y desinstaladas 43 dependencias de producción (50 → 7).
+   Al abordar el pendiente 6 habrá que traer con el CLI los componentes del
+   formulario; el wrapper `ui/sonner.tsx` de shadcn depende de `next-themes`,
+   que ya no está instalado.
 8. Endurecer la CSP quitando `'unsafe-inline'` de `style-src` cuando los estilos
    en línea de `page.tsx` pasen a `globals.css`.
