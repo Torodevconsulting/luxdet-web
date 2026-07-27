@@ -303,11 +303,15 @@ nav {
    --------------------------------------------------------------------------- */
 .hero-grid-wrap {
   position: absolute;
-  /* Sobresale por arriba y por abajo para que el desplazamiento por scroll no
-     deje las columnas a medias en los bordes. */
-  inset: -12% 0;
+  /* Ajustado al hero, ni un píxel fuera: antes sobresalía por abajo y la
+     rejilla se colaba sobre el título de la sección siguiente al scrollear. */
+  inset: 0;
   z-index: 1;
   pointer-events: none;
+  /* El recorte va aquí y no en #hero a propósito: el blob del cursor no es
+     descendiente de este wrapper, así que no le afecta. En #hero sí habría que
+     evitarlo. */
+  overflow: hidden;
 }
 
 .hero-grid-wrap .container {
@@ -319,14 +323,21 @@ nav {
 .hero-grid-wrap .container::before {
   content: "";
   position: absolute;
-  top: 22%;
+  top: 15%;
   left: 0;
   right: 0;
   border-top: 1px solid #1e1e1e;
 }
 
+/* Más alta que el marco y desbordando por arriba y por abajo, de modo que el
+   desplazamiento por scroll nunca descubre el extremo de las columnas. Lo que
+   sobra queda recortado por el overflow del wrapper. */
 .hero-grid {
-  height: 100%;
+  position: absolute;
+  top: -15%;
+  left: 0;
+  right: 0;
+  height: 130%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   will-change: transform;
@@ -860,11 +871,17 @@ nav {
   z-index: 3;
 }
 
+/* Era la única regla de texto del sitio sin font-family: heredaba la Inter del
+   body y desentonaba con el resto de titulares, todos en Syne y en mayúsculas. */
 .sticky-type {
   position: sticky;
   top: 10%;
+  font-family: var(--syne);
+  font-weight: 800;
   font-size: 15rem;
   line-height: 0.7;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
   opacity: 0.05;
   z-index: 0;
   pointer-events: none;
