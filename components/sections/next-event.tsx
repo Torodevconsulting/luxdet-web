@@ -14,7 +14,7 @@ export function NextEvent() {
     return (
       <section id="next" className="next-event">
         <div className="container">
-          <p className="section-kicker">Next</p>
+          <p className="section-kicker">Up Next</p>
           <p className="next-title">No dates announced</p>
           <p className="next-empty-copy">
             We are between rooms right now. Get on the list and you will know the date before it
