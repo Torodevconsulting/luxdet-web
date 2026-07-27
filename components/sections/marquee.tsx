@@ -19,7 +19,7 @@ export function Marquee() {
 
   // Sin fechas anunciadas el ticker no se queda vacío.
   const entries =
-    dates.length > 0 ? dates.map((date) => date.label) : ["Luxdet", "Underground", "Nonstop", "Dance"]
+    dates.length > 0 ? dates.map((date) => date.label) : ["Luxdet", "Culture", "Music", "Dance"]
 
   const run: string[] = []
   while (run.length < MIN_ENTRIES_PER_RUN) {

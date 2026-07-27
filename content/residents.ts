@@ -31,8 +31,8 @@ export type Resident = Performer & {
 
 export const residents: Resident[] = [
   {
-    slug: "nocta",
-    name: "Nocta",
+    slug: "Bejaguz",
+    name: "Bejaguz",
     role: "Founder · Resident",
     image: djSetupImage,
     imageAlt: "DJ working the decks seen from behind, bathed in deep red light",
