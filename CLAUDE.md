@@ -74,21 +74,26 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
    medición de rendimiento debe partir de eso: no hay imagen en la primera
    pantalla que optimizar. `public/dj_pink1.jpg` se conserva porque la usa
    `content/residents.ts`.
-2. ~~Refactorizar `app/page.tsx`.~~ **Hecho:** troceado en Server Components
-   (`components/sections/`) con dos islas de cliente, `CursorBlob` y
-   `ParallaxProvider`. Este último ya usa `requestAnimationFrame` y se
-   desactiva entero bajo `prefers-reduced-motion`.
+2. **Material real pendiente en `content/`.** Casi todo es provisional; cada
+   archivo lo avisa en su cabecera. Lo que más urge:
+   - `minimal-depths-002` y `warehouse-09` son eventos **próximos sin `image` ni
+     `description`**. Al compartir su URL, la preview de WhatsApp o Instagram
+     saldrá genérica, justo en los dos eventos que hay que promocionar. Necesitan
+     flyer (4:5, ~1080×1350) y una línea de descripción.
+   - Tres eventos tienen `location: { status: "tba" }` porque falta la **dirección
+     postal** de Privé, no porque el sitio esté sin confirmar. Al tenerla, volver
+     al objeto `confirmed` completo.
+   - Ninguna `offers.url`: sin ella la sección NEXT muestra "Tickets announced
+     soon" en lugar del CTA de compra.
+   - `content/residents.ts`: todos comparten el set y el handle de Toro, lo que
+     atribuiría su trabajo a los demás. No publicar así.
+   - Falta el email real: `content/site.ts` sigue apuntando a `viscera.studio`,
+     dominio de la plantilla de v0.
 3. Accesibilidad: el footer usa `#555` sobre `#0e0e0e` → contraste 2.6:1, falla
    WCAG AA. Subir a `#8a8a8a` o más. Relevante por ADA en EE.UU.
 4. JSON-LD `schema.org/Event` por evento (rich results de Google). Es la mayor
    palanca de SEO para una productora de eventos.
 5. `app/robots.ts`, `app/sitemap.ts`, `app/opengraph-image.png`.
 6. Formulario de booking/newsletter: route handler + Resend + Cloudflare Turnstile.
-7. ~~Podar los componentes de `components/ui/` que no se usen.~~ **Hecho:**
-   borrados los 55 componentes, `components/theme-provider.tsx` y `hooks/`
-   (ninguno se usaba), y desinstaladas 43 dependencias de producción (50 → 7).
-   Al abordar el pendiente 6 habrá que traer con el CLI los componentes del
-   formulario; el wrapper `ui/sonner.tsx` de shadcn depende de `next-themes`,
-   que ya no está instalado.
 8. Endurecer la CSP quitando `'unsafe-inline'` de `style-src` cuando los estilos
    en línea de `page.tsx` pasen a `globals.css`.

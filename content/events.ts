@@ -13,6 +13,7 @@
 
 import {
   assertValidEventOffsets,
+  assertValidSlugs,
   selectPast,
   selectUpcoming,
   type LuxdetEvent,
@@ -24,17 +25,15 @@ import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 
 export const events: LuxdetEvent[] = [
   {
-    slug: "The Warehouse 004",
+    slug: "the-warehouse-004",
     name: "The Warehouse 004",
     startDate: "2026-08-14T23:00:00-04:00",
     endDate: "2026-08-15T04:00:00-04:00",
-    location: {
-      status: "confirmed",
-      name: "Privé",
-      streetAddress: "PROVISIONAL — dirección pendiente",
-      city: "Columbus",
-      region: "OH",
-    },
+    // PENDIENTE: el venue es Privé, pero falta la dirección postal. Se queda en
+    // "tba" hasta tenerla — un texto de relleno aquí se renderiza en la página y
+    // entra en el JSON-LD como PostalAddress, así que Google lo tomaría por una
+    // dirección de verdad. Al conseguirla, volver al objeto completo.
+    location: { status: "tba" },
     city: "Columbus",
     performer: [{ name: "Nocta" }, { name: "Sub/Urban" }, { name: "Marlo K." }],
     // PROVISIONAL: falta la URL real de venta. Sin `url` la sección muestra
@@ -80,17 +79,12 @@ export const events: LuxdetEvent[] = [
     typicalAgeRange: "21+",
   },
   {
-    slug: "The Warehouse-001",
+    slug: "the-warehouse-001",
     name: "The Warehouse 001",
     startDate: "2026-06-12T23:00:00-04:00",
     endDate: "2026-06-13T04:00:00-04:00",
-    location: {
-      status: "confirmed",
-      name: "Privé",
-      streetAddress: "PROVISIONAL — dirección pendiente",
-      city: "Columbus",
-      region: "OH",
-    },
+    // PENDIENTE: venue Privé, falta la dirección postal (ver the-warehouse-004).
+    location: { status: "tba" },
     city: "Columbus",
     performer: [{ name: "Grün" }, { name: "Marlo K." }],
     isAccessibleForFree: false,
@@ -100,7 +94,7 @@ export const events: LuxdetEvent[] = [
     description: "Sold out in nine days.",
   },
   {
-    slug: "The Warehouse-002",
+    slug: "the-warehouse-002",
     name: "The Warehouse 002",
     startDate: "2026-05-15T23:00:00-04:00",
     endDate: "2026-05-16T04:00:00-04:00",
@@ -115,17 +109,12 @@ export const events: LuxdetEvent[] = [
   },
   {
     // Enero: horario estándar, -05:00.
-    slug: "The Cave-001",
+    slug: "the-cave-001",
     name: "The Cave-001",
     startDate: "2026-01-17T23:00:00-05:00",
     endDate: "2026-01-18T04:00:00-05:00",
-    location: {
-      status: "confirmed",
-      name: "Privé",
-      streetAddress: "PROVISIONAL — dirección pendiente",
-      city: "Columbus",
-      region: "OH",
-    },
+    // PENDIENTE: venue Privé, falta la dirección postal (ver the-warehouse-004).
+    location: { status: "tba" },
     city: "Columbus",
     performer: [{ name: "Nocta" }, { name: "Grün" }, { name: "Kessler" }],
     isAccessibleForFree: false,
@@ -136,10 +125,12 @@ export const events: LuxdetEvent[] = [
   },
 ]
 
-// Se ejecuta al importar el módulo: un offset mal escrito rompe el build en
-// lugar de llegar a producción con una hora de desfase. Es seguro a nivel de
-// módulo porque solo mira los datos, no el instante actual.
+// Se ejecutan al importar el módulo: un offset mal escrito rompe el build en
+// lugar de llegar a producción con una hora de desfase, y un slug inválido o
+// repetido lo rompe antes de que esa URL llegue a existir. Es seguro a nivel de
+// módulo porque solo miran los datos, no el instante actual.
 assertValidEventOffsets(events)
+assertValidSlugs(events)
 
 // Ojo: estas funciones NO se pueden cachear en una constante de módulo. Se
 // llaman dentro de cada componente para que el resultado se recalcule en cada

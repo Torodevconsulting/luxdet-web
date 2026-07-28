@@ -144,6 +144,40 @@ export function assertValidEventOffsets(events: readonly LuxdetEvent[]) {
   }
 }
 
+/** Kebab-case ASCII: lo único que produce una URL limpia sin escapar nada. */
+const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
+
+/**
+ * Comprueba que cada slug sirve como segmento de URL y que no hay repetidos.
+ *
+ * El slug de un evento es una URL permanente: en cuanto alguien la comparte por
+ * WhatsApp o queda indexada, cambiarla rompe ese enlace para siempre. Un espacio
+ * o una mayúscula darían rutas con %20, y dos eventos con el mismo slug harían
+ * que uno tapase al otro sin avisar. Mejor que reviente el build.
+ *
+ * Como assertValidEventOffsets, solo mira datos inmutables, así que puede
+ * llamarse al cargar el módulo.
+ */
+export function assertValidSlugs(events: readonly LuxdetEvent[]) {
+  const seen = new Set<string>()
+
+  for (const event of events) {
+    if (!SLUG_PATTERN.test(event.slug)) {
+      throw new Error(
+        `[events] slug inválido: ${JSON.stringify(event.slug)}. ` +
+          `Debe ser kebab-case en minúsculas (p. ej. "the-warehouse-004"): es un segmento de URL.`,
+      )
+    }
+
+    if (seen.has(event.slug)) {
+      throw new Error(
+        `[events] slug duplicado: "${event.slug}". Cada evento necesita el suyo o sus páginas se solapan.`,
+      )
+    }
+    seen.add(event.slug)
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Selección y orden
 // ---------------------------------------------------------------------------
