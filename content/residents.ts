@@ -77,7 +77,9 @@ export const residents: Resident[] = [
       "Leans on stripped-back house and the slower end of techno — long blends, no drops for the sake of drops. If the room is still moving at 3am, that is the whole point.",
     ],
     socials: sharedSocials,
-    mixes: sharedMixes,
+    mixes: [
+  { platform: "soundcloud", url: "https://soundcloud.com/bejaguz/bejaguz-rolling-tech-set", title: "Bejaguz - Rolling Tech" },
+    ],
   },
   {
     slug: "grun",
@@ -103,7 +105,9 @@ export const residents: Resident[] = [
       "Expect house with a heavy low end, disco edits and the kind of records that work better at two in the morning than on headphones.",
     ],
     socials: sharedSocials,
-    mixes: sharedMixes,
+    mixes: [
+  { platform: "soundcloud", url: "https://soundcloud.com/torointhehouse/gus-i-toro-dj-sessions", title: "Gus & Toro DJ Sessions" },
+    ],
   },
   {
     slug: "marlo-k",
