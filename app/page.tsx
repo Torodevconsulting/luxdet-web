@@ -1,7 +1,4 @@
-import { CursorBlob } from "@/components/cursor-blob"
 import { ParallaxProvider } from "@/components/parallax-provider"
-import { SiteNav } from "@/components/site-nav"
-import { SiteFooter } from "@/components/site-footer"
 import { Hero } from "@/components/sections/hero"
 import { NextEvent } from "@/components/sections/next-event"
 import { Intro } from "@/components/sections/intro"
@@ -9,10 +6,13 @@ import { Marquee } from "@/components/sections/marquee"
 import { Archive } from "@/components/sections/archive"
 import { Residents } from "@/components/sections/residents"
 import { Document } from "@/components/sections/document"
+import { siteName, siteUrl } from "@/content/site"
+import { organizationJsonLd, toJsonLdScript } from "@/lib/events"
 
-// Componente de servidor: las únicas islas de cliente son CursorBlob y
-// ParallaxProvider. Marcar esta página como componente de cliente enviaría al
-// navegador todo el árbol que importa, así que no debe llevar esa directiva.
+// Componente de servidor. CursorBlob, SiteNav y SiteFooter viven ahora en
+// layout.tsx porque también hacen falta en /events/[slug]; aquí solo queda
+// ParallaxProvider, que mueve elementos que únicamente existen en la home
+// (.parallax-text, .hero-grid y .floating-label).
 
 /**
  * Se regenera cada hora para que "la próxima fiesta" avance sola cuando una
@@ -24,10 +24,14 @@ export const revalidate = 3600
 export default function Home() {
   return (
     <>
-      <CursorBlob />
-      <ParallaxProvider />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: toJsonLdScript(organizationJsonLd({ siteOrigin: siteUrl, name: siteName })),
+        }}
+      />
 
-      <SiteNav />
+      <ParallaxProvider />
 
       <main>
         <Hero />
@@ -37,7 +41,6 @@ export default function Home() {
         <Archive />
         <Residents />
         <Document />
-        <SiteFooter />
       </main>
     </>
   )

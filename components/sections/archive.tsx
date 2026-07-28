@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { getPastEvents } from "@/content/events"
 import {
   eventEdition,
@@ -18,7 +19,11 @@ function ArchiveRow({ event, reversed }: { event: LuxdetEvent; reversed: boolean
     <div className={reversed ? "project-row project-row--reversed" : "project-row"}>
       <div className="project-info">
         <span className="archive-kicker">{`${eventEdition(event)} / ${eventVenueLabel(event)}`}</span>
-        <h3 className="archive-title">{event.name}</h3>
+        <h3 className="archive-title">
+          <Link className="archive-link" href={`/events/${event.slug}`}>
+            {event.name}
+          </Link>
+        </h3>
         {event.description && <p>{event.description}</p>}
         <div className="divider"></div>
         <p className="archive-meta">

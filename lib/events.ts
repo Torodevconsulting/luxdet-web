@@ -74,8 +74,12 @@ export type LuxdetEvent = {
   image?: import("next/image").StaticImageData
   /** Texto alternativo real de la imagen, distinto por evento. */
   imageAlt?: string
-  /** schema: description */
+  /** schema: description — una línea, para la home y los metadatos */
   description?: string
+  /** Cuerpo de la página del evento, en párrafos. */
+  longDescription?: string[]
+  /** Fotos de la noche, para la página del evento. */
+  gallery?: { image: import("next/image").StaticImageData; alt: string }[]
 }
 
 // ---------------------------------------------------------------------------
@@ -207,6 +211,18 @@ export function selectPast(events: readonly LuxdetEvent[], now = Date.now()) {
   return events.filter((event) => resolveEnd(event) <= now).sort((a, b) => byStartAscending(b, a))
 }
 
+/**
+ * Si el evento ya terminó, con el mismo criterio que selectUpcoming/selectPast.
+ *
+ * La lectura del reloj vive aquí y no en el componente por la misma razón que
+ * en los selectores de arriba: un componente que llama a Date.now() en su
+ * cuerpo deja de ser idempotente. En una página con `revalidate` el resultado
+ * se recalcula en cada regeneración, que es justo lo que se busca.
+ */
+export function isPastEvent(event: LuxdetEvent, now = Date.now()) {
+  return resolveEnd(event) <= now
+}
+
 // ---------------------------------------------------------------------------
 // Formateo
 // ---------------------------------------------------------------------------
@@ -275,4 +291,115 @@ export function eventEdition(event: LuxdetEvent) {
 /** Venue si está confirmado; si no, la ciudad, que casi siempre se sabe. */
 export function eventVenueLabel(event: LuxdetEvent) {
   return event.location.status === "confirmed" ? event.location.name : event.city
+}
+
+// ---------------------------------------------------------------------------
+// JSON-LD
+// ---------------------------------------------------------------------------
+
+/** Todas las ciudades del contenido son de Ohio. */
+const EVENT_REGION = "OH"
+const EVENT_COUNTRY = "US"
+
+/**
+ * Mapea un evento a schema.org/Event. Los campos del tipo se eligieron para
+ * esto, así que aquí no hay que inventar nada.
+ *
+ * `siteOrigin` y `url` llegan por parámetro para no acoplar lib/ a content/.
+ */
+export function eventToJsonLd(event: LuxdetEvent, { url, siteOrigin }: { url: string; siteOrigin: string }) {
+  const place =
+    event.location.status === "confirmed"
+      ? {
+          "@type": "Place",
+          name: event.location.name,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: event.location.streetAddress,
+            addressLocality: event.location.city,
+            addressRegion: event.location.region,
+            ...(event.location.postalCode ? { postalCode: event.location.postalCode } : {}),
+            addressCountry: EVENT_COUNTRY,
+          },
+        }
+      : {
+          // Google exige `location` aunque el sitio esté por confirmar; sin él
+          // el evento no es válido. La ciudad sí la sabemos.
+          "@type": "Place",
+          name: "To be announced",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: event.city,
+            addressRegion: EVENT_REGION,
+            addressCountry: EVENT_COUNTRY,
+          },
+        }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.name,
+    startDate: event.startDate,
+    ...(event.endDate ? { endDate: event.endDate } : {}),
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    url,
+    location: place,
+    performer: event.performer.map((performer) => ({
+      "@type": "Person",
+      name: performer.name,
+      ...(performer.url ? { url: performer.url } : {}),
+    })),
+    organizer: {
+      "@type": "Organization",
+      name: "Luxdet Culture",
+      url: siteOrigin,
+    },
+    isAccessibleForFree: event.isAccessibleForFree,
+    typicalAgeRange: event.typicalAgeRange,
+    ...(event.description ? { description: event.description } : {}),
+    ...(event.image ? { image: [`${siteOrigin}${event.image.src}`] } : {}),
+    ...(event.offers
+      ? {
+          offers: {
+            "@type": "Offer",
+            // Google pide url en la oferta. Sin enlace de venta todavía, la
+            // propia página del evento es donde se informa del precio.
+            url: event.offers.url ?? url,
+            ...(event.offers.price !== undefined ? { price: event.offers.price } : {}),
+            priceCurrency: event.offers.priceCurrency ?? "USD",
+            ...(event.offers.availability
+              ? { availability: `https://schema.org/${event.offers.availability}` }
+              : {}),
+          },
+        }
+      : {}),
+  }
+}
+
+/**
+ * Serializa para meterlo en un <script type="application/ld+json">.
+ *
+ * Escapar "<" es lo que impide que un dato de contenido pueda cerrar la
+ * etiqueta e inyectar markup: "</script>" dentro de un string se convierte en
+ * "</script>", que el parser de JSON entiende igual y el de HTML ya no.
+ */
+export function toJsonLdScript(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c")
+}
+
+/** Organization de Luxdet, para la home. */
+export function organizationJsonLd({ siteOrigin, name }: { siteOrigin: string; name: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name,
+    url: siteOrigin,
+    description: "Electronic music event production in Ohio.",
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: EVENT_REGION,
+      addressCountry: EVENT_COUNTRY,
+    },
+  }
 }

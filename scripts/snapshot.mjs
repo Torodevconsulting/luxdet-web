@@ -1,8 +1,9 @@
 // Captura y compara el HTML prerenderizado de la home para comprobar que un
 // refactor es puramente estructural.
 //
-//   node scripts/snapshot.mjs before.txt          captura
-//   node scripts/snapshot.mjs --diff a.txt b.txt  compara
+//   node scripts/snapshot.mjs before.txt                     captura la home
+//   node scripts/snapshot.mjs ev.txt /events/the-cave-001    captura otra ruta
+//   node scripts/snapshot.mjs --diff a.txt b.txt             compara
 //
 // Se comparan las etiquetas, clases, estilos en línea, orden de atributos y
 // nodos de texto del <body>. Se descartan los <script> a propósito: el payload
@@ -11,20 +12,27 @@
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs"
 
-const SOURCE = ".next/server/app/index.html"
+/** Ruta de la página → archivo prerenderizado que genera `next build`. */
+function sourceFor(route) {
+  const clean = route.replace(/^\/+|\/+$/g, "")
+  return clean ? `.next/server/app/${clean}.html` : ".next/server/app/index.html"
+}
 
-function extract() {
-  if (!existsSync(SOURCE)) {
-    console.error(`No existe ${SOURCE}. Ejecuta antes: pnpm build`)
+function extract(route) {
+  const source = sourceFor(route)
+
+  if (!existsSync(source)) {
+    console.error(`No existe ${source}. Ejecuta antes: pnpm build`)
+    console.error(`(¿es "${route}" una ruta prerenderizada?)`)
     process.exit(1)
   }
 
-  const html = readFileSync(SOURCE, "utf8")
+  const html = readFileSync(source, "utf8")
   const start = html.indexOf("<body")
   const end = html.lastIndexOf("</body>")
 
   if (start === -1 || end === -1) {
-    console.error(`No se encuentra el <body> en ${SOURCE}`)
+    console.error(`No se encuentra el <body> en ${source}`)
     process.exit(1)
   }
 
@@ -35,10 +43,10 @@ function extract() {
     .replace(/\r\n/g, "\n")
 }
 
-function capture(target) {
-  const body = extract()
+function capture(target, route) {
+  const body = extract(route)
   writeFileSync(target, body, "utf8")
-  console.log(`${target}: ${body.length} caracteres de markup`)
+  console.log(`${target}: ${body.length} caracteres de markup (${route})`)
 }
 
 function diff(pathA, pathB) {
@@ -90,8 +98,8 @@ if (first === "--diff") {
   }
   diff(rest[0], rest[1])
 } else if (first) {
-  capture(first)
+  capture(first, rest[0] ?? "/")
 } else {
-  console.error("Uso: node scripts/snapshot.mjs <fichero> | --diff <a.txt> <b.txt>")
+  console.error("Uso: node scripts/snapshot.mjs <fichero> [ruta] | --diff <a.txt> <b.txt>")
   process.exit(1)
 }

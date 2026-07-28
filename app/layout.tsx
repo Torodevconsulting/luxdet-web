@@ -2,12 +2,14 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Syne, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { CursorBlob } from "@/components/cursor-blob"
+import { SiteNav } from "@/components/site-nav"
+import { SiteFooter } from "@/components/site-footer"
+import { siteUrl } from "@/content/site"
 import "./globals.css"
 
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" })
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -52,7 +54,14 @@ export default function RootLayout({
     // Las variables de next/font van en <html> para que :root las vea
     <html lang="en" className={`${syne.variable} ${inter.variable}`}>
       <body>
+        {/* Chrome del sitio, no de la home: al existir /events/[slug] tiene que
+            estar en el layout o esas páginas se quedarían sin navegación y sin
+            forma de volver. El footer sale ahora de <main>, que además es lo
+            correcto semánticamente. */}
+        <CursorBlob />
+        <SiteNav />
         {children}
+        <SiteFooter />
         <Analytics />
       </body>
     </html>

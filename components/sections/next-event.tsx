@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { getUpcomingEvents } from "@/content/events"
 import { mailingListHref } from "@/content/site"
 import { formatEventDate, formatEventTimeRange } from "@/lib/events"
@@ -112,6 +113,10 @@ export function NextEvent() {
                   <span className="next-price">{`$${event.offers.price}`}</span>
                 )
               )}
+
+              <Link className="next-detail-link" href={`/events/${event.slug}`}>
+                Full details
+              </Link>
             </div>
           </div>
 

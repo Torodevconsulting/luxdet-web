@@ -587,6 +587,197 @@ nav {
 }
 
 /* ---------------------------------------------------------------------------
+   Página individual de evento (/events/[slug])
+   Reutiliza .section-kicker, .cta-button y .location-tba de la home.
+   --------------------------------------------------------------------------- */
+.event-page {
+  padding: 220px 0 120px;
+}
+
+.event-title {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.event-when {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: baseline;
+  margin-top: 30px;
+  font-family: var(--syne);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.event-hours {
+  color: #8a8a8a;
+  font-size: 1.1rem;
+}
+
+.event-meta {
+  margin-top: 50px;
+  display: grid;
+  gap: 25px;
+  max-width: 720px;
+}
+
+.event-meta-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  border-top: 1px solid var(--gray);
+  padding-top: 20px;
+}
+
+.event-meta dt {
+  font-family: var(--syne);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.event-meta dd {
+  display: grid;
+  gap: 6px;
+}
+
+.event-value {
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.event-detail {
+  font-size: 0.95rem;
+  color: #8a8a8a;
+}
+
+.event-lineup {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.event-lineup li + li::before {
+  content: "·";
+  color: #8a8a8a;
+  margin-right: 18px;
+}
+
+.event-actions {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+
+.event-price {
+  font-family: var(--syne);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.event-note {
+  color: #8a8a8a;
+}
+
+.event-media {
+  margin-top: 70px;
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event-body {
+  margin-top: 50px;
+  max-width: 720px;
+}
+
+.event-body p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #8a8a8a;
+}
+
+.event-body p + p {
+  margin-top: 25px;
+}
+
+.event-gallery {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.event-gallery-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  filter: grayscale(1);
+  transition: filter 0.5s;
+}
+
+.event-gallery-image:hover {
+  filter: grayscale(0);
+}
+
+.event-back {
+  display: inline-block;
+  margin-top: 70px;
+  font-family: var(--syne);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.event-back:focus-visible,
+.archive-link:focus-visible,
+.next-detail-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* El título de cada fila del archivo lleva a su página */
+.archive-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.archive-link:hover {
+  color: var(--accent);
+}
+
+.next-detail-link {
+  font-family: var(--syne);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
    RESIDENTS — roster de DJs
    --------------------------------------------------------------------------- */
 .residents-grid {
