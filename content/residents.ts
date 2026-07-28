@@ -69,7 +69,7 @@ export const residents: Resident[] = [
   {
     slug: "bejaguz",
     name: "Bejaguz",
-    role: "Founder · Resident",
+    role: "Founder · Tech House & Minimal",
     image: djSetupImage,
     imageAlt: "DJ working the decks seen from behind, bathed in deep red light",
     bio: [
@@ -82,7 +82,7 @@ export const residents: Resident[] = [
   {
     slug: "grun",
     name: "Grün",
-    role: "Resident",
+    role: "Resident · Deep House & Dub Techno",
     image: djGreenImage,
     imageAlt: "DJ mixing behind laptops under green light",
     bio: [
@@ -95,7 +95,7 @@ export const residents: Resident[] = [
   {
     slug: "toro",
     name: "Toro",
-    role: "Resident",
+    role: "Resident · Techno & Hardgroove",
     image: djBlueImage,
     imageAlt: "Club crowd in blue and pink light with the DJ booth behind",
     bio: [
@@ -108,7 +108,7 @@ export const residents: Resident[] = [
   {
     slug: "marlo-k",
     name: "Marlo K.",
-    role: "Resident",
+    role: "Resident · Minimal & Micro-house",
     image: girlPartyingImage,
     imageAlt: "Dancer with an arm raised under teal and pink lights",
     bio: [

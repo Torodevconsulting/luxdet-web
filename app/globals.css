@@ -393,9 +393,14 @@ nav {
 /* ---------------------------------------------------------------------------
    NEXT — la próxima fiesta
    --------------------------------------------------------------------------- */
+/* Imagen a ancho fijo y texto en minmax(0, 1fr).
+   El 0 de mínimo es lo importante: una unidad `fr` lleva implícito un mínimo de
+   min-content, así que un titular con palabras largas ("WAREHOUSE" mide ~640px)
+   ensanchaba su columna y aplastaba la foto. Con minmax(0, …) el texto se ajusta
+   al hueco que queda y la imagen conserva su tamaño pase lo que pase. */
 .next-layout {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: minmax(0, 1fr) 400px;
   gap: 60px;
   align-items: start;
 }
@@ -403,7 +408,7 @@ nav {
 .next-title {
   font-family: var(--syne);
   font-weight: 800;
-  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-size: clamp(2rem, 5vw, 4.5rem);
   line-height: 0.9;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -1364,6 +1369,13 @@ footer {
 
   .scrolling-marquee {
     --marquee-duration: 30s;
+  }
+
+  /* El contenedor es más estrecho aquí: 400px de foto dejarían al texto sin
+     sitio. */
+  .next-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 40px;
   }
 
   .residents-grid {

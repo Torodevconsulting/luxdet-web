@@ -24,8 +24,8 @@ import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 
 export const events: LuxdetEvent[] = [
   {
-    slug: "substrata-004",
-    name: "Substrata 004",
+    slug: "The Warehouse 004",
+    name: "The Warehouse 004",
     startDate: "2026-08-14T23:00:00-04:00",
     endDate: "2026-08-15T04:00:00-04:00",
     location: {
@@ -80,8 +80,8 @@ export const events: LuxdetEvent[] = [
     typicalAgeRange: "21+",
   },
   {
-    slug: "substrata-003",
-    name: "Substrata 003",
+    slug: "The Warehouse-001",
+    name: "The Warehouse 001",
     startDate: "2026-06-12T23:00:00-04:00",
     endDate: "2026-06-13T04:00:00-04:00",
     location: {
@@ -100,8 +100,8 @@ export const events: LuxdetEvent[] = [
     description: "Sold out in nine days.",
   },
   {
-    slug: "raw-room-001",
-    name: "Raw Room 001",
+    slug: "The Warehouse-002",
+    name: "The Warehouse 002",
     startDate: "2026-05-15T23:00:00-04:00",
     endDate: "2026-05-16T04:00:00-04:00",
     location: { status: "tba" },
@@ -115,8 +115,8 @@ export const events: LuxdetEvent[] = [
   },
   {
     // Enero: horario estándar, -05:00.
-    slug: "substrata-002",
-    name: "Substrata 002",
+    slug: "The Cave-001",
+    name: "The Cave-001",
     startDate: "2026-01-17T23:00:00-05:00",
     endDate: "2026-01-18T04:00:00-05:00",
     location: {

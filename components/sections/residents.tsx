@@ -78,7 +78,7 @@ export function Residents() {
   return (
     <section id="residents">
       <div className="container">
-        <h2 className="section-kicker">Residents</h2>
+        <h2 className="section-kicker">Click and listen our residents</h2>
 
         <ResidentDialogRoot
           panels={withProfile.map((resident) => (

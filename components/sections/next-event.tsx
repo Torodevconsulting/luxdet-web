@@ -121,7 +121,9 @@ export function NextEvent() {
                 src={event.image}
                 alt={event.imageAlt ?? ""}
                 className="next-image"
-                sizes="(max-width: 767px) 100vw, 40vw"
+                /* La columna es de ancho fijo, así que el sizes deja de ser
+                   relativo al viewport y pasa a declarar esos píxeles. */
+                sizes="(max-width: 767px) 100vw, (max-width: 1024px) 300px, 400px"
               />
             </div>
           )}
