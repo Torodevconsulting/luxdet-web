@@ -24,6 +24,12 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com",
       "font-src 'self' data:",
+      // Reproductores embebidos de las fichas de residente. Solo frame-src: el
+      // iframe es un contexto de navegación con su propia CSP, así que nuestro
+      // script-src y nuestro img-src no gobiernan lo que carga dentro. Harían
+      // falta únicamente si cargásemos la Widget API en nuestra página o
+      // pintásemos el artwork nosotros, y no hacemos ninguna de las dos.
+      'frame-src https://w.soundcloud.com https://player.mixcloud.com',
       `connect-src 'self'${isDev ? ' ws: http://localhost:*' : ''} https://va.vercel-scripts.com`,
       "frame-ancestors 'self'",
       "base-uri 'self'",
