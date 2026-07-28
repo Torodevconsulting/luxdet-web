@@ -2,6 +2,11 @@
 
 const isDev = process.env.NODE_ENV === "development"
 
+// La indexación está cerrada salvo que se abra explícitamente. Misma variable
+// que gobierna app/robots.ts: las dos capas se abren y cierran juntas.
+// Para abrir: NEXT_PUBLIC_ALLOW_INDEXING=true en Vercel + redeploy.
+const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true"
+
 // Cabeceras de seguridad aplicadas a todas las rutas.
 // 'unsafe-inline' en style-src es necesario mientras la home use estilos en
 // línea (style={{...}}). Cuando esos estilos pasen a globals.css, endurecerla.
@@ -16,6 +21,11 @@ const securityHeaders = [
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
   },
+  // robots.txt solo pide que no rastreen; esta cabecera es la que garantiza
+  // que no se indexe aunque alguien enlace una URL desde fuera.
+  ...(allowIndexing
+    ? []
+    : [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]),
   {
     key: 'Content-Security-Policy',
     value: [

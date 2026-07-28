@@ -20,7 +20,22 @@ const RETRIEVAL_BOTS = [
   "Claude-SearchBot",
 ]
 
+/**
+ * La indexación está CERRADA salvo que se abra explícitamente. Mientras el
+ * contenido sea provisional (nombres de fiesta, precios y direcciones
+ * inventados) no interesa que se indexe ni que alimente a un sistema de
+ * recuperación como si fuera información real sobre Luxdet.
+ *
+ * Para abrir: NEXT_PUBLIC_ALLOW_INDEXING=true en Vercel + redeploy (el
+ * prefijo NEXT_PUBLIC_ se incrusta en build, no se lee en runtime).
+ */
+const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true"
+
 export default function robots(): MetadataRoute.Robots {
+  if (!allowIndexing) {
+    return { rules: [{ userAgent: "*", disallow: "/" }] }
+  }
+
   return {
     rules: [
       { userAgent: "*", allow: "/" },
