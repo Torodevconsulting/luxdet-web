@@ -1213,6 +1213,13 @@ footer {
     font-size: 2rem;
   }
 
+  /* El botón va flotado, así que el rol fluye a su alrededor. Aquí el nombre
+     baja a 2rem y el botón pasa a ser más alto que él, de modo que el rol
+     quedaba pegado a su borde inferior: este margen es el que da el aire. */
+  .dialog-close {
+    margin-bottom: 22px;
+  }
+
   /* NEXT: una columna y etiquetas encima del valor, no al lado */
   .next-layout {
     grid-template-columns: 1fr;
