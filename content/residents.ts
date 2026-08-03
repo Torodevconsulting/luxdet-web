@@ -20,6 +20,7 @@ import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 import djPinkImage from "@/public/dj_pink1.jpg"
 import djBejaguz from "@/public/bejaguz.jpeg"
 import djToro from "@/public/toro.jpeg"
+import djTweety from "@/public/tweety.png"
 
 export type SocialPlatform = "instagram" | "soundcloud" | "mixcloud" | "ra"
 
@@ -69,7 +70,7 @@ export const residents: Resident[] = [
   {
     slug: "bejaguz",
     name: "Bejaguz",
-    role: "Founder · Tech House & Minimal",
+    role: "Resident · Tech House & Minimal",
     image: djBejaguz,
     imageAlt: "DJ working the decks seen from behind, bathed in deep red light",
     bio: [
@@ -82,10 +83,10 @@ export const residents: Resident[] = [
     ],
   },
   {
-    slug: "Venee",
-    name: "Venee",
-    role: "Resident · Deep House & Dub Techno",
-    image: djGreenImage,
+    slug: "Tweety",
+    name: "Tweety",
+    role: "Resident · Minimal & Tech House",
+    image: djTweety,
     imageAlt: "DJ mixing behind laptops under green light",
     bio: [
       "Resident since the second Substrata. Plays the warm-up more often than the peak, and treats it as the harder job of the two.",
@@ -110,8 +111,8 @@ export const residents: Resident[] = [
     ],
   },
   {
-    slug: "marlo-k",
-    name: "Marlo K.",
+    slug: "Venee",
+    name: "Venee",
     role: "Resident · Minimal & Micro-house",
     image: girlPartyingImage,
     imageAlt: "Dancer with an arm raised under teal and pink lights",
