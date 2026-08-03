@@ -14,7 +14,6 @@
 // ============================================================================
 
 import type { Performer } from "@/lib/events"
-import djGreenImage from "@/public/dj_green1.jpg"
 import girlPartyingImage from "@/public/girl_partying1.jpg"
 import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 import djPinkImage from "@/public/dj_pink1.jpg"
