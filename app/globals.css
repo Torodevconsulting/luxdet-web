@@ -1843,6 +1843,31 @@ footer {
     -webkit-text-stroke-width: 1px;
   }
 
+  /* A este ancho las líneas no caben enteras a un cuerpo legible, y `nowrap`
+     las dejaba cortadas en seco contra el overflow de la sección. Aquí el
+     titular fluye: si una línea necesita dos renglones, los ocupa. */
+  .intro-title {
+    font-size: clamp(1.4rem, 7.5vw, 2.2rem);
+    margin: 20px 0 40px;
+  }
+
+  .intro-line {
+    white-space: normal;
+  }
+
+  /* Red de seguridad para todos los titulares en pantallas estrechas: una
+     palabra que no quepa se parte en lugar de desbordar. Sin esto el corte
+     depende de acertar el tamaño de fuente para cada texto, y basta con que
+     alguien escriba un nombre de fiesta largo para volver a romperlo. */
+  .intro-title,
+  .next-title,
+  .archive-title,
+  .event-title,
+  .resident-panel-name,
+  .footer-cta {
+    overflow-wrap: break-word;
+  }
+
   .intro-columns {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -1986,10 +2011,6 @@ footer {
   }
 
   .next-title {
-    font-size: 1.9rem;
-  }
-
-  .intro-title {
     font-size: 1.9rem;
   }
 
