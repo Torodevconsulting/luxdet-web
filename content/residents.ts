@@ -20,6 +20,8 @@ import girlPartyingImage from "@/public/girl_partying1.jpg"
 import djBlueImage from "@/public/dj_blue1.jpg"
 import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 import djPinkImage from "@/public/dj_pink1.jpg"
+import djBejaguz from "@/public/bejaguz.jpeg"
+import djToro from "@/public/toro.jpeg"
 
 export type SocialPlatform = "instagram" | "soundcloud" | "mixcloud" | "ra"
 
@@ -70,11 +72,12 @@ export const residents: Resident[] = [
     slug: "bejaguz",
     name: "Bejaguz",
     role: "Founder · Tech House & Minimal",
-    image: djSetupImage,
+    image: djBejaguz,
     imageAlt: "DJ working the decks seen from behind, bathed in deep red light",
     bio: [
-      "Started Luxdet after two years of throwing parties in rooms that were never meant to hold a sound system. Books the line-ups and still plays the closing set most nights.",
-      "Leans on stripped-back house and the slower end of techno — long blends, no drops for the sake of drops. If the room is still moving at 3am, that is the whole point.",
+      "Bejaguz is an underground selector who chases groove over hype. The sound lives somewhere between rolling tech house, minimal, deep house, and melodic influences, with occasional Latin flavors woven in naturally rather than as a gimmick.",
+      "He delivers hypnotic grooves, deep basslines, and seamless transitions that keep the energy flowing. Influenced by the underground scene, every set is a journey where rhythm speaks louder than words.",
+      ,
     ],
     socials: sharedSocials,
     mixes: [
@@ -98,7 +101,7 @@ export const residents: Resident[] = [
     slug: "toro",
     name: "Toro",
     role: "Resident · Techno & Hardgroove",
-    image: djBlueImage,
+    image: djToro,
     imageAlt: "Club crowd in blue and pink light with the DJ booth behind",
     bio: [
       "Half of the Gus & Toro sessions and a fixture behind the Luxdet booth. Builds sets around groove rather than genre.",
