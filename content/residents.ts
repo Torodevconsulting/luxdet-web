@@ -1,18 +1,3 @@
-// ============================================================================
-// DATOS PROVISIONALES — NO PUBLICAR ASÍ
-//
-// Todos los residentes comparten el MISMO set y el MISMO handle, que son de
-// Toro. Sirve para maquetar y probar el reproductor, pero tal cual publicado
-// atribuiría el trabajo de una persona a las otras cinco, y la atribución
-// correcta del autor es justo lo que exigen los términos de SoundCloud.
-//
-// Antes de publicar hace falta, por residente: su set (o ninguno), sus redes
-// reales y su bio propia. Un residente sin `bio` es un caso soportado: su foto
-// se muestra pero no abre modal.
-//
-// Las fotos son de archivo del club, no retratos: se recortan a 3:4 por CSS.
-// ============================================================================
-
 import type { Performer } from "@/lib/events"
 import girlPartyingImage from "@/public/girl_partying1.jpg"
 import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
@@ -34,13 +19,6 @@ export type Mix = {
   title: string
 }
 
-/**
- * Un residente es un `Performer` con ficha propia, así que se puede pasar
- * directamente al line-up de un evento sin duplicar el nombre.
- *
- * `bio` en párrafos y no en un solo string: así se mapea a <p> sin partir texto
- * por saltos de línea en el componente. Sin `bio` la foto no es interactiva.
- */
 export type Resident = Performer & {
   slug: string
   role: string
