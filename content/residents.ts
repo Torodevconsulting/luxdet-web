@@ -14,10 +14,8 @@
 // ============================================================================
 
 import type { Performer } from "@/lib/events"
-import djSetupImage from "@/public/dj_setup_1.jpg"
 import djGreenImage from "@/public/dj_green1.jpg"
 import girlPartyingImage from "@/public/girl_partying1.jpg"
-import djBlueImage from "@/public/dj_blue1.jpg"
 import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 import djPinkImage from "@/public/dj_pink1.jpg"
 import djBejaguz from "@/public/bejaguz.jpeg"
@@ -77,7 +75,6 @@ export const residents: Resident[] = [
     bio: [
       "Bejaguz is an underground selector who chases groove over hype. The sound lives somewhere between rolling tech house, minimal, deep house, and melodic influences, with occasional Latin flavors woven in naturally rather than as a gimmick.",
       "He delivers hypnotic grooves, deep basslines, and seamless transitions that keep the energy flowing. Influenced by the underground scene, every set is a journey where rhythm speaks louder than words.",
-      ,
     ],
     socials: sharedSocials,
     mixes: [
