@@ -720,28 +720,135 @@ nav {
 }
 
 /* ---------------------------------------------------------------------------
-   INTRO — quiénes somos. Sustituye a los style={{}} que traía de v0.
+   INTRO — quiénes somos
+
+   Las líneas del titular entran desplazadas, así que la sección recorta: sin
+   esto, en móvil el desplazamiento lateral provoca scroll horizontal.
    --------------------------------------------------------------------------- */
-.intro-body {
-  max-width: 800px;
+#about {
+  overflow: hidden;
 }
 
+.intro-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.intro-grid span {
+  border-left: 1px solid #1c1c1c;
+}
+
+/* Por encima de la rejilla. Acotado a #about: .section-kicker la usan todas las
+   secciones y no hay motivo para darles a todas un contexto de apilado. */
+#about .section-kicker,
+.intro-headline,
+.intro-columns {
+  position: relative;
+  z-index: 1;
+}
+
+/* El tamaño lo fija la línea más larga, "FOR THE CULTURE": 13 mayúsculas que en
+   Syne avanzan ~0.99em cada una más dos espacios, o sea ~13.5em de ancho. A 7vw
+   se pasaba del contenedor y esa línea se partía en dos, rompiendo la
+   composición de tres. Con 5.4vw entra de una pieza en todos los anchos.
+   Si cambia el texto del titular, hay que rehacer esta cuenta. */
 .intro-title {
   font-family: var(--syne);
-  font-size: 3rem;
-  line-height: 1.1;
-  margin-bottom: 40px;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 5.4vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 25px 0 60px;
+}
+
+/* Cada línea ocupa el ancho completo para poder alinearse por su cuenta.
+   `nowrap` es lo que garantiza que ninguna se parta: la sección ya recorta con
+   overflow, así que un texto más largo se vería cortado en vez de descuadrar. */
+.intro-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.intro-line--left {
+  text-align: left;
+}
+
+.intro-line--center {
+  text-align: center;
+  /* Trazo en lugar de relleno. #6f6f6f sobre #0e0e0e da 3.8:1: por debajo del
+     4.5:1 de texto normal, por encima del 3:1 que WCAG pide desde 24px, y aquí
+     el cuerpo pasa de 90px. */
+  -webkit-text-stroke: 2px #6f6f6f;
+  color: transparent;
+}
+
+.intro-line--right {
+  text-align: right;
+}
+
+.intro-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 60px;
 }
 
 .intro-paragraph {
-  font-size: 1.5rem;
+  /* ~75 caracteres por línea era demasiado para texto secundario */
+  max-width: 60ch;
+  font-size: 1.05rem;
   font-weight: 300;
+  line-height: 1.6;
   /* 5.6:1 sobre var(--bg) */
   color: #8a8a8a;
 }
 
-.intro-paragraph + .intro-paragraph {
-  margin-top: 25px;
+/* ---------------------------------------------------------------------------
+   Entrada del titular.
+
+   El estado por defecto es VISIBLE: estas reglas solo actúan bajo
+   `.intro-reveal`, una clase que añade el JS. Si el script no se ejecuta —o el
+   sistema pide menos animación— nunca se aplica y el texto se lee desde el
+   primer render. Un `opacity: 0` de partida dejaría el titular invisible para
+   siempre si el observer fallase.
+
+   Solo se animan transform y opacity: son las dos que el navegador compone sin
+   recalcular el layout.
+   --------------------------------------------------------------------------- */
+.intro-reveal .intro-line {
+  opacity: 0;
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Cada línea entra desde el lado al que está alineada */
+.intro-reveal .intro-line--left {
+  transform: translateX(-60px);
+}
+
+.intro-reveal .intro-line--center {
+  transform: translateY(40px);
+}
+
+.intro-reveal .intro-line--right {
+  transform: translateX(60px);
+}
+
+.intro-reveal.is-visible .intro-line {
+  opacity: 1;
+  transform: none;
+}
+
+/* Escalonado: se arman en secuencia, no de golpe */
+.intro-reveal.is-visible .intro-line--center {
+  transition-delay: 80ms;
+}
+
+.intro-reveal.is-visible .intro-line--right {
+  transition-delay: 160ms;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1481,6 +1588,15 @@ body.dialog-open {
   .next-image {
     transition: none;
   }
+
+  /* Red de seguridad: el JS ya evita armar la entrada del titular cuando se
+     pide menos animación, pero si la clase llegara a aplicarse, el texto se
+     queda en su sitio y visible en lugar de desaparecer. */
+  .intro-reveal .intro-line {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @keyframes marquee {
@@ -1612,21 +1728,6 @@ footer {
   transition: transform 0.1s ease-out;
 }
 
-.reveal-text {
-  overflow: hidden;
-  display: inline-block;
-}
-
-.reveal-text span {
-  display: inline-block;
-  transform: translateY(100%);
-  transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
-}
-
-.reveal-text.active span {
-  transform: translateY(0px);
-}
-
 .divider {
   height: 1px;
   background: var(--gray);
@@ -1722,6 +1823,32 @@ footer {
   .next-meta-row {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+
+  /* Una columna, y las tres líneas del titular alineadas a la izquierda: con
+     este ancho, centrar o alinear a la derecha no se lee como composición sino
+     como descuadre. */
+  .intro-line--center,
+  .intro-line--right {
+    text-align: left;
+  }
+
+  .intro-line--center {
+    -webkit-text-stroke-width: 1px;
+  }
+
+  .intro-columns {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  /* Seis columnas saturan a este ancho; con tres respira */
+  .intro-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .intro-grid span:nth-child(n + 4) {
+    display: none;
   }
 
   .contact-form {

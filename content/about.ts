@@ -8,9 +8,14 @@
 
 export const about = {
   kicker: "Who we are",
-  title: "We build rooms for house, techno and minimal.",
+  /**
+   * Un solo titular partido en tres líneas, no tres titulares: se maqueta con
+   * <span> dentro de un único <h2>. Sin punto final — cada línea se lee como
+   * parte de la misma frase.
+   */
+  titleLines: ["For the people", "For the music", "For the culture"],
   paragraphs: [
-    "Luxdet is an independent event crew working across Ohio. No resident venue and no fixed formula: we look for the room that fits the night, from back rooms to warehouses.",
-    "The booking is built around the floor, not the headliner. Long sets, sound before lights, and a door policy that keeps the room worth dancing in.",
+    "Luxdet Culture was born in Columbus, Ohio, out of a demand the city was making out loud: nights that hold up on every front — musically, technically, and in the room they happen in. We build the nights we want to go to, and we do it for the people who want to dance.",
+    "We're the electronic arm of Luxdet, built around house, minimal and tech house. Every event we put on, from brunch sets to afterhours, is underground by choice and held to the same standard: the best groove electronic music can give you, a crowd that's safe, and not a single mainstream concession.",
   ],
 }
