@@ -24,7 +24,6 @@ export function SiteFooter() {
           <div>© 2026 LUXDET CULTURE All Rights Reserved</div>
           <div style={{ display: "flex", gap: "30px" }}>
             <span>INSTAGRAM</span>
-            <span>POSH</span>
           </div>
           <div>OHIO, USA</div>
         </div>
