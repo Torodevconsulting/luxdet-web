@@ -8,6 +8,7 @@ import {
   eventToJsonLd,
   eventVenueLabel,
   formatEventDate,
+  formatEventPrice,
   formatEventTimeRange,
   formatLineup,
   isPastEvent,
@@ -69,6 +70,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   // Mismo criterio que getUpcomingEvents: manda el fin, no el inicio, para que
   // una fiesta de 23:00 a 04:00 no se archive mientras se está celebrando.
   const isPast = isPastEvent(event)
+  const price = formatEventPrice(event)
   const { location } = event
 
   return (
@@ -143,13 +145,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                 !event.isAccessibleForFree && <p className="event-note">Tickets announced soon</p>
               )}
 
-              {event.isAccessibleForFree ? (
-                <span className="event-price">Free entry</span>
-              ) : (
-                event.offers?.price !== undefined && (
-                  <span className="event-price">{`$${event.offers.price}`}</span>
-                )
-              )}
+              {price && <span className="event-price">{price}</span>}
             </div>
           )}
 

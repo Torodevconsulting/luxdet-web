@@ -2,7 +2,12 @@ import Image from "next/image"
 import Link from "next/link"
 import { getUpcomingEvents } from "@/content/events"
 import { contactFormHref } from "@/content/site"
-import { formatEventDate, formatEventShortDate, formatEventTimeRange } from "@/lib/events"
+import {
+  formatEventDate,
+  formatEventPrice,
+  formatEventShortDate,
+  formatEventTimeRange,
+} from "@/lib/events"
 
 export function NextEvent() {
   // Dentro del componente a propósito: en una constante de módulo se evaluaría
@@ -33,6 +38,7 @@ export function NextEvent() {
   }
 
   const { location } = event
+  const price = formatEventPrice(event)
 
   return (
     <section id="next" className="next-event">
@@ -115,13 +121,7 @@ export function NextEvent() {
                 !event.isAccessibleForFree && <p className="next-note">Tickets announced soon</p>
               )}
 
-              {event.isAccessibleForFree ? (
-                <span className="next-price">Free entry</span>
-              ) : (
-                event.offers?.price !== undefined && (
-                  <span className="next-price">{`$${event.offers.price}`}</span>
-                )
-              )}
+              {price && <span className="next-price">{price}</span>}
 
               <Link className="next-detail-link" href={`/events/${event.slug}`}>
                 Full details

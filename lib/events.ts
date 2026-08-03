@@ -25,6 +25,16 @@ export type Offer = {
    */
   url?: string
   price?: number
+  /**
+   * El precio declarado es el más bajo de varios tramos (early bird, general,
+   * puerta…), no el único.
+   *
+   * Cambia también el JSON-LD: pasa de `Offer` con `price` —que afirma que ese
+   * es EL precio— a `AggregateOffer` con `lowPrice`, que es como schema.org
+   * expresa "desde". Declarar un mínimo como si fuera precio cerrado haría que
+   * Google anunciase una cifra a la que quizá ya no se pueda comprar.
+   */
+  priceFrom?: boolean
   priceCurrency?: "USD"
   availability?: "InStock" | "SoldOut" | "PreOrder"
 }
@@ -275,6 +285,23 @@ export function formatLineup(event: LuxdetEvent) {
 }
 
 /**
+ * Precio de entrada tal y como se muestra, o null si no hay nada que enseñar.
+ *
+ * Con `priceFrom` el importe se anuncia como mínimo: hay varios tramos y ese es
+ * el más bajo, así que enseñarlo a secas prometería un precio que puede haberse
+ * agotado.
+ */
+export function formatEventPrice(event: LuxdetEvent) {
+  if (event.isAccessibleForFree) return "Free entry"
+
+  const price = event.offers?.price
+  if (price === undefined) return null
+
+  const amount = `$${price}`
+  return event.offers?.priceFrom ? `Prices from ${amount}` : amount
+}
+
+/**
  * Número de edición para el archivo, sacado del sufijo del slug
  * ("substrata-004" → "004"). Sin sufijo numérico cae al año, así que nunca
  * queda vacío.
@@ -362,11 +389,17 @@ export function eventToJsonLd(event: LuxdetEvent, { url, siteOrigin }: { url: st
     ...(event.offers
       ? {
           offers: {
-            "@type": "Offer",
+            // AggregateOffer + lowPrice es como schema.org dice "desde"; Offer
+            // + price afirma que ese importe es el único que se cobra.
+            "@type": event.offers.priceFrom ? "AggregateOffer" : "Offer",
             // Google pide url en la oferta. Sin enlace de venta todavía, la
             // propia página del evento es donde se informa del precio.
             url: event.offers.url ?? url,
-            ...(event.offers.price !== undefined ? { price: event.offers.price } : {}),
+            ...(event.offers.price !== undefined
+              ? event.offers.priceFrom
+                ? { lowPrice: event.offers.price }
+                : { price: event.offers.price }
+              : {}),
             priceCurrency: event.offers.priceCurrency ?? "USD",
             ...(event.offers.availability
               ? { availability: `https://schema.org/${event.offers.availability}` }
