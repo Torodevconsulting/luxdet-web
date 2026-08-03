@@ -35,14 +35,18 @@ export const metadata: Metadata = {
       "Electronic music event production in Ohio. Lineups, venues and tickets.",
     images: ["/opengraph-image.png"],
   },
+  // Paquete generado para la marca. Ojo: no se declara ningún SVG a propósito.
+  // Los navegadores modernos prefieren el SVG cuando existe, así que el icon.svg
+  // que traía la plantilla de v0 se impondría sobre estos PNG.
   icons: {
     icon: [
-      { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
-      { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/luxdet_favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/luxdet_favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
-    apple: "/apple-icon.png",
+    shortcut: "/luxdet_favicon.ico",
+    apple: "/luxdet_apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest",
 }
 
 export default function RootLayout({

@@ -1,15 +1,15 @@
 // ============================================================================
-// DATOS PROVISIONALES — SUSTITUIR ANTES DE PUBLICAR
+// EVENTOS
 //
-// Nombres de fiesta, line-ups, direcciones, precios y URLs de entradas son
-// inventados para poder maquetar. Nada de esto es real todavía.
-// ============================================================================
+// Guía completa para añadir uno: docs/como-crear-un-evento.md
 //
-// Al añadir un evento:
-//   - startDate/endDate llevan offset explícito: -04:00 (EDT, marzo–noviembre)
-//     o -05:00 (EST, resto del año). Si te equivocas, el build falla.
+// Resumen:
+//   - startDate/endDate llevan offset explícito: -04:00 (EDT, marzo–octubre)
+//     o -05:00 (EST, noviembre–febrero). Si te equivocas, el build falla.
 //   - Las fiestas cruzan medianoche: endDate cae el día siguiente.
 //   - city se rellena siempre, aunque el venue esté por confirmar.
+//   - slug en kebab-case, único, y NO se cambia una vez publicado: es la URL.
+// ============================================================================
 
 import {
   assertValidEventOffsets,
@@ -18,110 +18,80 @@ import {
   selectUpcoming,
   type LuxdetEvent,
 } from "@/lib/events"
-import mainRoomImage from "@/public/main1.jpg"
-import djGreenImage from "@/public/dj_green1.jpg"
-import djSetupImage from "@/public/dj_setup_1.jpg"
-import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
+import latinNightImage from "@/public/latin_night.jpeg"
+
+// Plantilla de referencia. Copia este bloque, descoméntalo y rellénalo.
+// La imagen se importa arriba: import fooImage from "@/public/foo.jpg"
+//
+// {
+//   slug: "the-warehouse-005",
+//   name: "The Warehouse 005",
+//   startDate: "2026-09-12T23:00:00-04:00",
+//   endDate: "2026-09-13T04:00:00-04:00",
+//   location: {
+//     status: "confirmed",
+//     name: "Privé",
+//     streetAddress: "412 W Town St",
+//     city: "Columbus",
+//     region: "OH",
+//   },
+//   // ...o bien, si el venue no está confirmado:
+//   // location: { status: "tba" },
+//   city: "Columbus",
+//   performer: [{ name: "Nocta" }, { name: "Grün" }],
+//   offers: {
+//     url: "https://dice.fm/event/...",   // omitir si aún no hay venta
+//     price: 20,                          // número, sin comillas
+//     priceCurrency: "USD",
+//     availability: "InStock",            // o "PreOrder"
+//   },
+//   isAccessibleForFree: false,
+//   typicalAgeRange: "21+",
+//   image: fooImage,
+//   imageAlt: "Descripción real de la foto, en inglés, distinta en cada evento",
+//   description: "Una o dos frases. Es lo que sale en el preview de WhatsApp.",
+// },
 
 export const events: LuxdetEvent[] = [
   {
-    slug: "the-warehouse-004",
-    name: "The Warehouse 004",
-    startDate: "2026-08-14T23:00:00-04:00",
-    endDate: "2026-08-15T04:00:00-04:00",
-    // PENDIENTE: el venue es Privé, pero falta la dirección postal. Se queda en
-    // "tba" hasta tenerla — un texto de relleno aquí se renderiza en la página y
-    // entra en el JSON-LD como PostalAddress, así que Google lo tomaría por una
-    // dirección de verdad. Al conseguirla, volver al objeto completo.
-    location: { status: "tba" },
+    slug: "festival-latino-afters-2026",
+    name: "The Official Festival Latino Afters: Latin Night x Tech House",
+    startDate: "2026-08-22T21:00:00-04:00",
+    endDate: "2026-08-23T02:30:00-04:00",
+    // PENDIENTE: falta la dirección postal de The Cave Bar & Lounge.
+    // El evento usa dos venues (The Cave + Bodi Complex) con un solo ticket,
+    // pero schema.org/Event solo admite una location: The Cave es la sede
+    // principal y Bodi se menciona en longDescription.
+    location: {
+      status: "confirmed",
+      name: "The Cave Bar & Lounge",
+      streetAddress: "Lower Level, 122 E Main St",
+      city: "Columbus",
+      region: "OH",
+      PostalCode: "43215",
+    },
     city: "Columbus",
-    performer: [{ name: "Nocta" }, { name: "Sub/Urban" }, { name: "Marlo K." }],
-    // PROVISIONAL: falta la URL real de venta. Sin `url` la sección muestra
-    // "Tickets announced soon" en lugar de un CTA que no lleva a ningún sitio.
+    performer: [
+      { name: "Tweety" },
+      { name: "Bejaguz" },
+      { name: "Venee" },
+      { name: "DJ Cale" },
+    ],
     offers: {
-      price: 20,
+      url: "https://posh.vip/e/the-official-festival-latino-afters-latin-night-x-tech-house?u=luxdetpro",
+      price: 11.99,
       priceCurrency: "USD",
       availability: "InStock",
     },
     isAccessibleForFree: false,
     typicalAgeRange: "21+",
-    image: mainRoomImage,
-    imageAlt: "Packed main room swept by green laser beams beneath a mirror ball",
-    description: "Five hours of hypnotic techno and minimal in the main room.",
-  },
-  {
-    // Venue por confirmar: estado normal en esta escena, no un dato que falte.
-    slug: "minimal-depths-002",
-    name: "Minimal Depths 002",
-    startDate: "2026-09-05T22:00:00-04:00",
-    endDate: "2026-09-06T03:00:00-04:00",
-    location: { status: "tba" },
-    city: "Cleveland",
-    performer: [{ name: "Grün" }, { name: "Vellum" }],
-    offers: {
-      price: 15,
-      priceCurrency: "USD",
-      availability: "PreOrder",
-    },
-    isAccessibleForFree: false,
-    typicalAgeRange: "21+",
-  },
-  {
-    // Noviembre: el horario de verano ya terminó, por eso -05:00 y no -04:00.
-    slug: "warehouse-09",
-    name: "Warehouse 09",
-    startDate: "2026-11-14T23:00:00-05:00",
-    endDate: "2026-11-15T05:00:00-05:00",
-    location: { status: "tba" },
-    city: "Cincinnati",
-    performer: [{ name: "Nocta" }, { name: "Kessler" }],
-    isAccessibleForFree: false,
-    typicalAgeRange: "21+",
-  },
-  {
-    slug: "the-warehouse-001",
-    name: "The Warehouse 001",
-    startDate: "2026-06-12T23:00:00-04:00",
-    endDate: "2026-06-13T04:00:00-04:00",
-    // PENDIENTE: venue Privé, falta la dirección postal (ver the-warehouse-004).
-    location: { status: "tba" },
-    city: "Columbus",
-    performer: [{ name: "Grün" }, { name: "Marlo K." }],
-    isAccessibleForFree: false,
-    typicalAgeRange: "21+",
-    image: djGreenImage,
-    imageAlt: "DJ mixing behind laptops under green light with the crowd in the foreground",
-    description: "Sold out in nine days.",
-  },
-  {
-    slug: "the-warehouse-002",
-    name: "The Warehouse 002",
-    startDate: "2026-05-15T23:00:00-04:00",
-    endDate: "2026-05-16T04:00:00-04:00",
-    location: { status: "tba" },
-    city: "Cleveland",
-    performer: [{ name: "Vellum" }, { name: "Sub/Urban" }],
-    isAccessibleForFree: false,
-    typicalAgeRange: "21+",
-    image: djSetupImage,
-    imageAlt: "DJ working the decks seen from behind, bathed in deep red light",
-    description: "Warehouse night, location released twelve hours before doors.",
-  },
-  {
-    // Enero: horario estándar, -05:00.
-    slug: "the-cave-001",
-    name: "The Cave-001",
-    startDate: "2026-01-17T23:00:00-05:00",
-    endDate: "2026-01-18T04:00:00-05:00",
-    // PENDIENTE: venue Privé, falta la dirección postal (ver the-warehouse-004).
-    location: { status: "tba" },
-    city: "Columbus",
-    performer: [{ name: "Nocta" }, { name: "Grün" }, { name: "Kessler" }],
-    isAccessibleForFree: false,
-    typicalAgeRange: "21+",
-    image: bwPartyGirlImage,
-    imageAlt: "Black and white shot of people dancing shoulder to shoulder in a packed club",
-    description: "The one that started the series.",
+    image: latinNightImage,
+    imageAlt:
+      "Festival Latino Afters flyer: Latin Night x Tech House at The Cave and Bodi Complex",
+    description:
+      "Festival Latino doesn't stop when the sun goes down. Two venues, one ticket.",
+    longDescription:
+      "The Cave and Bodi Complex come together for the official afterparty, bringing two different sounds across two venues with one ticket. Tweety, Bejaguz, Venee, and DJ Cale take control with Latin rhythms, tech house, and nonstop energy built to carry the celebration late into the night.",
   },
 ]
 
