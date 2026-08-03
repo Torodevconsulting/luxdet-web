@@ -153,33 +153,38 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             </div>
           )}
 
-          {event.image && (
-            <div className="event-media">
-              <Image
-                src={event.image}
-                alt={event.imageAlt ?? ""}
-                className="event-image"
-                sizes="(max-width: 767px) 100vw, 900px"
-                priority
-              />
-            </div>
-          )}
-
-          {/* PROVISIONAL: falta `longDescription` en content/events.ts, así que
-              de momento se muestra la línea corta. */}
-          {event.longDescription ? (
-            <div className="event-body">
-              {event.longDescription.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          ) : (
-            event.description && (
+          {/* Texto a la izquierda y flyer a la derecha. El flyer va después en
+              el DOM para ese orden en escritorio; en móvil el CSS lo sube. */}
+          <div className="event-showcase">
+            {/* PROVISIONAL: falta `longDescription` en content/events.ts, así
+                que de momento se muestra la línea corta. */}
+            {event.longDescription ? (
               <div className="event-body">
-                <p>{event.description}</p>
+                {event.longDescription.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
-            )
-          )}
+            ) : (
+              event.description && (
+                <div className="event-body">
+                  <p>{event.description}</p>
+                </div>
+              )
+            )}
+
+            {event.image && (
+              <div className="event-media">
+                <Image
+                  src={event.image}
+                  alt={event.imageAlt ?? ""}
+                  className="event-image"
+                  /* Ancho de su columna en escritorio */
+                  sizes="(max-width: 767px) 100vw, 620px"
+                  priority
+                />
+              </div>
+            )}
+          </div>
 
           {isPast && event.gallery && event.gallery.length > 0 && (
             <div className="event-gallery">

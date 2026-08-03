@@ -850,19 +850,33 @@ nav {
   color: #8a8a8a;
 }
 
-.event-media {
+/* Texto y flyer en paralelo.
+   La columna del flyer lleva ancho explícito y no `auto`: una pista `auto` se
+   dimensiona con el tamaño intrínseco de la imagen (1080px de origen) sin tener
+   en cuenta el max-height que la encoge al pintarla, así que reservaba mucho
+   más espacio del que la foto acababa ocupando. */
+.event-showcase {
   margin-top: 70px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 620px);
+  gap: 60px;
+  align-items: start;
 }
 
+/* Llena su columna, con la altura acotada para que quepa en pantalla junto al
+   nav. `contain` es la red de seguridad: si un cartel viene apaisado o cuadrado
+   y el límite de altura actúa, se ajusta dentro sin deformarse. */
 .event-image {
+  display: block;
   width: 100%;
   height: auto;
+  max-height: 82vh;
+  object-fit: contain;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .event-body {
-  margin-top: 50px;
-  max-width: 720px;
+  max-width: 620px;
 }
 
 .event-body p {
@@ -1585,6 +1599,22 @@ footer {
   .next-meta-row {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+
+  /* Una columna, con el flyer arriba: en móvil el cartel es lo que engancha,
+     y el texto se lee después. */
+  .event-showcase {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .event-media {
+    order: -1;
+  }
+
+  .event-image {
+    max-height: none;
+    width: 100%;
   }
 
   /* Sin sitio para columnas: el texto se apila y la miniatura se coloca a su
