@@ -124,8 +124,8 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "vellum",
-    name: "Vellum",
+    slug: "Shoon",
+    name: "Shoon",
     role: "Resident · Minimal",
     image: bwPartyGirlImage,
     imageAlt: "Black and white portrait of a dancer on a packed floor",
@@ -137,8 +137,8 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "kessler",
-    name: "Kessler",
+    slug: "Nischel Soni",
+    name: "Nischel Soni",
     role: "Guest · Techno",
     image: djPinkImage,
     imageAlt: "DJ booth under pink neon with the crowd in front",
