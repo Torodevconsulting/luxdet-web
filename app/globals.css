@@ -788,11 +788,10 @@ nav {
 }
 
 /* Tratamiento, independiente de la alineación: así una línea puede ir centrada
-   sin quedarse hueca. #6f6f6f sobre #0e0e0e da 3.8:1 — por debajo del 4.5:1 de
-   texto normal, por encima del 3:1 que WCAG pide desde 24px, y aquí el cuerpo
-   pasa de 90px. */
+   sin quedarse hueca. El trazo en var(--accent) da 5.5:1 sobre el fondo, así
+   que cumple incluso el 4.5:1 de texto normal — mejor que el gris que tenía. */
 .intro-line--outline {
-  -webkit-text-stroke: 2px #6f6f6f;
+  -webkit-text-stroke: 2px var(--accent);
   color: transparent;
 }
 
@@ -1831,12 +1830,19 @@ footer {
     gap: 8px;
   }
 
-  /* Una columna, y las tres líneas del titular alineadas a la izquierda: con
-     este ancho, centrar o alinear a la derecha no se lee como composición sino
-     como descuadre. */
+  /* Una sola columna centrada: a este ancho las tres alineaciones distintas del
+     escritorio no se leen como composición, así que todo el bloque se alinea
+     igual y queda como una unidad. */
+  #about .section-kicker,
+  .intro-line--left,
   .intro-line--center,
-  .intro-line--right {
-    text-align: left;
+  .intro-line--right,
+  .intro-paragraph {
+    text-align: center;
+  }
+
+  .intro-paragraph {
+    margin-inline: auto;
   }
 
   .intro-line--outline {
