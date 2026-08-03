@@ -30,7 +30,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com`,
+      // challenges.cloudflare.com va en script-src, al revés que los
+      // reproductores de abajo: el widget de Turnstile se ejecuta en NUESTRA
+      // página, no dentro de un iframe con su propia CSP. La llamada del
+      // servidor a siteverify no necesita nada aquí — es servidor a servidor y
+      // el navegador no interviene.
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com https://challenges.cloudflare.com`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com",
       "font-src 'self' data:",
@@ -39,7 +44,8 @@ const securityHeaders = [
       // script-src y nuestro img-src no gobiernan lo que carga dentro. Harían
       // falta únicamente si cargásemos la Widget API en nuestra página o
       // pintásemos el artwork nosotros, y no hacemos ninguna de las dos.
-      'frame-src https://w.soundcloud.com https://player.mixcloud.com',
+      // Turnstile además monta un iframe para el desafío.
+      'frame-src https://w.soundcloud.com https://player.mixcloud.com https://challenges.cloudflare.com',
       `connect-src 'self'${isDev ? ' ws: http://localhost:*' : ''} https://va.vercel-scripts.com`,
       "frame-ancestors 'self'",
       "base-uri 'self'",

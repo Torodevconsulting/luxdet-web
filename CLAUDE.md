@@ -91,9 +91,22 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
      dominio de la plantilla de v0.
 3. Accesibilidad: el footer usa `#555` sobre `#0e0e0e` → contraste 2.6:1, falla
    WCAG AA. Subir a `#8a8a8a` o más. Relevante por ADA en EE.UU.
-4. JSON-LD `schema.org/Event` por evento (rich results de Google). Es la mayor
-   palanca de SEO para una productora de eventos.
-5. `app/robots.ts`, `app/sitemap.ts`, `app/opengraph-image.png`.
-6. Formulario de booking/newsletter: route handler + Resend + Cloudflare Turnstile.
+4. ~~JSON-LD `schema.org/Event` por evento.~~ **Hecho:** `eventToJsonLd()` en
+   `lib/events.ts`, inyectado en cada `/events/[slug]`, más un `Organization`
+   en la home. Comprobar con el Rich Results Test al desplegar con dominio real.
+5. ~~`app/robots.ts` y `app/sitemap.ts`.~~ **Hecho.** Queda **`opengraph-image.png`**
+   (1200×630): `layout.tsx` ya la declara en `openGraph` y `twitter`, pero el
+   archivo no existe, así que las previews al compartir salen sin imagen.
+6. ~~Formulario de contacto: route handler + Resend + Turnstile.~~ **Hecho.**
+   Es contacto de negocio, no newsletter (Luxdet no envía boletines). Pendiente
+   de que verifique el dominio en Resend: hasta entonces el remitente cae a
+   `onboarding@resend.dev`, que solo puede enviar a la dirección de la cuenta.
+7. **Límite de peticiones en `/api/contact`.** Turnstile frena bots, pero quien
+   resuelva un desafío puede enviar en bucle y quemar la cuota de Resend. El
+   endpoint no tiene tope por IP. Solución propuesta: `@upstash/ratelimit` con
+   Upstash Redis (tiene plan gratuito y es lo que encaja con Vercel), ventana
+   deslizante de unos 5 envíos por IP y hora, comprobada **después** de
+   Turnstile y **antes** de llamar a Resend, devolviendo 429. Mientras el
+   volumen sea bajo no urge, pero es la siguiente capa si aparece abuso.
 8. Endurecer la CSP quitando `'unsafe-inline'` de `style-src` cuando los estilos
-   en línea de `page.tsx` pasen a `globals.css`.
+   en línea de `site-footer.tsx` pasen a `globals.css`.

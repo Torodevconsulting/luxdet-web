@@ -6,6 +6,7 @@ import { Marquee } from "@/components/sections/marquee"
 import { Archive } from "@/components/sections/archive"
 import { Residents } from "@/components/sections/residents"
 import { Document } from "@/components/sections/document"
+import { ContactForm } from "@/components/sections/contact-form"
 import { siteName, siteUrl } from "@/content/site"
 import { organizationJsonLd, toJsonLdScript } from "@/lib/events"
 
@@ -41,6 +42,7 @@ export default function Home() {
         <Archive />
         <Residents />
         <Document />
+        <ContactForm />
       </main>
     </>
   )

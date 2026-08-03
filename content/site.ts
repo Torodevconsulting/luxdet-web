@@ -10,16 +10,15 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:300
 
 export const siteName = "LUXDET CULTURE"
 
-// PROVISIONAL: "viscera.studio" viene de la plantilla de v0 y no es un dominio
-// de Luxdet. Hace falta la dirección real: además del footer, es el destino del
-// CTA de captación cuando no hay fechas anunciadas.
-export const contactEmail = "hello@viscera.studio"
+export const contactEmail = "info.luxdetculture@gmail.com"
 
 /**
- * Destino del CTA cuando no hay eventos próximos. En la fase 3 pasará a ser
- * "#mailing-list"; hasta que esa sección exista, el ancla quedaría colgando.
+ * Destino de los CTA de contacto: el formulario de la home.
+ *
+ * Sustituye al antiguo `mailingListHref`. No hay newsletter: Luxdet no va a
+ * enviar boletines, y un alta que no recibe nada acaba en marcas de spam.
  */
-export const mailingListHref = `mailto:${contactEmail}`
+export const contactFormHref = "#contact-form"
 
 /** URL canónica de la página de un evento. */
 export function eventUrl(slug: string) {

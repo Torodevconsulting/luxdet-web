@@ -37,7 +37,7 @@ export function SiteNav() {
           </li>
         )}
         <li>
-          <Link href="/#contact">Contact</Link>
+          <Link href="/#contact-form">Contact</Link>
         </li>
       </ul>
     </nav>

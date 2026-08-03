@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { getUpcomingEvents } from "@/content/events"
-import { mailingListHref } from "@/content/site"
+import { contactFormHref } from "@/content/site"
 import { formatEventDate, formatEventShortDate, formatEventTimeRange } from "@/lib/events"
 
 export function NextEvent() {
@@ -21,11 +21,11 @@ export function NextEvent() {
           <p className="section-kicker">Up Next</p>
           <p className="next-title">No dates announced</p>
           <p className="next-empty-copy">
-            We are between rooms right now. Get on the list and you will know the date before it
+            We are between rooms right now. Get in touch and you will know the date before it
             goes public.
           </p>
-          <a className="cta-button" href={mailingListHref}>
-            Get on the list
+          <a className="cta-button" href={contactFormHref}>
+            Get in touch
           </a>
         </div>
       </section>

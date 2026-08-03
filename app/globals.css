@@ -950,6 +950,129 @@ nav {
 }
 
 /* ---------------------------------------------------------------------------
+   Formulario de contacto
+   --------------------------------------------------------------------------- */
+.contact-intro {
+  max-width: 620px;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  /* 5.6:1 sobre var(--bg) */
+  color: #8a8a8a;
+}
+
+.contact-fallback {
+  margin-top: 30px;
+  color: #8a8a8a;
+}
+
+.contact-fallback a {
+  color: var(--accent);
+}
+
+.contact-form {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  max-width: 860px;
+}
+
+.contact-field {
+  display: grid;
+  gap: 10px;
+}
+
+/* Ocupa las dos columnas: el mensaje y los bloques de ancho completo */
+.contact-field--full,
+.contact-turnstile,
+.contact-actions,
+.contact-feedback {
+  grid-column: 1 / -1;
+}
+
+.contact-field label {
+  font-family: var(--syne);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+/* Caja marcada, sin redondeos: el mismo lenguaje que el resto del sitio.
+   `color-scheme: dark` no es cosmético en el <select>: sin él, el desplegable
+   que dibuja el sistema sale en claro y desentona con todo lo demás. */
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  padding: 16px 18px;
+  border: 1px solid var(--gray);
+  background: #121212;
+  color: var(--fg);
+  font-family: var(--inter);
+  font-size: 1rem;
+  color-scheme: dark;
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+.contact-field select {
+  appearance: none;
+  /* Hueco para la flecha propia, que dibuja el fondo de abajo */
+  padding-right: 44px;
+  background-image: linear-gradient(45deg, transparent 50%, #8a8a8a 50%),
+    linear-gradient(135deg, #8a8a8a 50%, transparent 50%);
+  background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.contact-field input:focus-visible,
+.contact-field select:focus-visible,
+.contact-field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
+.contact-turnstile {
+  min-height: 65px;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* El botón hereda .cta-button; aquí solo el estado de envío en curso */
+.contact-actions .cta-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.contact-feedback:empty {
+  display: none;
+}
+
+.contact-feedback--ok {
+  color: var(--fg);
+  font-family: var(--syne);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* #ff3e00 sobre el fondo da 5.5:1, así que vale como texto de error */
+.contact-feedback--error {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
    RESIDENTS — roster de DJs
    --------------------------------------------------------------------------- */
 .residents-grid {
@@ -1599,6 +1722,16 @@ footer {
   .next-meta-row {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .contact-actions .cta-button {
+    width: 100%;
+    text-align: center;
   }
 
   /* Una columna, con el flyer arriba: en móvil el cartel es lo que engancha,
