@@ -139,7 +139,8 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                   {event.offers.availability === "SoldOut" ? "Sold out" : "Get tickets"}
                 </a>
               ) : (
-                <p className="event-note">Tickets announced soon</p>
+                // Si la entrada es libre no hay venta pendiente de anunciar.
+                !event.isAccessibleForFree && <p className="event-note">Tickets announced soon</p>
               )}
 
               {event.isAccessibleForFree ? (

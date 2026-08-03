@@ -217,6 +217,7 @@ nav {
   mix-blend-mode: difference;
 }
 
+/* Es un enlace a la home: hereda el color en lugar del azul de <a> por defecto */
 .logo {
   font-family: var(--syne);
   font-weight: 800;
@@ -225,6 +226,14 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo:focus-visible,
+.nav-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
 }
 
 /* Altura en em, no en px: queda ligada al cuerpo del texto y escala sola en
@@ -553,12 +562,161 @@ nav {
   margin: 30px 0 50px;
 }
 
+/* El nombre de la fiesta lleva a su página */
+.next-title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.next-title-link:hover {
+  color: var(--accent);
+}
+
+.next-title-link:focus-visible,
+.next-media-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+/* El flyer también: `block` para que el enlace no deje el hueco de línea base
+   bajo la imagen y el foco encuadre justo la foto. */
+.next-media-link {
+  display: block;
+}
+
 /* A color y sin filtro, al contrario que .project-image: el grayscale es el
    lenguaje del archivo, y esta foto es la que tiene que vender la fiesta. */
 .next-image {
   width: 100%;
   height: auto;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 0.3s;
+}
+
+.next-media-link:hover .next-image {
+  opacity: 0.85;
+}
+
+/* Índice del resto de fechas futuras. Es una lista, no fichas: sin foto, sin
+   line-up y sin CTA. */
+.next-more {
+  margin-top: 80px;
+}
+
+.next-more-heading {
+  font-family: var(--syne);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  /* 5.6:1 sobre var(--bg) */
+  color: #8a8a8a;
+  margin-bottom: 10px;
+}
+
+.next-more ul {
+  list-style: none;
+}
+
+/* La fila reparte el ancho entre el enlace al evento y el CTA de entradas.
+   El borde vive aquí y no en el enlace, porque ahora la fila tiene dos hijos. */
+.next-more-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 18px 0;
+  border-top: 1px solid var(--gray);
+}
+
+.next-more-row:last-child {
+  border-bottom: 1px solid var(--gray);
+}
+
+.next-more-link {
+  display: grid;
+  grid-template-columns: 110px 150px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  font-family: var(--syne);
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* Miniatura del flyer al final del enlace. 4:5 como el original, recortada sin
+   deformar. */
+.next-more-thumb {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  filter: grayscale(1);
+  transition: filter 0.5s;
+}
+
+.next-more-link:hover .next-more-thumb,
+.next-more-link:focus-visible .next-more-thumb {
+  filter: grayscale(0);
+}
+
+/* Mismo lenguaje que .cta-button pero en tamaño de fila de índice */
+.next-more-cta {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 2px solid var(--fg);
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.next-more-cta:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  /* Texto oscuro sobre naranja: 5.5:1, frente al 3.5:1 del blanco */
+  color: var(--bg);
+}
+
+.next-more-cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.next-more-link:hover {
+  color: var(--accent);
+}
+
+.next-more-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.next-more-date,
+.next-more-city {
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: #8a8a8a;
+  transition: color 0.3s;
+}
+
+/* El nombre es lo que se lee primero; fecha y ciudad quedan de apoyo. */
+.next-more-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.next-more-link:hover .next-more-date,
+.next-more-link:hover .next-more-city {
+  color: var(--accent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -1176,7 +1334,14 @@ body.dialog-open {
   .project-image,
   .cta-button,
   .mix-listen,
-  .dialog-close {
+  .dialog-close,
+  .next-more-link,
+  .next-more-date,
+  .next-more-city,
+  .next-more-thumb,
+  .next-more-cta,
+  .next-title-link,
+  .next-image {
     transition: none;
   }
 }
@@ -1420,6 +1585,44 @@ footer {
   .next-meta-row {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+
+  /* Sin sitio para columnas: el texto se apila y la miniatura se coloca a su
+     derecha; el CTA pasa debajo, a lo ancho. */
+  .next-more-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .next-more-link {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "date  thumb"
+      "city  thumb"
+      "name  thumb";
+    gap: 4px 16px;
+    align-items: start;
+  }
+
+  .next-more-date {
+    grid-area: date;
+  }
+
+  .next-more-city {
+    grid-area: city;
+  }
+
+  .next-more-name {
+    grid-area: name;
+  }
+
+  .next-more-thumb {
+    grid-area: thumb;
+    align-self: center;
+  }
+
+  .next-more-cta {
+    text-align: center;
   }
 
   .cta-button {

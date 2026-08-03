@@ -82,8 +82,8 @@ export const residents: Resident[] = [
     ],
   },
   {
-    slug: "grun",
-    name: "Grün",
+    slug: "Venee",
+    name: "Venee",
     role: "Resident · Deep House & Dub Techno",
     image: djGreenImage,
     imageAlt: "DJ mixing behind laptops under green light",

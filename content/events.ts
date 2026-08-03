@@ -19,6 +19,7 @@ import {
   type LuxdetEvent,
 } from "@/lib/events"
 import latinNightImage from "@/public/latin_night.jpeg"
+import brunchPartyImage from "@/public/brunchparty.jpg"
 
 // Plantilla de referencia. Copia este bloque, descoméntalo y rellénalo.
 // La imagen se importa arriba: import fooImage from "@/public/foo.jpg"
@@ -54,6 +55,31 @@ import latinNightImage from "@/public/latin_night.jpeg"
 
 export const events: LuxdetEvent[] = [
   {
+    // La fecha del flyer ("08.09") es ambigua; confirmada como 9 de agosto,
+    // que además cae en domingo.
+    slug: "brunch-party-arepa-passport",
+    name: "Brunch Party",
+    startDate: "2026-08-09T11:00:00-04:00",
+    endDate: "2026-08-09T15:00:00-04:00",
+    location: {
+      status: "confirmed",
+      name: "Cilantro Arepas & Tapas X Bodega Kitchen + Craft Beer",
+      streetAddress: "1044 N High St",
+      city: "Columbus",
+      region: "OH",
+      postalCode: "43201",
+    },
+    city: "Columbus",
+    performer: [{ name: "Bejaguz" }],
+    // Sin `offers`: no hay entrada que vender, la entrada es libre.
+    isAccessibleForFree: true,
+    typicalAgeRange: "18+",
+    image: brunchPartyImage,
+    imageAlt:
+      "Brunch Party flyer: a black takeaway box with the event name in green, next to the Arepa Passport booklet",
+    description: "The official launch of The Arepa Passport.",
+  },
+  {
     slug: "festival-latino-afters-2026",
     name: "The Official Festival Latino Afters: Latin Night x Tech House",
     startDate: "2026-08-22T21:00:00-04:00",
@@ -68,7 +94,7 @@ export const events: LuxdetEvent[] = [
       streetAddress: "Lower Level, 122 E Main St",
       city: "Columbus",
       region: "OH",
-      PostalCode: "43215",
+      postalCode: "43215",
     },
     city: "Columbus",
     performer: [
@@ -90,8 +116,10 @@ export const events: LuxdetEvent[] = [
       "Festival Latino Afters flyer: Latin Night x Tech House at The Cave and Bodi Complex",
     description:
       "Festival Latino doesn't stop when the sun goes down. Two venues, one ticket.",
-    longDescription:
-      "The Cave and Bodi Complex come together for the official afterparty, bringing two different sounds across two venues with one ticket. Tweety, Bejaguz, Venee, and DJ Cale take control with Latin rhythms, tech house, and nonstop energy built to carry the celebration late into the night.",
+    longDescription: [
+      "The Cave and Bodi Complex come together for the official afterparty, bringing two different sounds across two venues with one ticket.",
+      "Tweety, Bejaguz, Venee, and DJ Cale take control with Latin rhythms, tech house, and nonstop energy built to carry the celebration late into the night.",
+    ],
   },
 ]
 

@@ -2,11 +2,19 @@ import { getUpcomingEvents } from "@/content/events"
 import { formatEventShortDate } from "@/lib/events"
 
 // La animación .marquee-inner desplaza -50% con el contenido duplicado, así que
-// una copia tiene que llenar al menos el ancho del viewport o se ven huecos.
-// En .huge-type cada entrada ya mide varias pantallas, así que tres bastan:
-// más entradas solo alargan el recorrido y aceleran el desplazamiento aparente
-// para una misma duración.
-const MIN_ENTRIES_PER_RUN = 3
+// una copia tiene que llenar al menos el ancho del viewport o aparece un hueco
+// al girar el bucle.
+//
+// El mínimo va en caracteres y no en número de entradas porque "Aug 22 ·
+// Columbus" y "Nov 14 · Cincinnati" no miden lo mismo, y con una sola fecha
+// anunciada la diferencia decide si hay hueco o no.
+//
+// De dónde sale el 60: el cuerpo del ticker es 7vw y en Syne cada carácter
+// avanza ~0.6em, así que una copia mide n × 0.042 viewports. Con 24 caracteres
+// ya se cubre una pantalla sea cual sea su ancho —el cuerpo es proporcional—,
+// y 60 deja el doble de margen para el mínimo de 2.5rem que fija el clamp en
+// móvil.
+const MIN_CHARS_PER_RUN = 60
 
 export function Marquee() {
   // Dentro del componente, para que se recalcule en cada regeneración.
@@ -22,8 +30,10 @@ export function Marquee() {
     dates.length > 0 ? dates.map((date) => date.label) : ["Luxdet", "Culture", "Music", "Dance"]
 
   const run: string[] = []
-  while (run.length < MIN_ENTRIES_PER_RUN) {
+  let length = 0
+  while (length < MIN_CHARS_PER_RUN) {
     run.push(...entries)
+    length = run.join(" — ").length
   }
   const text = `${run.join(" — ")} — `
 

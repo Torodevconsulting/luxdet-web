@@ -2,12 +2,15 @@ import Image from "next/image"
 import Link from "next/link"
 import { getUpcomingEvents } from "@/content/events"
 import { mailingListHref } from "@/content/site"
-import { formatEventDate, formatEventTimeRange } from "@/lib/events"
+import { formatEventDate, formatEventShortDate, formatEventTimeRange } from "@/lib/events"
 
 export function NextEvent() {
   // Dentro del componente a propósito: en una constante de módulo se evaluaría
   // una sola vez y `revalidate` no cambiaría nunca de evento.
-  const [event] = getUpcomingEvents()
+  //
+  // selectUpcoming() ya devuelve el orden ascendente por startDate, así que el
+  // primero es el más cercano y `rest` sale ordenado sin tocar nada.
+  const [event, ...rest] = getUpcomingEvents()
 
   // Entre temporadas no hay fechas. La sección no desaparece: es justo cuando
   // más interesa captar contactos.
@@ -38,7 +41,11 @@ export function NextEvent() {
 
         <div className="next-layout">
           <div className="next-main">
-            <h2 className="next-title">{event.name}</h2>
+            <h2 className="next-title">
+              <Link className="next-title-link" href={`/events/${event.slug}`}>
+                {event.name}
+              </Link>
+            </h2>
 
             <p className="next-when">
               <time dateTime={event.startDate}>{formatEventDate(event.startDate)}</time>
@@ -103,7 +110,9 @@ export function NextEvent() {
                   {event.offers.availability === "SoldOut" ? "Sold out" : "Get tickets"}
                 </a>
               ) : (
-                <p className="next-note">Tickets announced soon</p>
+                // Si la entrada es libre no hay ninguna venta pendiente de
+                // anunciar: la nota contradiría al "Free entry" de al lado.
+                !event.isAccessibleForFree && <p className="next-note">Tickets announced soon</p>
               )}
 
               {event.isAccessibleForFree ? (
@@ -122,17 +131,75 @@ export function NextEvent() {
 
           {event.image && (
             <div className="next-media">
-              <Image
-                src={event.image}
-                alt={event.imageAlt ?? ""}
-                className="next-image"
-                /* La columna es de ancho fijo, así que el sizes deja de ser
-                   relativo al viewport y pasa a declarar esos píxeles. */
-                sizes="(max-width: 767px) 100vw, (max-width: 1024px) 300px, 400px"
-              />
+              {/* El aria-label da el nombre accesible del enlace: el alt de la
+                  imagen describe el flyer, no a dónde lleva pulsarlo. */}
+              <Link
+                className="next-media-link"
+                href={`/events/${event.slug}`}
+                aria-label={`${event.name} — full details`}
+              >
+                <Image
+                  src={event.image}
+                  alt={event.imageAlt ?? ""}
+                  className="next-image"
+                  /* La columna es de ancho fijo, así que el sizes deja de ser
+                     relativo al viewport y pasa a declarar esos píxeles. */
+                  sizes="(max-width: 767px) 100vw, (max-width: 1024px) 300px, 400px"
+                />
+              </Link>
             </div>
           )}
         </div>
+
+        {/* Índice del resto de fechas. Con un solo evento futuro no se
+            renderiza nada — ni el encabezado, que se quedaría suelto sobre una
+            lista vacía.
+
+            La fila no es un único enlace envolvente: lleva dos destinos (la
+            página del evento y la venta de entradas) y un <a> dentro de otro
+            <a> es HTML inválido. */}
+        {rest.length > 0 && (
+          <div className="next-more">
+            <h3 className="next-more-heading">Also coming</h3>
+            <ul>
+              {rest.map((upcoming) => (
+                <li className="next-more-row" key={upcoming.slug}>
+                  <Link className="next-more-link" href={`/events/${upcoming.slug}`}>
+                    <span className="next-more-date">
+                      <time dateTime={upcoming.startDate}>
+                        {formatEventShortDate(upcoming.startDate)}
+                      </time>
+                    </span>
+                    <span className="next-more-city">{upcoming.city}</span>
+                    <span className="next-more-name">{upcoming.name}</span>
+                    {upcoming.image && (
+                      // Decorativa: el nombre de la fiesta ya está en el enlace
+                      <Image
+                        src={upcoming.image}
+                        alt=""
+                        className="next-more-thumb"
+                        sizes="80px"
+                      />
+                    )}
+                  </Link>
+
+                  {upcoming.offers?.url && (
+                    <a
+                      className="next-more-cta"
+                      href={upcoming.offers.url}
+                      // Varios "Get tickets" en la misma lista son
+                      // indistinguibles fuera de contexto: el lector de
+                      // pantalla necesita saber de qué fiesta.
+                      aria-label={`Get tickets for ${upcoming.name}`}
+                    >
+                      {upcoming.offers.availability === "SoldOut" ? "Sold out" : "Get tickets"}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   )

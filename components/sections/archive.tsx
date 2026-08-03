@@ -59,17 +59,27 @@ export function Archive() {
   // Dentro del componente, para que se recalcule en cada regeneración.
   const past = getPastEvents()
 
+  // Sin nada que archivar la sección no se renderiza: `section` reserva 100px
+  // arriba y abajo más 100vh de alto mínimo, así que un archivo vacío se comía
+  // dos pantallas para no decir nada.
+  //
+  // El estado vacío se conserva en globals.css (.archive-empty) y aquí abajo,
+  // porque vuelve a hacer falta el día que haya eventos pasados que no se
+  // puedan listar — entonces sí hay algo que explicar, y no es lo mismo que no
+  // tener archivo:
+  //
+  //   <p className="archive-empty">The first night is still ahead of us.</p>
+  if (past.length === 0) return null
+
   return (
     <section id="archive" className="container">
       <div className="sticky-type" aria-hidden="true">
         Archive
       </div>
 
-      {past.length === 0 ? (
-        <p className="archive-empty">The first night is still ahead of us.</p>
-      ) : (
-        past.map((event, i) => <ArchiveRow key={event.slug} event={event} reversed={i % 2 === 1} />)
-      )}
+      {past.map((event, i) => (
+        <ArchiveRow key={event.slug} event={event} reversed={i % 2 === 1} />
+      ))}
     </section>
   )
 }
