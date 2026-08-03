@@ -285,15 +285,15 @@ nav {
   white-space: nowrap;
 }
 
-/* Trazo gris sobre fondo plano. Ya no lleva drop-shadow: esa sombra existía
-   para despegar el texto del detalle de la foto, que ha desaparecido.
-   #6f6f6f sobre #0e0e0e da 3.8:1 — por debajo del 4.5:1 de texto normal, pero
-   por encima del 3:1 que WCAG pide a partir de 24px, y aquí el cuerpo ronda
-   los 200px. */
+/* Trazo en el naranja de marca sobre fondo plano, igual que "For the music" de
+   la sección WHO WE ARE. Ya no lleva drop-shadow: esa sombra existía para
+   despegar el texto del detalle de la foto, que ha desaparecido.
+   var(--accent) sobre var(--bg) da 5.5:1, así que cumple el 4.5:1 de texto
+   normal — el gris que había antes se quedaba en 3.8:1. */
 .hero-title-container .hero-tagline {
   padding-left: 5vw;
   opacity: 1;
-  -webkit-text-stroke: 2px #6f6f6f;
+  -webkit-text-stroke: 2px var(--accent);
 }
 
 .parallax-text {
@@ -1991,8 +1991,9 @@ footer {
     font-size: 9vw;
     /* Sin sangría: la que traía lo desplazaba fuera del viewport */
     padding-left: 0;
-    /* A 35px de cuerpo, un trazo de 2px casi rellena la letra hueca */
-    -webkit-text-stroke: 1px var(--fg);
+    /* A 35px de cuerpo, un trazo de 2px casi rellena la letra hueca. Solo
+       cambia el grosor: el color sigue siendo el de la regla base. */
+    -webkit-text-stroke-width: 1px;
   }
 
   section {
