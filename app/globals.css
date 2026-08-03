@@ -774,21 +774,26 @@ nav {
   white-space: nowrap;
 }
 
+/* Alineación */
 .intro-line--left {
   text-align: left;
 }
 
 .intro-line--center {
   text-align: center;
-  /* Trazo en lugar de relleno. #6f6f6f sobre #0e0e0e da 3.8:1: por debajo del
-     4.5:1 de texto normal, por encima del 3:1 que WCAG pide desde 24px, y aquí
-     el cuerpo pasa de 90px. */
-  -webkit-text-stroke: 2px #6f6f6f;
-  color: transparent;
 }
 
 .intro-line--right {
   text-align: right;
+}
+
+/* Tratamiento, independiente de la alineación: así una línea puede ir centrada
+   sin quedarse hueca. #6f6f6f sobre #0e0e0e da 3.8:1 — por debajo del 4.5:1 de
+   texto normal, por encima del 3:1 que WCAG pide desde 24px, y aquí el cuerpo
+   pasa de 90px. */
+.intro-line--outline {
+  -webkit-text-stroke: 2px #6f6f6f;
+  color: transparent;
 }
 
 .intro-columns {
@@ -842,12 +847,13 @@ nav {
   transform: none;
 }
 
-/* Escalonado: se arman en secuencia, no de golpe */
-.intro-reveal.is-visible .intro-line--center {
+/* Escalonado: se arman en secuencia, no de golpe. Va por posición y no por
+   modificador porque dos líneas comparten alineación y se dispararían a la vez. */
+.intro-reveal.is-visible .intro-line:nth-child(2) {
   transition-delay: 80ms;
 }
 
-.intro-reveal.is-visible .intro-line--right {
+.intro-reveal.is-visible .intro-line:nth-child(3) {
   transition-delay: 160ms;
 }
 
@@ -1833,7 +1839,7 @@ footer {
     text-align: left;
   }
 
-  .intro-line--center {
+  .intro-line--outline {
     -webkit-text-stroke-width: 1px;
   }
 

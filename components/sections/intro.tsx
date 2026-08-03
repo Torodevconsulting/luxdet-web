@@ -1,9 +1,13 @@
 import { IntroReveal } from "@/components/intro-reveal"
 import { about } from "@/content/about"
 
-// Alineación y tratamiento de cada línea del titular. El orden es el de
-// about.titleLines: izquierda rellena, centro en trazo, derecha rellena.
-const LINE_MODIFIERS = ["intro-line--left", "intro-line--center", "intro-line--right"]
+// Alineación y tratamiento van por separado: la de en medio es la única hueca,
+// pero centrada lo están las dos primeras. El orden es el de about.titleLines.
+const LINE_MODIFIERS = [
+  "intro-line--center",
+  "intro-line--center intro-line--outline",
+  "intro-line--right",
+]
 
 const GRID_COLUMNS = 6
 
