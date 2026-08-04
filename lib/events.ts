@@ -17,6 +17,15 @@ export type Performer = {
   url?: string
 }
 
+/**
+ * Oferta de entradas. Se modela siempre como `AggregateOffer`: los precios son
+ * escalonados (early bird, general, puerta) y se venden en una plataforma
+ * externa, así que no existe un precio único que declarar.
+ *
+ * Por eso el campo se llama `lowPrice` y no `price`: `price` afirmaría que ese
+ * importe es el que se cobra, y además no es una propiedad válida de
+ * AggregateOffer.
+ */
 export type Offer = {
   /**
    * Enlace de venta. Opcional a propósito: el precio se suele anunciar antes de
@@ -24,19 +33,18 @@ export type Offer = {
    * enlace roto.
    */
   url?: string
-  price?: number
-  /**
-   * El precio declarado es el más bajo de varios tramos (early bird, general,
-   * puerta…), no el único.
-   *
-   * Cambia también el JSON-LD: pasa de `Offer` con `price` —que afirma que ese
-   * es EL precio— a `AggregateOffer` con `lowPrice`, que es como schema.org
-   * expresa "desde". Declarar un mínimo como si fuera precio cerrado haría que
-   * Google anunciase una cifra a la que quizá ya no se pueda comprar.
-   */
-  priceFrom?: boolean
+  /** Tramo más barato disponible. */
+  lowPrice?: number
+  /** Tope, si se conoce. Muchas veces no, porque la plataforma lo gestiona. */
+  highPrice?: number
   priceCurrency?: "USD"
   availability?: "InStock" | "SoldOut" | "PreOrder"
+  /**
+   * Cuándo abren las ventas, en ISO con offset como startDate. Sirve para los
+   * eventos que se anuncian antes de que haya entradas. Si no está, no se
+   * emite.
+   */
+  validFrom?: string
 }
 
 /**
@@ -129,8 +137,15 @@ function writtenOffset(iso: string) {
  */
 export function assertValidEventOffsets(events: readonly LuxdetEvent[]) {
   for (const event of events) {
-    for (const field of ["startDate", "endDate"] as const) {
-      const iso = event[field]
+    // offers.validFrom entra aquí también: lleva offset como las demás y un
+    // error ahí anunciaría mal cuándo abren las ventas.
+    const dates: [string, string | undefined][] = [
+      ["startDate", event.startDate],
+      ["endDate", event.endDate],
+      ["offers.validFrom", event.offers?.validFrom],
+    ]
+
+    for (const [field, iso] of dates) {
       if (!iso) continue
 
       if (Number.isNaN(new Date(iso).getTime())) {
@@ -287,18 +302,18 @@ export function formatLineup(event: LuxdetEvent) {
 /**
  * Precio de entrada tal y como se muestra, o null si no hay nada que enseñar.
  *
- * Con `priceFrom` el importe se anuncia como mínimo: hay varios tramos y ese es
- * el más bajo, así que enseñarlo a secas prometería un precio que puede haberse
- * agotado.
+ * Nunca un importe a secas: los tramos los gestiona la plataforma de venta, así
+ * que enseñar solo el más barato prometería un precio que puede haberse
+ * agotado. Con tope conocido se muestra el rango; sin él, "From $X".
  */
 export function formatEventPrice(event: LuxdetEvent) {
   if (event.isAccessibleForFree) return "Free entry"
 
-  const price = event.offers?.price
-  if (price === undefined) return null
+  const { lowPrice, highPrice } = event.offers ?? {}
+  if (lowPrice === undefined) return null
 
-  const amount = `$${price}`
-  return event.offers?.priceFrom ? `Prices from ${amount}` : amount
+  if (highPrice !== undefined) return `$${lowPrice} – $${highPrice}`
+  return `From $${lowPrice}`
 }
 
 /**
@@ -389,21 +404,24 @@ export function eventToJsonLd(event: LuxdetEvent, { url, siteOrigin }: { url: st
     ...(event.offers
       ? {
           offers: {
-            // AggregateOffer + lowPrice es como schema.org dice "desde"; Offer
-            // + price afirma que ese importe es el único que se cobra.
-            "@type": event.offers.priceFrom ? "AggregateOffer" : "Offer",
+            // Siempre AggregateOffer: precios escalonados y venta en plataforma
+            // externa. Sus propiedades de precio son lowPrice/highPrice, nunca
+            // `price`, que pertenece a Offer.
+            "@type": "AggregateOffer",
             // Google pide url en la oferta. Sin enlace de venta todavía, la
             // propia página del evento es donde se informa del precio.
             url: event.offers.url ?? url,
-            ...(event.offers.price !== undefined
-              ? event.offers.priceFrom
-                ? { lowPrice: event.offers.price }
-                : { price: event.offers.price }
+            ...(event.offers.lowPrice !== undefined
+              ? { lowPrice: event.offers.lowPrice }
+              : {}),
+            ...(event.offers.highPrice !== undefined
+              ? { highPrice: event.offers.highPrice }
               : {}),
             priceCurrency: event.offers.priceCurrency ?? "USD",
             ...(event.offers.availability
               ? { availability: `https://schema.org/${event.offers.availability}` }
               : {}),
+            ...(event.offers.validFrom ? { validFrom: event.offers.validFrom } : {}),
           },
         }
       : {}),

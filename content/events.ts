@@ -105,10 +105,9 @@ export const events: LuxdetEvent[] = [
     ],
     offers: {
       url: "https://posh.vip/e/the-official-festival-latino-afters-latin-night-x-tech-house?u=luxdetpro",
-      // El más bajo de los tramos de Posh: se muestra como "Prices from" y en
-      // el JSON-LD sale como AggregateOffer/lowPrice.
-      price: 11.99,
-      priceFrom: true,
+      // El más bajo de los tramos de Posh. No hay `highPrice` porque el tope lo
+      // gestiona la plataforma y no lo conocemos.
+      lowPrice: 11.99,
       priceCurrency: "USD",
       availability: "InStock",
     },
