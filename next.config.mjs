@@ -37,7 +37,9 @@ const securityHeaders = [
       // el navegador no interviene.
       `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com https://challenges.cloudflare.com`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://images.unsplash.com",
+      // Todas las imágenes son locales. Si algún día se sirve una imagen
+      // remota, hay que añadir su dominio aquí Y en images.remotePatterns.
+      "img-src 'self' data: blob:",
       "font-src 'self' data:",
       // Reproductores embebidos de las fichas de residente. Solo frame-src: el
       // iframe es un contexto de navegación con su propia CSP, así que nuestro
@@ -58,9 +60,6 @@ const nextConfig = {
   images: {
     // Next 16 exige declarar las calidades usadas. Por defecto solo admite [75].
     qualities: [75, 90],
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-    ],
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
