@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "LUXDET — Electronic Music Events",
+    default: "LUXDET CULTURE — Electronic Music Events",
     template: "%s | LUXDET",
   },
   description:
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "LUXDET CULTURE",
-    title: "LUXDET CULTURE— Electronic Music Events",
+    title: "LUXDET CULTURE — Electronic Music Events",
     description:
       "Electronic music event production in Ohio. Lineups, venues and tickets.",
     images: ["/opengraph-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "LUXDET CULTURE— Electronic Music Events",
+    title: "LUXDET CULTURE — Electronic Music Events",
     description:
       "Electronic music event production in Ohio. Lineups, venues and tickets.",
     images: ["/opengraph-image.png"],
