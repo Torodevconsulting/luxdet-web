@@ -89,8 +89,8 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
      atribuiría su trabajo a los demás. No publicar así.
    - Falta el email real: `content/site.ts` sigue apuntando a `viscera.studio`,
      dominio de la plantilla de v0.
-3. Accesibilidad: el footer usa `#555` sobre `#0e0e0e` → contraste 2.6:1, falla
-   WCAG AA. Subir a `#8a8a8a` o más. Relevante por ADA en EE.UU.
+3. ~~Accesibilidad: el footer usa `#555` sobre `#0e0e0e`.~~ **Hecho:** pasó a
+   `#8a8a8a` (5.6:1) al quitarle los estilos en línea.
 4. ~~JSON-LD `schema.org/Event` por evento.~~ **Hecho:** `eventToJsonLd()` en
    `lib/events.ts`, inyectado en cada `/events/[slug]`, más un `Organization`
    en la home. Comprobar con el Rich Results Test al desplegar con dominio real.
@@ -108,5 +108,7 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
    deslizante de unos 5 envíos por IP y hora, comprobada **después** de
    Turnstile y **antes** de llamar a Resend, devolviendo 429. Mientras el
    volumen sea bajo no urge, pero es la siguiente capa si aparece abuso.
-8. Endurecer la CSP quitando `'unsafe-inline'` de `style-src` cuando los estilos
-   en línea de `site-footer.tsx` pasen a `globals.css`.
+8. Endurecer la CSP quitando `'unsafe-inline'` de `style-src`. **Ya no quedan
+   `style={{}}` propios**: el último era el del footer. Antes de tocar la CSP hay
+   que comprobar los que emite `next/image` por su cuenta (el `placeholder="blur"`
+   y los estilos de `fill`), que son inline y siguen necesitando permiso.

@@ -1,7 +1,7 @@
 import type { Performer } from "@/lib/events"
-import girlPartyingImage from "@/public/girl_partying1.jpg"
+import djVenee from "@/public/venee.jpg"
 import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
-import djPinkImage from "@/public/dj_pink1.jpg"
+import djShoon from "@/public/shoon.jpg"
 import djBejaguz from "@/public/bejaguz.jpeg"
 import djToro from "@/public/toro.jpeg"
 import djTweety from "@/public/tweety.png"
@@ -91,7 +91,7 @@ export const residents: Resident[] = [
     slug: "Venee",
     name: "Venee",
     role: "Resident · Minimal & Micro-house",
-    image: girlPartyingImage,
+    image: djVenee,
     imageAlt: "Dancer with an arm raised under teal and pink lights",
     bio: [
       "Joined the roster in 2025 after a run of guest slots. Plays fast and keeps the mixes tight.",
@@ -104,7 +104,7 @@ export const residents: Resident[] = [
     slug: "Shoon",
     name: "Shoon",
     role: "Resident · Minimal",
-    image: bwPartyGirlImage,
+    image: djShoon,
     imageAlt: "Black and white portrait of a dancer on a packed floor",
     bio: [
       "The quietest set of the night and usually the one people ask about afterwards. Minimal in the strict sense: very little happening, all of it on purpose.",
@@ -116,8 +116,8 @@ export const residents: Resident[] = [
   {
     slug: "Nischel Soni",
     name: "Nischel Soni",
-    role: "Guest · Techno",
-    image: djPinkImage,
+    role: "Resident · Techno",
+    image: bwPartyGirlImage,
     imageAlt: "DJ booth under pink neon with the crowd in front",
     bio: [
       "Not a resident but close enough to be on the wall. Plays two or three Luxdet nights a year, always the hard ones.",

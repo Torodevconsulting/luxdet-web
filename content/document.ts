@@ -6,12 +6,12 @@
 // de noches pasadas, mezclando horizontales y verticales.
 // ============================================================================
 
-import mainRoomImage from "@/public/main1.jpg"
-import djBlueImage from "@/public/dj_blue1.jpg"
-import girlPartyingImage from "@/public/girl_partying1.jpg"
-import djGreenImage from "@/public/dj_green1.jpg"
-import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
-import djSetupImage from "@/public/dj_setup_1.jpg"
+import partyImageOne from "@/public/party1.jpg"
+import partyImageTwo from "@/public/party2.jpg"
+import partyImageThree from "@/public/party3.jpg"
+import partyImageFour from "@/public/party4.jpg"
+import partyImageFive from "@/public/party5.jpg"
+import partyImageSix from "@/public/party8.jpg"
 
 export type DocumentPhoto = {
   id: string
@@ -22,32 +22,32 @@ export type DocumentPhoto = {
 export const documentPhotos: DocumentPhoto[] = [
   {
     id: "main-room",
-    image: mainRoomImage,
+    image: partyImageOne,
     alt: "Packed main room swept by green laser beams beneath a mirror ball",
   },
   {
     id: "crowd-blue",
-    image: djBlueImage,
+    image: partyImageTwo,
     alt: "Club crowd in blue and pink light with the DJ booth in the background",
   },
   {
     id: "dancer-teal",
-    image: girlPartyingImage,
+    image: partyImageThree,
     alt: "Dancer with an arm raised amid teal and pink lights",
   },
   {
     id: "booth-green",
-    image: djGreenImage,
+    image: partyImageFour,
     alt: "DJ mixing behind laptops under green light",
   },
   {
     id: "floor-bw",
-    image: bwPartyGirlImage,
+    image: partyImageFive,
     alt: "Black and white shot of a packed dance floor",
   },
   {
     id: "decks-red",
-    image: djSetupImage,
+    image: partyImageSix,
     alt: "DJ working the decks seen from behind under deep red light",
   },
 ]

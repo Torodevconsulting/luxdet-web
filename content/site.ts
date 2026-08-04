@@ -12,6 +12,17 @@ export const siteName = "LUXDET CULTURE"
 
 export const contactEmail = "info.luxdetculture@gmail.com"
 
+export const instagram = {
+  handle: "@luxdetculture",
+  url: "https://instagram.com/luxdetculture",
+}
+
+/** Crédito del estudio que desarrolla el sitio. */
+export const developer = {
+  name: "Toro Developments",
+  url: "https://torodevelop.com",
+}
+
 /**
  * Destino de los CTA de contacto: el formulario de la home.
  *

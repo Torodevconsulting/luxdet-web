@@ -1722,6 +1722,62 @@ footer {
   color: var(--accent);
 }
 
+/* Sustituye a los estilos en línea que traía el footer de v0. El color pasa de
+   #555 (2.6:1, fallaba WCAG AA) a #8a8a8a (5.6:1). */
+.footer-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--syne);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 30px;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+}
+
+.footer-link:focus-visible,
+.footer-credit-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Crédito del estudio, centrado y separado del resto del pie */
+.footer-credit {
+  margin-top: 60px;
+  text-align: center;
+  font-family: var(--syne);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.footer-credit-link {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  transition: color 0.3s;
+}
+
+.footer-credit-link:hover {
+  color: var(--accent);
+}
+
 .blob {
   position: fixed;
   width: 400px;
@@ -2061,15 +2117,21 @@ footer {
     padding: 50px 0;
   }
 
-  footer > div > div[style*="display: flex"] {
-    flex-direction: column !important;
-    gap: 20px !important;
-    align-items: flex-start !important;
+  /* Antes esto seleccionaba por el atributo style en línea del footer. Al pasar
+     a clases, aquel selector se quedaba sin apuntar a nada. */
+  .footer-meta {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
   }
 
-  footer > div > div[style*="display: flex"] > div[style*="display: flex"] {
-    flex-direction: column !important;
-    gap: 10px !important;
+  .footer-socials {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-credit {
+    margin-top: 45px;
   }
 
   .blob {

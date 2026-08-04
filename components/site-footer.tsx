@@ -1,32 +1,43 @@
-import { contactEmail } from "@/content/site"
+import { contactEmail, developer, instagram } from "@/content/site"
 
-// Va dentro de <main> porque es donde está hoy: sacarlo cambiaría el HTML.
 export function SiteFooter() {
   return (
     <footer id="contact">
       <div className="container">
         <div className="footer-cta">
-          {/* El email vive en content/site.ts: es el mismo que usa el CTA de
-              captación de NEXT y sigue siendo un placeholder de la plantilla. */}
           <a href={`mailto:${contactEmail}`}>LET&apos;S — DANCE</a>
         </div>
+
         <div className="divider"></div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontFamily: "var(--syne)",
-            fontSize: "0.8rem",
-            textTransform: "uppercase",
-            color: "#555",
-          }}
-        >
+
+        {/* Sin style en línea: era lo último que quedaba del template de v0 y
+            lo que bloqueaba quitar 'unsafe-inline' de style-src en la CSP. */}
+        <div className="footer-meta">
           <div>© 2026 LUXDET CULTURE All Rights Reserved</div>
-          <div style={{ display: "flex", gap: "30px" }}>
-            <span>INSTAGRAM</span>
+          <div className="footer-socials">
+            <a
+              className="footer-link"
+              href={instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {instagram.handle}
+            </a>
           </div>
           <div>OHIO, USA</div>
         </div>
+
+        <p className="footer-credit">
+          {"Developed by "}
+          <a
+            className="footer-credit-link"
+            href={developer.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {developer.name}
+          </a>
+        </p>
       </div>
     </footer>
   )
