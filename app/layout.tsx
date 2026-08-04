@@ -4,6 +4,7 @@ import { Syne, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { CursorBlob } from "@/components/cursor-blob"
 import { SiteNav } from "@/components/site-nav"
+import { NavAutoHide } from "@/components/nav-auto-hide"
 import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/content/site"
 import "./globals.css"
@@ -64,6 +65,7 @@ export default function RootLayout({
             correcto semánticamente. */}
         <CursorBlob />
         <SiteNav />
+        <NavAutoHide />
         {children}
         <SiteFooter />
         <Analytics />
