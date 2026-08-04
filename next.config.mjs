@@ -57,10 +57,6 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
-  images: {
-    // Next 16 exige declarar las calidades usadas. Por defecto solo admite [75].
-    qualities: [75, 90],
-  },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
