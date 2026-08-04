@@ -70,7 +70,9 @@ export const residents: Resident[] = [
       "Dub techno, deep house and the occasional detour into breaks when the floor asks for it.",
     ],
     socials: sharedSocials,
-    mixes: sharedMixes,
+    mixes: [
+  { platform: "soundcloud", url: "https://soundcloud.com/user-581659015/erotic-hau5-deep-tech-minimal", title: "Erotic Hau5 - Deep Tech / Minimal" },
+    ],
   },
   {
     slug: "toro",
