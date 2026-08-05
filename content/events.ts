@@ -20,6 +20,7 @@ import {
 } from "@/lib/events"
 import latinNightImage from "@/public/latin_night.jpeg"
 import brunchPartyImage from "@/public/brunchparty.jpg"
+import dropCulture from "@/public/dropcultureparty.jpeg"
 
 // Plantilla de referencia. Copia este bloque, descoméntalo y rellénalo.
 // La imagen se importa arriba: import fooImage from "@/public/foo.jpg"
@@ -54,16 +55,47 @@ import brunchPartyImage from "@/public/brunchparty.jpg"
 // },
 
 export const events: LuxdetEvent[] = [
+    {
+    slug: "drop-culture-vol-ii",
+    name: "Drop Culture Vol. II",
+    startDate: "2026-07-25T21:00:00-04:00",
+    endDate: "2026-07-26T03:00:00-04:00",
+    location: {
+      status: "confirmed",
+      name: "The Cave",
+      streetAddress: "46 E Long St",
+      city: "Columbus",
+      region: "OH",
+      postalCode: "43215",
+    },
+    city: "Columbus",
+    performer: [
+      { name: "Venee" },
+      { name: "Bejaguz" },
+      { name: "Khun Sol" },
+      { name: "Shoon" },
+    ],
+    isAccessibleForFree: false,
+    typicalAgeRange: "21+",
+    image: dropCulture,
+    imageAlt:
+      "Drop Culture Vol. II flyer: figure in a Luxdet tee facing a psychedelic Columbus skyline",
+    description:
+      "Four DJs, six hours of tech house at The Cave. The second volume of Drop Culture.",
+    longDescription: [
+      "Drop Culture returned to The Cave for its second volume, and the room answered. Venee, Bejaguz, Khun Sol and Shoon took turns building something that never let up — hypnotic, rolling tech house that kept the floor moving from the first hour to the last.",
+      "The night was built on more than a good lineup. Luxdet Culture and The Cave programmed it as a conversation with the crowd: introducing sounds people hadn't heard yet, pushing the direction the scene is moving in, and making room for the tracks that built electronic music in the first place.",
+      "That's the work. Not just booking a good night, but adding something to the culture that gave us all of this.",
+    ],
+  },
   {
-    // La fecha del flyer ("08.09") es ambigua; confirmada como 9 de agosto,
-    // que además cae en domingo.
     slug: "brunch-party-arepa-passport",
-    name: "Brunch Party",
+    name: "Brunch Party: The Arepa Passport Launch",
     startDate: "2026-08-09T11:00:00-04:00",
     endDate: "2026-08-09T15:00:00-04:00",
     location: {
       status: "confirmed",
-      name: "Cilantro Arepas & Tapas X Bodega Kitchen + Craft Beer",
+      name: "Cilantro Latin Fusion",
       streetAddress: "1044 N High St",
       city: "Columbus",
       region: "OH",
@@ -71,13 +103,18 @@ export const events: LuxdetEvent[] = [
     },
     city: "Columbus",
     performer: [{ name: "Bejaguz" }],
-    // Sin `offers`: no hay entrada que vender, la entrada es libre.
     isAccessibleForFree: true,
-    typicalAgeRange: "18+",
+    typicalAgeRange: "all ages",
     image: brunchPartyImage,
     imageAlt:
-      "Brunch Party flyer: a black takeaway box with the event name in green, next to the Arepa Passport booklet",
-    description: "The official launch of The Arepa Passport.",
+      "Brunch Party flyer: black Smiley Box on a cream background announcing the Arepa Passport launch",
+    description:
+      "Free daytime brunch party with DJ Bejaguz. Only 100 Arepa Passports available.",
+    longDescription: [
+      "Not every Luxdet night happens at night. Cilantro Latin Fusion and Bodega open the doors at 11am on Sunday for a daytime party built around food, and Bejaguz takes the booth for four hours of house and Latin rhythms while the kitchen works.",
+      "The occasion is the official launch of the Arepa Passport: twelve arepas, a sticker for each one, and a route through the Cilantro Republic of Latin Flavor that ends with you as a citizen. Only 100 passports exist for the launch.",
+      "Free entry, all ages. Doors at 11am, last track at 3pm.",
+    ],
   },
   {
     slug: "festival-latino-afters-2026",
