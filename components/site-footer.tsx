@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { contactEmail, developer, instagram } from "@/content/site"
 
 export function SiteFooter() {
@@ -23,6 +24,11 @@ export function SiteFooter() {
             >
               {instagram.handle}
             </a>
+            {/* El pie es donde se busca por costumbre, aunque el enlace que de
+                verdad se usa es el que va bajo el botón del formulario. */}
+            <Link className="footer-link" href="/privacy">
+              Privacy
+            </Link>
           </div>
           <div>OHIO, USA</div>
         </div>

@@ -1101,6 +1101,7 @@ nav {
 .contact-field--full,
 .contact-turnstile,
 .contact-actions,
+.contact-privacy,
 .contact-feedback {
   grid-column: 1 / -1;
 }
@@ -1184,6 +1185,122 @@ nav {
 /* #ff3e00 sobre el fondo da 5.5:1, así que vale como texto de error */
 .contact-feedback--error {
   color: var(--accent);
+}
+
+/* Aviso de privacidad bajo el botón. Va aquí y no solo en el pie porque este es
+   el momento en que alguien está a punto de entregar sus datos. */
+.contact-privacy {
+  font-size: 0.9rem;
+  /* 7.4:1 sobre var(--bg) */
+  color: #a0a0a0;
+}
+
+.contact-privacy a {
+  color: var(--accent);
+}
+
+.contact-privacy a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------------------------
+   Páginas de texto legal (/privacy)
+   Aquí manda la legibilidad: sin huge-type, sin revelados al hacer scroll y con
+   la línea acotada. El lenguaje visual se mantiene solo en los encabezados.
+   --------------------------------------------------------------------------- */
+
+/* Mismo hueco bajo el nav fijo que .event-page */
+.legal-page {
+  padding: 220px 0 120px;
+}
+
+/* Bastante más contenido que .event-title: es un rótulo de página, no un cartel */
+.legal-title {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.legal-updated {
+  margin-top: 22px;
+  font-family: var(--syne);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  /* 5.6:1: es una etiqueta corta, no cuerpo de texto */
+  color: #8a8a8a;
+}
+
+/* 65ch aunque .container mida 1200px: a ancho completo una línea de texto legal
+   se pierde de un renglón al siguiente. */
+.legal-body {
+  max-width: 65ch;
+  margin-top: 70px;
+}
+
+.legal-section + .legal-section {
+  margin-top: 55px;
+}
+
+.legal-section h2,
+.legal-contact h2 {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* #8a8a8a (5.6:1) cumple, pero cansa en párrafos largos. #a0a0a0 sube a 7.4:1
+   sin sacar el cuerpo del texto del gris que usa el resto del sitio. */
+.legal-section p {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #a0a0a0;
+}
+
+.legal-contact {
+  margin-top: 70px;
+  padding-top: 35px;
+  border-top: 1px solid var(--gray);
+}
+
+/* Los navegadores pintan <address> en cursiva por defecto */
+.legal-contact address {
+  margin-top: 22px;
+  display: grid;
+  gap: 10px;
+  font-style: normal;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #a0a0a0;
+  /* Que la caja no se estire hasta los 65ch: son tres líneas cortas */
+  justify-items: start;
+}
+
+.legal-contact-name {
+  font-family: var(--syne);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.legal-contact a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.legal-contact a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1940,6 +2057,7 @@ footer {
   .next-title,
   .archive-title,
   .event-title,
+  .legal-title,
   .resident-panel-name,
   .footer-cta {
     overflow-wrap: break-word;
@@ -1967,6 +2085,16 @@ footer {
   .contact-actions .cta-button {
     width: 100%;
     text-align: center;
+  }
+
+  /* A 375px, 65ch ya no acota nada (manda el ancho de la pantalla) pero el
+     texto sí necesita menos aire por arriba. */
+  .legal-body {
+    margin-top: 50px;
+  }
+
+  .legal-page {
+    padding: 180px 0 90px;
   }
 
   /* Una columna, con el flyer arriba: en móvil el cartel es lo que engancha,

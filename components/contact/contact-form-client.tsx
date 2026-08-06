@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import Script from "next/script"
 import { useRef, useState, type FormEvent } from "react"
 import { INQUIRY_TYPES, MESSAGE_MAX } from "@/lib/contact"
@@ -126,6 +127,14 @@ export function ContactFormClient({ siteKey }: { siteKey: string }) {
             {status === "submitting" ? "Sending…" : "Send message"}
           </button>
         </div>
+
+        {/* Bajo el botón y no en letra pequeña al final: es el punto en que
+            alguien está a punto de entregarnos su nombre, correo y teléfono. */}
+        <p className="contact-privacy">
+          {"We only use what you send here to reply to you. See our "}
+          <Link href="/privacy">privacy policy</Link>
+          {"."}
+        </p>
 
         {/* Anuncios para lector de pantalla: `status` no interrumpe, `alert` sí,
             que es lo que corresponde a cada caso. */}
