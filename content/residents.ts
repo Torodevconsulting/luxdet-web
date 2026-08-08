@@ -165,9 +165,9 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "nischel-soni",
-    name: "Nischel Soni",
-    role: "Resident · Techno",
+    slug: "Gussi",
+    name: "Gussi",
+    role: "Guest · Techno",
     image: bwPartyGirlImage,
     imageAlt: "DJ booth under pink neon with the crowd in front",
     bio: [
