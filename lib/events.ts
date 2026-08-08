@@ -15,6 +15,19 @@ export type Performer = {
   name: string
   /** Perfil externo: SoundCloud, Instagram… */
   url?: string
+  /**
+   * Referencia al residente del mismo artista en content/residents.ts, por su
+   * `slug`. Opcional porque en cada cartel hay invitados que no están en el
+   * roster (Khun Sol, Offlimits, DJ Cale): esos salen solo con su nombre.
+   *
+   * Se referencia por cadena y no por objeto para que content/events.ts se
+   * pueda seguir editando a mano copiando el bloque de plantilla de su
+   * cabecera. Lo que evita el fallo silencioso de una referencia mal escrita es
+   * `assertResidentRefs` en lib/lineup.ts, que rompe el build.
+   *
+   * Ojo: no confundir con `LuxdetEvent.slug`, que sí es un segmento de URL.
+   */
+  residentSlug?: string
 }
 
 /**

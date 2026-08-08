@@ -17,9 +17,36 @@ export type Mix = {
   platform: "soundcloud" | "mixcloud"
   url: string
   title: string
+  /**
+   * De quién es el set. Es obligatorio y no admite valor por defecto a
+   * propósito: el line-up de la página de evento SOLO monta mixes "own", y ese
+   * filtro tiene que ser una decisión escrita, no una casualidad.
+   *
+   * - "own": el set es de este DJ. Es el único que se reproduce bajo su nombre
+   *   en un evento.
+   * - "placeholder": material provisional prestado de otro (hoy, el set de Toro
+   *   repetido en varias fichas). Se sigue viendo en el modal de residentes,
+   *   donde la línea de crédito dice de quién es, pero NUNCA en el line-up de un
+   *   evento: un reproductor rotulado "Gus & Toro DJ Sessions" bajo el nombre de
+   *   otra persona le atribuye su trabajo a quien no lo hizo.
+   *
+   * Al ser un campo requerido, añadir un mix obliga a declarar cuál es: nada se
+   * cuela en el line-up por olvido.
+   */
+  attribution: "own" | "placeholder"
 }
 
 export type Resident = Performer & {
+  /**
+   * Identificador interno, kebab-case ASCII. NO es una URL: no existe ninguna
+   * ruta /residents/[slug]. Se usa como `data-resident`, como `id` en el DOM y
+   * como referencia desde `performer[].residentSlug` en content/events.ts.
+   *
+   * El kebab-case no es cosmético. Estos slugs se interpolan en el `id` que
+   * lee `aria-labelledby` del diálogo, y ese atributo es una LISTA de IDs
+   * separados por espacios: un slug con espacio ("Nischel Soni") apuntaba a dos
+   * IDs inexistentes y dejaba al diálogo sin nombre accesible.
+   */
   slug: string
   role: string
   image: import("next/image").StaticImageData
@@ -35,11 +62,17 @@ const sharedSocials: Social[] = [
   { platform: "soundcloud", url: "https://soundcloud.com/torointhehouse" },
 ]
 
+// PENDIENTE: es el set de Toro repetido en las fichas de Venee, Shoon y
+// Nischel Soni porque aún no tenemos sus SoundCloud. Marcado como
+// "placeholder", que es lo que lo mantiene fuera del line-up de los eventos.
+// Al llegar sus mixes reales, cada uno se mueve a su ficha con "own" y aparece
+// solo en las páginas de evento donde toque.
 const sharedMixes: Mix[] = [
   {
     platform: "soundcloud",
     url: "https://soundcloud.com/torointhehouse/gus-i-toro-dj-sessions",
     title: "Gus & Toro DJ Sessions",
+    attribution: "placeholder",
   },
 ]
 
@@ -56,11 +89,16 @@ export const residents: Resident[] = [
     ],
     socials: sharedSocials,
     mixes: [
-  { platform: "soundcloud", url: "https://soundcloud.com/bejaguz/bejaguz-rolling-tech-set", title: "Bejaguz - Rolling Tech" },
+      {
+        platform: "soundcloud",
+        url: "https://soundcloud.com/bejaguz/bejaguz-rolling-tech-set",
+        title: "Bejaguz - Rolling Tech",
+        attribution: "own",
+      },
     ],
   },
   {
-    slug: "Tweety",
+    slug: "tweety",
     name: "Tweety",
     role: "Resident · Minimal & Tech House",
     image: djTweety,
@@ -71,7 +109,12 @@ export const residents: Resident[] = [
     ],
     socials: sharedSocials,
     mixes: [
-  { platform: "soundcloud", url: "https://soundcloud.com/user-581659015/erotic-hau5-deep-tech-minimal", title: "Erotic Hau5 - Deep Tech / Minimal" },
+      {
+        platform: "soundcloud",
+        url: "https://soundcloud.com/user-581659015/erotic-hau5-deep-tech-minimal",
+        title: "Erotic Hau5 - Deep Tech / Minimal",
+        attribution: "own",
+      },
     ],
   },
   {
@@ -86,11 +129,17 @@ export const residents: Resident[] = [
     ],
     socials: sharedSocials,
     mixes: [
-  { platform: "soundcloud", url: "https://soundcloud.com/torointhehouse/gus-i-toro-dj-sessions", title: "Gus & Toro DJ Sessions" },
+      {
+        platform: "soundcloud",
+        url: "https://soundcloud.com/torointhehouse/gus-i-toro-dj-sessions",
+        title: "Gus & Toro DJ Sessions",
+        // En la ficha de Toro sí es suyo, al contrario que en las otras tres.
+        attribution: "own",
+      },
     ],
   },
   {
-    slug: "Venee",
+    slug: "venee",
     name: "Venee",
     role: "Resident · Minimal & Micro-house",
     image: djVenee,
@@ -103,7 +152,7 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "Shoon",
+    slug: "shoon",
     name: "Shoon",
     role: "Resident · Minimal",
     image: djShoon,
@@ -116,7 +165,7 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "Nischel Soni",
+    slug: "nischel-soni",
     name: "Nischel Soni",
     role: "Resident · Techno",
     image: bwPartyGirlImage,

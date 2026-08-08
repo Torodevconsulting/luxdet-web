@@ -18,6 +18,8 @@ import {
   selectUpcoming,
   type LuxdetEvent,
 } from "@/lib/events"
+import { assertResidentRefs } from "@/lib/lineup"
+import { residents } from "@/content/residents"
 import latinNightImage from "@/public/latin_night.jpeg"
 import brunchPartyImage from "@/public/brunchparty.jpg"
 import dropCulture from "@/public/dropcultureparty.jpeg"
@@ -70,11 +72,12 @@ export const events: LuxdetEvent[] = [
       postalCode: "43215",
     },
     city: "Columbus",
+    // Khun Sol no está en el roster: sin residentSlug sale solo con su nombre.
     performer: [
-      { name: "Venee" },
-      { name: "Bejaguz" },
+      { name: "Venee", residentSlug: "venee" },
+      { name: "Bejaguz", residentSlug: "bejaguz" },
       { name: "Khun Sol" },
-      { name: "Shoon" },
+      { name: "Shoon", residentSlug: "shoon" },
     ],
     isAccessibleForFree: false,
     typicalAgeRange: "21+",
@@ -103,7 +106,7 @@ export const events: LuxdetEvent[] = [
       postalCode: "43201",
     },
     city: "Columbus",
-    performer: [{ name: "Bejaguz" }],
+    performer: [{ name: "Bejaguz", residentSlug: "bejaguz" }],
     isAccessibleForFree: true,
     typicalAgeRange: "all ages",
     image: brunchPartyImage,
@@ -137,12 +140,21 @@ export const events: LuxdetEvent[] = [
     city: "Columbus",
     // En orden alfabético, como los anuncia el flyer ("A/Z"): no hay cabeza de
     // cartel, y cambiarlo aquí implicaría una jerarquía que el flyer no da.
+    // Offlimits no está en el roster: sin residentSlug sale solo con su nombre.
     performer: [
-      { name: "Bejaguz" },
+      { name: "Bejaguz", residentSlug: "bejaguz" },
       { name: "Offlimits" },
-      { name: "Shoon" },
-      { name: "Venee" },
+      { name: "Shoon", residentSlug: "shoon" },
+      { name: "Venee", residentSlug: "venee" },
     ],
+    offers: {
+      url: "https://posh.vip/e/grvhaus-presents?u=grovhaus&_t=mskg1blg&os=ios&src=event_page",
+      // El más bajo de los tramos de Posh. No hay `highPrice` porque el tope lo
+      // gestiona la plataforma y no lo conocemos.
+      lowPrice: 17.49,
+      priceCurrency: "USD",
+      availability: "InStock",
+    },
     // PENDIENTE: sin `offers` porque la venta aún no está confirmada. Se omite
     // el bloque entero en lugar de dejarlo a medias: así la ficha muestra
     // "Tickets announced soon" y el JSON-LD no declara una oferta inexistente.
@@ -182,10 +194,11 @@ export const events: LuxdetEvent[] = [
       postalCode: "43215",
     },
     city: "Columbus",
+    // DJ Cale no está en el roster: sin residentSlug sale solo con su nombre.
     performer: [
-      { name: "Tweety" },
-      { name: "Bejaguz" },
-      { name: "Venee" },
+      { name: "Tweety", residentSlug: "tweety" },
+      { name: "Bejaguz", residentSlug: "bejaguz" },
+      { name: "Venee", residentSlug: "venee" },
       { name: "DJ Cale" },
     ],
     offers: {
@@ -216,6 +229,9 @@ export const events: LuxdetEvent[] = [
 // módulo porque solo miran los datos, no el instante actual.
 assertValidEventOffsets(events)
 assertValidSlugs(events)
+// Un residentSlug mal escrito no rompe la página: deja a ese DJ sin
+// reproductor y no avisa. Aquí sí avisa.
+assertResidentRefs(events, residents)
 
 // Ojo: estas funciones NO se pueden cachear en una constante de módulo. Se
 // llaman dentro de cada componente para que el resultado se recalcule en cada

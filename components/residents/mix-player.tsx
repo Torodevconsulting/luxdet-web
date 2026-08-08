@@ -1,12 +1,26 @@
 "use client"
 
-import { useState } from "react"
 import type { Mix } from "@/content/residents"
-import { useResidentDialog } from "./resident-dialog-root"
 
-// Dos puertas: abrir el modal no monta ningún iframe. Solo al pulsar LISTEN se
-// carga el widget, de modo que leer una bio no descarga cientos de KB de
-// terceros y ese clic sirve además como gesto de consentimiento del embed.
+// Reproductor embebido, sin estado propio ni conocimiento de dónde vive.
+//
+// Antes leía el contexto del diálogo de residentes, lo que lo ataba a ese modal:
+// montarlo en cualquier otro sitio lanzaba, porque useResidentDialog() exige su
+// provider. Ahora `active` llega por props y cada consumidor decide qué
+// significa "activo":
+//
+//   - components/residents/resident-mix-player.tsx → mientras siga abierta la
+//     misma apertura del diálogo en la que se pulsó LISTEN.
+//   - components/events/event-lineup.tsx → mientras sea el DJ del line-up cuyo
+//     LISTEN se pulsó el último.
+//
+// Lo que NO es negociable en ninguno de los dos: cuando `active` pasa a false,
+// React desmonta el <iframe> y el audio se corta de verdad. Ocultarlo con CSS lo
+// dejaría sonando sin forma de pararlo.
+//
+// Y la primera puerta sigue igual: hasta que se pulsa LISTEN no hay iframe, así
+// que la página no descarga cientos de KB de terceros y ese clic vale además
+// como gesto de consentimiento del embed.
 
 const PLAYER_HEIGHT = { soundcloud: 166, mixcloud: 60 } as const
 
@@ -28,21 +42,18 @@ function embedSrc(mix: Mix) {
   return `https://player.mixcloud.com/widget/iframe/?feed=${feed}&hide_cover=1&mini=1&autoplay=1`
 }
 
-export function MixPlayer({ slug, mix }: { slug: string; mix: Mix }) {
-  const { openSlug, openId } = useResidentDialog()
-  // En qué apertura del diálogo se pulsó LISTEN.
-  const [listeningAt, setListeningAt] = useState<number | null>(null)
-
-  // Estado derivado, no sincronizado con un efecto: el iframe existe solo
-  // mientras siga abierta la misma apertura en la que se pidió. Al cerrar,
-  // `openId` cambia y React desmonta el nodo, así que el audio se corta de
-  // verdad; ocultarlo con CSS lo dejaría sonando sin forma de pararlo. Y al
-  // reabrir la ficha vuelve a aparecer el botón en lugar de arrancar solo.
-  const active = openSlug === slug && listeningAt === openId
-
+export function MixPlayer({
+  mix,
+  active,
+  onListen,
+}: {
+  mix: Mix
+  active: boolean
+  onListen: () => void
+}) {
   if (!active) {
     return (
-      <button type="button" className="mix-listen" onClick={() => setListeningAt(openId)}>
+      <button type="button" className="mix-listen" onClick={onListen}>
         {`Listen · ${mix.title}`}
       </button>
     )

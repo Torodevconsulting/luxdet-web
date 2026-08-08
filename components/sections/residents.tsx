@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { residents, type Resident, type SocialPlatform } from "@/content/residents"
-import { MixPlayer } from "@/components/residents/mix-player"
+import { ResidentMixPlayer } from "@/components/residents/resident-mix-player"
 import { ResidentDialogRoot } from "@/components/residents/resident-dialog-root"
 import { ResidentTrigger } from "@/components/residents/resident-trigger"
 
@@ -54,7 +54,7 @@ function ResidentPanel({ resident }: { resident: Resident }) {
         <div className="resident-mixes">
           {resident.mixes.map((mix) => (
             <div className="resident-mix" key={mix.url}>
-              <MixPlayer slug={resident.slug} mix={mix} />
+              <ResidentMixPlayer slug={resident.slug} mix={mix} />
               {/* Atribución obligatoria: autor a la vista y enlace al original */}
               <p className="mix-credit">
                 <span>{resident.name}</span>
