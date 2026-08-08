@@ -1,15 +1,9 @@
 import Image from "next/image"
-import { residents, type Resident, type SocialPlatform } from "@/content/residents"
+import { residents, type Resident } from "@/content/residents"
+import { SOCIAL_LABELS } from "@/lib/social"
 import { ResidentMixPlayer } from "@/components/residents/resident-mix-player"
 import { ResidentDialogRoot } from "@/components/residents/resident-dialog-root"
 import { ResidentTrigger } from "@/components/residents/resident-trigger"
-
-const SOCIAL_LABELS: Record<SocialPlatform, string> = {
-  instagram: "Instagram",
-  soundcloud: "SoundCloud",
-  mixcloud: "Mixcloud",
-  ra: "Resident Advisor",
-}
 
 const PLATFORM_NAMES = { soundcloud: "SoundCloud", mixcloud: "Mixcloud" } as const
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { EventSocials } from "@/components/events/event-socials"
 import { events } from "@/content/events"
 import { eventUrl, siteName, siteUrl } from "@/content/site"
 import {
@@ -195,6 +196,8 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               ))}
             </div>
           )}
+
+          <EventSocials socials={event.socials} />
 
           <Link className="event-back" href="/#archive">
             Back to all events

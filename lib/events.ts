@@ -109,6 +109,15 @@ export type LuxdetEvent = {
   description?: string
   /** Cuerpo de la página del evento, en párrafos. */
   longDescription?: string[]
+  /**
+   * Cuentas PROPIAS de este evento o de la marca que lo presenta, p. ej. el
+   * @grovhaus de "Grovhaus Presents".
+   *
+   * No incluye las de Luxdet: esas salen siempre, desde `luxdetSocials` en
+   * content/site.ts. Aquí solo va lo que es específico de esta noche, y se
+   * muestra ADEMÁS de las de Luxdet, no en su lugar.
+   */
+  socials?: import("@/lib/social").Social[]
   /** Fotos de la noche, para la página del evento. */
   gallery?: { image: import("next/image").StaticImageData; alt: string }[]
 }

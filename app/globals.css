@@ -1023,6 +1023,60 @@ nav {
   filter: grayscale(0);
 }
 
+/* ---------------------------------------------------------------------------
+   Redes de la página de evento
+   Bloque pequeño: llena el hueco antes de BACK TO ALL EVENTS sin competir con
+   el CTA de entradas, que es lo que de verdad tiene que pulsarse aquí.
+   --------------------------------------------------------------------------- */
+.event-socials {
+  margin-top: 80px;
+  padding-top: 35px;
+  border-top: 1px solid var(--gray);
+}
+
+.event-socials-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin-top: 22px;
+}
+
+/* Columna y no fila: el handle manda y la plataforma queda debajo, en pequeño */
+.event-social {
+  display: grid;
+  gap: 4px;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.event-social-name {
+  font-family: var(--syne);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--accent);
+  /* El subrayado solo bajo el handle, no bajo el nombre de la plataforma */
+  justify-self: start;
+  transition: color 0.3s;
+}
+
+.event-social:hover .event-social-name {
+  color: var(--accent);
+}
+
+.event-social-platform {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  /* 5.6:1 sobre var(--bg) */
+  color: #8a8a8a;
+}
+
+.event-social:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 .event-back {
   display: inline-block;
   margin-top: 70px;

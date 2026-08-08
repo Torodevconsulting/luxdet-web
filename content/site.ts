@@ -1,3 +1,5 @@
+import type { Social } from "@/lib/social"
+
 /**
  * Origen público del sitio. Lo usan el metadataBase de layout.tsx, el sitemap,
  * robots.txt y las URLs absolutas del JSON-LD, así que vive en un solo sitio.
@@ -16,6 +18,20 @@ export const instagram = {
   handle: "@luxdetculture",
   url: "https://instagram.com/luxdetculture",
 }
+
+/**
+ * Cuentas de Luxdet. Es la lista que sale por defecto en la página de cada
+ * evento, así que un evento sin cuentas propias nunca se queda sin bloque.
+ *
+ * PENDIENTE: solo está Instagram porque es la única cuenta cuya URL conozco.
+ * Facebook y TikTok ya están soportados en lib/social.ts — al tener los enlaces
+ * reales se añaden aquí y aparecen solos en las cuatro páginas de evento. No los
+ * dejo adivinados a propósito: un perfil inventado es un enlace roto en un sitio
+ * público, que es peor que no tener el icono.
+ */
+export const luxdetSocials: Social[] = [
+  { platform: "instagram", url: instagram.url, handle: instagram.handle },
+]
 
 /** Crédito del estudio que desarrolla el sitio. */
 export const developer = {

@@ -155,11 +155,9 @@ export const events: LuxdetEvent[] = [
       priceCurrency: "USD",
       availability: "InStock",
     },
-    // PENDIENTE: sin `offers` porque la venta aún no está confirmada. Se omite
-    // el bloque entero en lugar de dejarlo a medias: así la ficha muestra
-    // "Tickets announced soon" y el JSON-LD no declara una oferta inexistente.
-    // Al tener el enlace, añadir offers: { url, lowPrice, priceCurrency,
-    // availability }.
+    // Cuenta de la marca que presenta la noche. Las de Luxdet salen igualmente,
+    // desde luxdetSocials: esta se añade, no las sustituye.
+    socials: [{ platform: "instagram", url: "https://instagram.com/grovhaus", handle: "@grovhaus" }],
     isAccessibleForFree: false,
     // PENDIENTE: el flyer no indica edad mínima. 21+ es lo que usan las demás
     // noches de Luxdet; confirmar con el venue.
@@ -173,7 +171,7 @@ export const events: LuxdetEvent[] = [
       "Grovhaus lands in Columbus for one night with four selectors and no headliner. Bejaguz, Offlimits, Shoon and Venee play A to Z from 9pm until 3am — six hours treated as a single build rather than four separate slots, which is the only way a night like this works.",
       "Expect it hypnotic: rolling grooves, deep low end, and the patience to let a track do its job before moving on. This is the underground end of what Luxdet programmes — a dark room, a long night, and music made for the floor instead of for a highlight clip.",
       "If you want to know what you're walking into, three of the four are on our homepage. Head to the residents section, click Bejaguz, Shoon or Venee and listen to their mixes before you come.",
-      "Tickets aren't on sale yet. The link goes live on this page as soon as it is.",
+      "Tickets are on sale now, and the cheaper tiers go first.",
     ],
   },
   {

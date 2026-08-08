@@ -1,17 +1,11 @@
 import type { Performer } from "@/lib/events"
+import type { Social } from "@/lib/social"
 import djVenee from "@/public/venee.jpg"
 import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 import djShoon from "@/public/shoon.jpg"
 import djBejaguz from "@/public/bejaguz.jpeg"
 import djToro from "@/public/toro.jpeg"
 import djTweety from "@/public/tweety.png"
-
-export type SocialPlatform = "instagram" | "soundcloud" | "mixcloud" | "ra"
-
-export type Social = {
-  platform: SocialPlatform
-  url: string
-}
 
 export type Mix = {
   platform: "soundcloud" | "mixcloud"
@@ -165,7 +159,7 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "Gussi",
+    slug: "gussi",
     name: "Gussi",
     role: "Guest · Techno",
     image: bwPartyGirlImage,
