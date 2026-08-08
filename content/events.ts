@@ -21,6 +21,7 @@ import {
 import latinNightImage from "@/public/latin_night.jpeg"
 import brunchPartyImage from "@/public/brunchparty.jpg"
 import dropCulture from "@/public/dropcultureparty.jpeg"
+import grovhausImage from "@/public/grovhaus1.jpeg"
 
 // Plantilla de referencia. Copia este bloque, descoméntalo y rellénalo.
 // La imagen se importa arriba: import fooImage from "@/public/foo.jpg"
@@ -114,6 +115,53 @@ export const events: LuxdetEvent[] = [
       "Not every Luxdet night happens at night. Cilantro Latin Fusion and Bodega open the doors at 11am on Sunday for a daytime party built around food, and Bejaguz takes the booth for four hours of house and Latin rhythms while the kitchen works.",
       "The occasion is the official launch of the Arepa Passport: twelve arepas, a sticker for each one, and a route through the Cilantro Republic of Latin Flavor that ends with you as a citizen. Only 100 passports exist for the launch.",
       "Free entry, all ages. Doors at 11am, last track at 3pm.",
+    ],
+  },
+  {
+    slug: "grovhaus-presents-august-2026",
+    name: "Grovhaus Presents: Bejaguz, Offlimits, Shoon, Venee",
+    startDate: "2026-08-15T21:00:00-04:00",
+    // Cruza medianoche: las 3am son ya del día 16.
+    endDate: "2026-08-16T03:00:00-04:00",
+    // OJO: el badge del flyer da "MJ Event Venue" para esta dirección, pero
+    // drop-culture-vol-ii tiene ese mismo 46 E Long St como "The Cave".
+    // Confirmar cuál de los dos nombres es el correcto y unificar.
+    location: {
+      status: "confirmed",
+      name: "MJ Event Venue",
+      streetAddress: "46 E Long St",
+      city: "Columbus",
+      region: "OH",
+      postalCode: "43215",
+    },
+    city: "Columbus",
+    // En orden alfabético, como los anuncia el flyer ("A/Z"): no hay cabeza de
+    // cartel, y cambiarlo aquí implicaría una jerarquía que el flyer no da.
+    performer: [
+      { name: "Bejaguz" },
+      { name: "Offlimits" },
+      { name: "Shoon" },
+      { name: "Venee" },
+    ],
+    // PENDIENTE: sin `offers` porque la venta aún no está confirmada. Se omite
+    // el bloque entero en lugar de dejarlo a medias: así la ficha muestra
+    // "Tickets announced soon" y el JSON-LD no declara una oferta inexistente.
+    // Al tener el enlace, añadir offers: { url, lowPrice, priceCurrency,
+    // availability }.
+    isAccessibleForFree: false,
+    // PENDIENTE: el flyer no indica edad mínima. 21+ es lo que usan las demás
+    // noches de Luxdet; confirmar con el venue.
+    typicalAgeRange: "21+",
+    image: grovhausImage,
+    imageAlt:
+      "Grovhaus flyer: chrome eye-shaped G logo glowing magenta over wet asphalt, with the lineup and address below",
+    description:
+      "Grovhaus takes over 46 E Long St with Bejaguz, Offlimits, Shoon and Venee. Six hours, 9pm to 3am.",
+    longDescription: [
+      "Grovhaus lands in Columbus for one night with four selectors and no headliner. Bejaguz, Offlimits, Shoon and Venee play A to Z from 9pm until 3am — six hours treated as a single build rather than four separate slots, which is the only way a night like this works.",
+      "Expect it hypnotic: rolling grooves, deep low end, and the patience to let a track do its job before moving on. This is the underground end of what Luxdet programmes — a dark room, a long night, and music made for the floor instead of for a highlight clip.",
+      "If you want to know what you're walking into, three of the four are on our homepage. Head to the residents section, click Bejaguz, Shoon or Venee and listen to their mixes before you come.",
+      "Tickets aren't on sale yet. The link goes live on this page as soon as it is.",
     ],
   },
   {
