@@ -18,6 +18,15 @@ export function ContactForm() {
           get back to you within 2 business days.
         </p>
 
+        {/* Ancla local y no <Link>: el FAQ está unas pantallas más arriba en
+            esta misma página, así que no hay navegación que hacer. Filtra las
+            preguntas de edad, entradas y horarios, que son las repetidas. */}
+        <p className="contact-faq-hint">
+          {"Coming to a night? Check the "}
+          <a href="#faq">FAQ</a>
+          {" first — age, tickets and door times are answered there."}
+        </p>
+
         {siteKey ? (
           <ContactFormClient siteKey={siteKey} />
         ) : (

@@ -86,7 +86,14 @@ pnpm audit    # producción debe quedar en 0 vulnerabilidades
    - Ninguna `offers.url`: sin ella la sección NEXT muestra "Tickets announced
      soon" en lugar del CTA de compra.
    - `content/residents.ts`: todos comparten el set y el handle de Toro, lo que
-     atribuiría su trabajo a los demás. No publicar así.
+     atribuiría su trabajo a los demás. No publicar así. El line-up de la página
+     de evento ya se protege solo: solo monta mixes con `attribution: "own"`.
+   - `content/faq.ts`: contenido real, pero **pendiente de revisión legal** y
+     con `TODO:` abiertos. Reembolsos y *safer space* son declaraciones públicas
+     con consecuencias. Además, dos respuestas prometen datos por evento que el
+     modelo no sabe expresar: la política de móviles y el código de vestimenta
+     dicen "se indicará en la página del evento", y `LuxdetEvent` no tiene campo
+     para ninguna de las dos. O se añaden campos, o esas frases se suavizan.
    - Falta el email real: `content/site.ts` sigue apuntando a `viscera.studio`,
      dominio de la plantilla de v0.
 3. ~~Accesibilidad: el footer usa `#555` sobre `#0e0e0e`.~~ **Hecho:** pasó a

@@ -1118,6 +1118,114 @@ nav {
 }
 
 /* ---------------------------------------------------------------------------
+   FAQ
+   Texto que se lee de verdad: línea corta y cuerpo legible. Nada de huge-type,
+   que aquí competiría con lo que hay que leer.
+   --------------------------------------------------------------------------- */
+.faq-list {
+  margin-top: 50px;
+  /* Acota la línea de las respuestas aunque .container mida 1200px */
+  max-width: 65ch;
+}
+
+.faq-item {
+  border-top: 1px solid var(--gray);
+}
+
+/* El último divisor cierra la lista por abajo */
+.faq-item:last-child {
+  border-bottom: 1px solid var(--gray);
+}
+
+/* `list-item` es el display por defecto de summary y es lo que dibuja el
+   triangulito del navegador. Con `block` desaparece y deja sitio al marcador
+   propio de abajo. */
+.faq-question {
+  display: block;
+  padding: 24px 44px 24px 0;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Safari necesita este pseudo-elemento aparte para quitar su marcador */
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question h3 {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.faq-item:hover .faq-question h3 {
+  color: var(--accent);
+}
+
+/* Marcador propio: un + que gira hasta la × al abrirse. Es un signo tipográfico
+   y no un icono, así que hereda el color y el tamaño del texto sin depender de
+   ningún SVG. */
+.faq-question::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--syne);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform 0.3s;
+}
+
+.faq-item[open] .faq-question::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.faq-answer {
+  padding: 0 44px 28px 0;
+}
+
+/* #a0a0a0 = 7,4:1 sobre var(--bg). En texto seguido se lee bastante mejor que
+   el #8a8a8a (5,6:1) que usan las etiquetas cortas del resto del sitio. */
+.faq-answer p {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #a0a0a0;
+}
+
+.faq-answer p + p {
+  margin-top: 18px;
+}
+
+/* Enlace al FAQ desde el formulario de contacto: filtra las consultas que ya
+   están respondidas más arriba. */
+.contact-faq-hint {
+  margin-top: 14px;
+  max-width: 620px;
+  color: #a0a0a0;
+}
+
+.contact-faq-hint a {
+  color: var(--accent);
+}
+
+.contact-faq-hint a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------------------------
    Formulario de contacto
    --------------------------------------------------------------------------- */
 .contact-intro {

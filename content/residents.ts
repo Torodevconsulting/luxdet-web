@@ -1,7 +1,6 @@
 import type { Performer } from "@/lib/events"
 import type { Social } from "@/lib/social"
 import djVenee from "@/public/venee.jpg"
-import bwPartyGirlImage from "@/public/bw_partygirl.jpg"
 import djShoon from "@/public/shoon.jpg"
 import djBejaguz from "@/public/bejaguz.jpeg"
 import djToro from "@/public/toro.jpeg"
