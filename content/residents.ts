@@ -6,6 +6,7 @@ import djShoon from "@/public/shoon.jpg"
 import djBejaguz from "@/public/bejaguz.jpeg"
 import djToro from "@/public/toro.jpeg"
 import djTweety from "@/public/tweety.png"
+import djLaJoya from "@/public/lajoya.jpeg"
 
 export type Mix = {
   platform: "soundcloud" | "mixcloud"
@@ -159,10 +160,10 @@ export const residents: Resident[] = [
     mixes: sharedMixes,
   },
   {
-    slug: "gussi",
-    name: "Gussi",
-    role: "Guest · Techno",
-    image: bwPartyGirlImage,
+    slug: "la-joya",
+    name: "La Joya",
+    role: "Guest · Tech House",
+    image: djLaJoya,
     imageAlt: "DJ booth under pink neon with the crowd in front",
     bio: [
       "Not a resident but close enough to be on the wall. Plays two or three Luxdet nights a year, always the hard ones.",

@@ -24,6 +24,7 @@ import latinNightImage from "@/public/latin_night.jpeg"
 import brunchPartyImage from "@/public/brunchparty.jpg"
 import dropCulture from "@/public/dropcultureparty.jpeg"
 import grovhausImage from "@/public/grovhaus1.jpeg"
+import makeHouseDeepAgainImage from "@/public/makehousedeepagain.png"
 
 // Plantilla de referencia. Copia este bloque, descoméntalo y rellénalo.
 // La imagen se importa arriba: import fooImage from "@/public/foo.jpg"
@@ -219,6 +220,42 @@ export const events: LuxdetEvent[] = [
       "Tweety, Bejaguz, Venee, and DJ Cale take control with Latin rhythms, tech house, and nonstop energy built to carry the celebration late into the night.",
     ],
   },
+  {
+  slug: "make-house-deep-again",
+  name: "Noxterra presents: Make House Deep Again",
+  startDate: "2026-08-22T18:00:00-04:00",
+  endDate: "2026-08-22T22:00:00-04:00",
+  location: {
+    status: "confirmed",
+    name: "Shapeshifter",
+    streetAddress: "129 McDowell St",
+    city: "Columbus",
+    region: "OH",
+    postalCode: "",                  // TODO
+  },
+  city: "Columbus",
+  performer: [
+    { name: "La Joya" },
+    { name: "Lizsco" },
+    { name: "Bejaguz", residentSlug: "bejaguz" },
+  ],
+  offers: {
+    url: "https://posh.vip/e/make-house-deep-again-1",   // TODO: añadir vuestro u=
+    availability: "InStock",
+  },
+  isAccessibleForFree: false,
+  typicalAgeRange: "21+",            // TODO: el flyer no lo indica
+  image: makeHouseDeepAgainImage,    // TODO: nombre del import
+  imageAlt:
+    "Make House Deep Again flyer: orange poster with a hand-drawn DJ at the decks",
+  description:
+    "Noxterra presents an intimate exploration of sound at Shapeshifter. Guest list only.",
+  longDescription: [
+    "Noxterra takes over Shapeshifter for an early-evening session built on deep house — the kind that rewards paying attention rather than shouting for it.",
+    "La Joya, Lizsco and Bejaguz share four hours from six to ten. An intimate room, no main-stage theatrics, and a sound system given something worth carrying.",
+    "Guest list only. Sign up through the link before doors.",
+  ],
+}
 ]
 
 // Se ejecutan al importar el módulo: un offset mal escrito rompe el build en
