@@ -36,7 +36,9 @@ export const privacyPolicy = {
   // TODO: confirmar criterio de retención. 24 meses es lo habitual.
   retentionMonths: 24,
 
-  lastUpdated: "2026-08-05",
+  // Actualizada al añadir Google Analytics: cambian "What we collect",
+  // "Cookies", "Who we share it with", "How long we keep it" y "Your choices".
+  lastUpdated: "2026-08-09",
 
   sections: [
     {
@@ -50,22 +52,33 @@ export const privacyPolicy = {
       heading: "What we collect",
       body: [
         "When you fill in our contact form, we collect your name, email address, phone number, the type of enquiry you selected, and the message you wrote. We collect this because it is what we need to answer you.",
-        "We also collect anonymous, aggregated traffic data: which pages get visited, roughly where visitors come from, and what kind of device they use. This data is not tied to you as an individual and we cannot use it to identify you.",
+        // Antes esto decía que los datos de tráfico eran anónimos y que no
+        // podíamos identificar a nadie. Con GA4 eso dejó de ser cierto: el
+        // client ID de la cookie _ga es un identificador seudónimo, no un dato
+        // anónimo. Las dos analíticas se describen por separado porque no
+        // hacen lo mismo ni ven al mismo público.
+        "We measure traffic in two different ways, and they are not the same thing. The first counts page views without cookies and without identifying anyone — it runs for every visitor and there is nothing to opt out of, because there is nothing tied to you.",
+        "The second is Google Analytics, and it only runs if you agree to it. It does use cookies: it gives your browser a random identifier so it can tell a returning visit from a new one. That identifier is not your name and we cannot look you up with it, but it is not anonymous either — it is a pseudonym that stays with your browser. If you decline, it never runs at all.",
         "We do not collect payment information. Tickets are sold by third-party platforms, and we never see your card details.",
       ],
     },
     {
       heading: "Cookies",
       body: [
-        "This site does not use tracking or advertising cookies. Our traffic measurement works without them.",
-        "Two exceptions, both of which happen only because of something you do: our anti-spam check may store a short-lived token when you submit the contact form, and embedded music players from SoundCloud or Mixcloud set their own cookies if — and only if — you press play on a mix. If you never press play, those players never load.",
+        // Reescrita entera al añadir GA4. La versión anterior decía "this site
+        // does not use tracking cookies", que con Google Analytics es
+        // sencillamente falso.
+        "This site sets no cookies at all until you choose to allow them, and we never use advertising cookies.",
+        "If you accept analytics cookies, Google Analytics sets two: _ga and _ga_YJNZN2B7ZY. They last two years and hold the random identifier described above. Until you accept, nothing from Google is loaded — not the script, not a single request. If you decline, no Google cookie is ever set.",
+        "Your answer is kept in this browser's local storage under \"luxdet:consent\". That is not a cookie, it never leaves your device and it is never sent to us: it exists so we don't ask you again on every page. You can change your answer at any time with the \"Cookies\" link at the bottom of any page.",
+        "Two more, both of which happen only because of something you do: our anti-spam check may store a short-lived token when you submit the contact form, and embedded music players from SoundCloud or Mixcloud set their own cookies if — and only if — you press play on a mix. If you never press play, those players never load.",
       ],
     },
     {
       heading: "Who we share it with",
       body: [
         "We do not sell your information. We do not share it with advertisers.",
-        "We use a small number of service providers to run this site, and your information passes through them: Vercel (hosting and anonymous traffic measurement), Resend (delivering the email your contact form generates), and Cloudflare (spam protection on the form). Each of them has its own privacy policy.",
+        "We use a small number of service providers to run this site, and your information passes through them: Vercel (hosting and cookieless traffic measurement), Google (Google Analytics — only if you accepted it), Resend (delivering the email your contact form generates), and Cloudflare (spam protection on the form). Each of them has its own privacy policy.",
         // TODO: añadir cualquier otro proveedor — CRM, email marketing, etc.
         "We may also disclose information if the law requires it.",
       ],
@@ -75,12 +88,16 @@ export const privacyPolicy = {
       body: [
         // TODO: ajustar si el criterio de retención cambia
         "We keep contact form messages for up to 24 months, so we can pick up a conversation where it left off. After that we delete them.",
-        "Anonymous traffic data is retained by our analytics provider under their own schedule and is never linked back to you.",
+        // 14 meses: el máximo que ofrece GA4. Tiene que coincidir con
+        // Admin → Data Settings → Data Retention en la interfaz de Google.
+        "If you accepted Google Analytics, that data is kept for 14 months and then deleted automatically. We picked the longest window Google offers on purpose: with anything shorter we couldn't compare an event in August against the same month a year earlier, and that comparison is the whole reason we measure at all.",
+        "Cookieless traffic counts are aggregated, are never linked back to you, and are retained by our hosting provider under their own schedule.",
       ],
     },
     {
       heading: "Your choices",
       body: [
+        "You can change your mind about analytics cookies at any time using the \"Cookies\" link at the bottom of any page. Turning them off deletes the Google cookies from this browser straight away.",
         "You can ask us what information we hold about you, ask us to correct it, or ask us to delete it. Write to the address below and we will respond within a reasonable time.",
         "Depending on where you live, you may have additional rights under local privacy law. We will honour those requests regardless of where you are.",
       ],

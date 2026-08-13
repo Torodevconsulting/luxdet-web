@@ -29,6 +29,28 @@ empezar. Contexto importante para no reintroducir problemas ya resueltos:
   `sharp` ^0.35.3 porque Next 16.2.11 empaqueta versiones con CVEs. **No quitar
   sin comprobar antes `npm audit --omit=dev`.** Revisarlos al actualizar Next.
 
+## Analítica: dos fuentes que NO cuadran, a propósito
+
+El sitio mide de dos formas distintas y **sus cifras nunca van a coincidir**.
+No es un bug, y conviene saberlo antes de abrir una investigación:
+
+- **Vercel Analytics** — sin cookies, sin consentimiento. Ve el **100%** del
+  tráfico. Es la línea base.
+- **Google Analytics 4** — con cookies, solo tras aceptar en el banner. Ve
+  **solo el subconjunto que consintió**.
+
+La diferencia entre ambas *es* la tasa de rechazo del banner. GA4 siempre dará
+menos, y cuánto menos depende de la gente, no del código.
+
+Además no se usa el Consent Mode "estándar", en el que `gtag.js` se carga
+siempre en estado denegado y manda *cookieless pings* que alimentan datos
+modelados: aquí **`gtag.js` no entra en la página hasta que hay consentimiento**,
+así que de quien rechaza no llega nada, ni siquiera estimaciones. Fue una
+decisión explícita. El detalle está en `lib/consent.ts`.
+
+Google Signals está **apagado**; encenderlo rompe la CSP en silencio (ver el
+aviso en `next.config.mjs`).
+
 ## Convenciones
 
 - Sin punto y coma, comillas dobles en `app/`, comillas simples en `components/ui/`

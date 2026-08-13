@@ -1592,6 +1592,123 @@ body.dialog-open {
   overflow: hidden;
 }
 
+/* ---------------------------------------------------------------------------
+   Banner de consentimiento
+   Barra fija abajo, no modal: no atrapa el foco ni bloquea la navegación.
+   --------------------------------------------------------------------------- */
+
+/* Mientras el banner está visible, el final de la página se desplaza para que
+   no tape el footer. Es la alternativa a dejar contenido inalcanzable debajo de
+   una barra fija; la clase la pone y la quita ConsentManager. */
+body.consent-open {
+  padding-bottom: 140px;
+}
+
+.consent-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* Por encima del nav (1000), que es lo más alto del sitio. El <dialog> de
+     residentes vive en la capa superior del navegador y sigue quedando encima,
+     que es lo correcto. */
+  z-index: 1001;
+  background: var(--bg);
+  border-top: 2px solid var(--fg);
+}
+
+/* Más ancho que el .container de 1200px del resto del sitio: es una barra a
+   sangre, y lo que encoge el banner es que el texto y los botones quepan en la
+   MISMA fila. Con el ancho del contenido no llegaban y los botones caían a una
+   segunda línea, que era la mitad de la altura del banner. */
+.consent-inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 48px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Crece hasta llenar el hueco que dejan los botones en lugar de quedarse en su
+   ancho de lectura. La base de 560px es el punto en que ya no cabe al lado: por
+   debajo de eso el flex envuelve solo, sin necesidad de media query. */
+.consent-copy {
+  flex: 1 1 560px;
+}
+
+.consent-title {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.consent-text {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  /* 7,4:1 sobre var(--bg) */
+  color: #a0a0a0;
+}
+
+.consent-link {
+  color: var(--accent);
+}
+
+.consent-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* No se encoge: si el ancho aprieta, lo que cede es el texto, no los botones */
+.consent-actions {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* Aceptar y rechazar comparten clase: mismo tamaño, mismo contraste, mismo
+   peso visual. En cuanto uno de los dos destaca sobre el otro, la elección deja
+   de ser libre y el consentimiento deja de valer. */
+.consent-button {
+  font-family: var(--syne);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg);
+  background: transparent;
+  padding: 16px 32px;
+  border: 2px solid var(--fg);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.consent-button:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.consent-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* El disparador del footer es un <button> porque no navega, pero se lee como
+   el resto de enlaces del pie: hay que quitarle lo que trae de serie. */
+.consent-reopen {
+  background: none;
+  border: none;
+  border-bottom: 1px solid currentColor;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
 .dialog-close {
   float: right;
   margin-left: 20px;
@@ -2242,6 +2359,34 @@ footer {
   .contact-form {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  /* El banner ocupa bastante más alto apilado, así que el desplazamiento del
+     final de la página tiene que crecer con él o volvería a tapar el footer. */
+  body.consent-open {
+    padding-bottom: 290px;
+  }
+
+  .consent-inner {
+    padding: 22px 20px;
+    gap: 20px;
+  }
+
+  /* A ancho completo y del mismo tamaño los dos: en una pantalla estrecha es
+     donde más tienta hacer pequeño el de rechazar. */
+  .consent-actions {
+    width: 100%;
+  }
+
+  .consent-button {
+    flex: 1;
+    padding: 16px 12px;
+  }
+
+  /* Acotado para que en horizontal no se coma la pantalla entera */
+  .consent-banner {
+    max-height: 70vh;
+    overflow-y: auto;
   }
 
   .contact-actions .cta-button {

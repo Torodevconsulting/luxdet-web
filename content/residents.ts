@@ -169,6 +169,14 @@ export const residents: Resident[] = [
       "Straight techno with no interest in subtlety: fast, loud and built for the last hour of the night.",
     ],
     socials: sharedSocials,
-    mixes: sharedMixes,
+     mixes: [
+      {
+        platform: "soundcloud",
+        url: "https://soundcloud.com/la-joya-769017460/la-joya-shapeshifter-7-16-26",
+        title: "La Joya - Shapeshifter 7-16-26",
+        // En la ficha de Toro sí es suyo, al contrario que en las otras tres.
+        attribution: "own",
+      },
+    ],
   },
 ]

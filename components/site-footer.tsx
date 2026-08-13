@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { CookieSettingsLink } from "@/components/consent/cookie-settings-link"
 import { contactEmail, developer, instagram } from "@/content/site"
 
 export function SiteFooter() {
@@ -29,6 +30,9 @@ export function SiteFooter() {
             <Link className="footer-link" href="/privacy">
               Privacy
             </Link>
+            {/* Reabre el banner. Obligatorio poder cambiar de opinión: un
+                consentimiento que no se puede revocar no es consentimiento. */}
+            <CookieSettingsLink />
           </div>
           <div>OHIO, USA</div>
         </div>

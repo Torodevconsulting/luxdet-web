@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Syne, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { ConsentManager } from "@/components/consent/consent-manager"
 import { CursorBlob } from "@/components/cursor-blob"
 import { SiteNav } from "@/components/site-nav"
 import { NavAutoHide } from "@/components/nav-auto-hide"
@@ -59,6 +60,12 @@ export default function RootLayout({
     // Las variables de next/font van en <html> para que :root las vea
     <html lang="en" className={`${syne.variable} ${inter.variable}`}>
       <body>
+        {/* Primero del todo dentro de <body> aunque se pinte abajo del todo:
+            así el tabulador y el lector de pantalla llegan a la elección de
+            cookies antes que al contenido, sin necesidad de robar el foco.
+            No sale en el HTML servido — decide tras hidratar, con localStorage. */}
+        <ConsentManager />
+
         {/* Chrome del sitio, no de la home: al existir /events/[slug] tiene que
             estar en el layout o esas páginas se quedarían sin navegación y sin
             forma de volver. El footer sale ahora de <main>, que además es lo
